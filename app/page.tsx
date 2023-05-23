@@ -3,9 +3,9 @@
 import { AppShell, Button, Navbar } from '@mantine/core'
 import { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Home - ' + process.env.NEXT_PUBLIC_APP_NAME,
-}
+// export const metadata: Metadata = {
+//   title: 'Home - ' + process.env.NEXT_PUBLIC_APP_NAME,
+// }
 
 export default function Home() {
   return (
