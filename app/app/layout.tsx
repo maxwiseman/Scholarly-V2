@@ -13,11 +13,11 @@ import {
   useMantineTheme,
   Group,
   Input,
-  Button,
 } from '@mantine/core'
 import { ThemeToggle } from '../../components/themeToggle'
 import { IconHome, IconNotebook, IconSearch } from '@tabler/icons-react'
 import NavItem from '@/components/navbarItem'
+import Image from 'next/image'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme()
@@ -68,10 +68,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               noWrap
               style={{ overflow: 'hidden' }}
             >
-              <Group spacing={'md'} noWrap>
-                <Text miw={'max-content'}>Application navbar</Text>
-                <Text miw={'max-content'}>Application navbar</Text>
+              <Group spacing={'md'} noWrap mih={30} w={300} pos={'relative'}>
+                <Image src={process.env.NEXT_PUBLIC_APP_LOGO as string} alt={process.env.NEXT_PUBLIC_APP_NAME + ' Logo'} fill style={{objectFit: 'contain', objectPosition: 'left center', filter: theme.colorScheme == 'dark' ? 'invert(1)' : 'none'}} />
               </Group>
+              <MediaQuery smallerThan={'sm'} styles={{ display: 'none' }}>
               <Group spacing={'md'} noWrap>
                 <Input
                   placeholder='Search'
@@ -81,6 +81,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 />
                 <ThemeToggle />
               </Group>
+              </MediaQuery>
             </Group>
           </div>
         </Header>
