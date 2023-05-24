@@ -1,13 +1,13 @@
 'use client'
 
-import { useMantineColorScheme, ActionIcon, Group } from '@mantine/core'
+import { useMantineColorScheme, ActionIcon, Group, Tooltip } from '@mantine/core'
 import { IconSun, IconMoonStars } from '@tabler/icons-react'
 
 export function ThemeToggle() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
 
   return (
-    <Group position='center' my='xl'>
+    <Group position='center'>
       <ActionIcon
         onClick={() => toggleColorScheme()}
         size='lg'

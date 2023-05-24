@@ -1,7 +1,9 @@
 'use client'
 
 import { AppShell, Button, Navbar } from '@mantine/core'
+import { IconExternalLink } from '@tabler/icons-react'
 import { Metadata } from 'next'
+import Link from 'next/link'
 
 // export const metadata: Metadata = {
 //   title: 'Home - ' + process.env.NEXT_PUBLIC_APP_NAME,
@@ -9,14 +11,15 @@ import { Metadata } from 'next'
 
 export default function Home() {
   return (
-    <AppShell       padding="md"
-    navbar={<Navbar width={{ base: 300 }} p="xs">Navbar goes here</Navbar>}
-    styles={(theme) => ({
-      main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },
-    })}>
-      <main className=''>
-        <Button>Test Button</Button>
-      </main>
-    </AppShell>
+    <>
+      <h1>Scholarly</h1>
+      <Button
+        component={Link}
+        href={'app/home'}
+        leftIcon={<IconExternalLink size={20} />}
+      >
+        Go to app
+      </Button>
+    </>
   )
 }

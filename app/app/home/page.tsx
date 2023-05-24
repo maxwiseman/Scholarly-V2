@@ -6,14 +6,14 @@ import Link from 'next/link'
 import PageWrapper from '../pagewrapper'
 
 // export const metadata: Metadata = {
-//   title: 'Classes - ' + process.env.NEXT_PUBLIC_APP_NAME,
+//   title: 'Home - ' + process.env.NEXT_PUBLIC_APP_NAME,
 // }
 
 export default function Page() {
   return (
     <PageWrapper>
-      <h1 className='mt-0'>Classes</h1>
-      <Button component={Link} href={'/app/home'}>
+      <h1 className='mt-0'>Home</h1>
+      <Button component={Link} href={'/app/classes'}>
         Test
       </Button>
     </PageWrapper>

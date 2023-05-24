@@ -13,35 +13,13 @@ import {
   useMantineTheme,
   Group,
   Input,
+  Button,
 } from '@mantine/core'
 import { ThemeToggle } from '../../components/themeToggle'
-import { IconSearch } from '@tabler/icons-react'
+import { IconHome, IconNotebook, IconSearch } from '@tabler/icons-react'
+import NavItem from '@/components/navbarItem'
 
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <AppShell
-      padding='md'
-      layout='alt'
-      navbar={
-        <Navbar width={{ base: 300 }} p='xs'>
-          Application navbar
-        </Navbar>
-      }
-      styles={theme => ({
-        main: {
-          backgroundColor:
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[8]
-              : theme.colors.gray[0],
-        },
-      })}
-    >
-      {children}
-    </AppShell>
-  )
-}
-
-export default function Layout2({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme()
   const [opened, setOpened] = useState(false)
   return (
@@ -62,11 +40,14 @@ export default function Layout2({ children }: { children: React.ReactNode }) {
           hidden={!opened}
           width={{ sm: 200, lg: 300 }}
         >
-          <Text>Application navbar</Text>
+          <Group spacing={'xs'}>
+          <NavItem href='/app/home' icon={<IconHome size={20} />}>Home</NavItem>
+          <NavItem href='/app/classes' icon={<IconNotebook size={20} />}>Classes</NavItem>
+          </Group>
         </Navbar>
       }
       header={
-        <Header height={{ base: 50, md: 70 }} p='md'>
+        <Header height={{ base: 50, md: 70 }} px='md'>
           <div
             style={{ display: 'flex', alignItems: 'center', height: '100%' }}
           >
@@ -80,12 +61,18 @@ export default function Layout2({ children }: { children: React.ReactNode }) {
               />
             </MediaQuery>
 
-            <Group position='apart' w={'100%'}>
-              <Group spacing={'md'}>
-                <Text>Application navbar</Text>
-                <Text>Application navbar</Text>
+            <Group
+              position='apart'
+              w={'100%'}
+              h={'min-content'}
+              noWrap
+              style={{ overflow: 'hidden' }}
+            >
+              <Group spacing={'md'} noWrap>
+                <Text miw={'max-content'}>Application navbar</Text>
+                <Text miw={'max-content'}>Application navbar</Text>
               </Group>
-              <Group spacing={'md'}>
+              <Group spacing={'md'} noWrap>
                 <Input
                   placeholder='Search'
                   variant='filled'
