@@ -18,6 +18,7 @@ import { ThemeToggle } from '../../components/themeToggle'
 import { IconHome, IconNotebook, IconSearch } from '@tabler/icons-react'
 import NavItem from '@/components/navbarItem'
 import Image from 'next/image'
+import NavbarNested from '@/components/navbar'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme()
@@ -34,17 +35,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       }}
       navbarOffsetBreakpoint='sm'
       navbar={
-        <Navbar
-          p='md'
-          hiddenBreakpoint='sm'
-          hidden={!opened}
-          width={{ sm: 200, lg: 300 }}
-        >
-          <Group spacing={'xs'}>
-          <NavItem href='/app/home' icon={<IconHome size={20} />}>Home</NavItem>
-          <NavItem href='/app/classes' icon={<IconNotebook size={20} />}>Classes</NavItem>
-          </Group>
-        </Navbar>
+        // <Navbar
+        //   p='md'
+        //   hiddenBreakpoint='sm'
+        //   hidden={!opened}
+        //   width={{ sm: 200, lg: 300 }}
+        // >
+        //   <Group spacing={'xs'}>
+        //   <NavItem href='/app/home' icon={<IconHome size={20} />}>Home</NavItem>
+        //   <NavItem href='/app/classes' icon={<IconNotebook size={20} />}>Classes</NavItem>
+        //   </Group>
+        // </Navbar>
+        <NavbarNested opened={opened} setOpened={setOpened} />
       }
       header={
         <Header height={{ base: 50, md: 70 }} px='md'>

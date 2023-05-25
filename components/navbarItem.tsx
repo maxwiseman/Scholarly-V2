@@ -1,20 +1,20 @@
 'use client'
 
-import { Button } from '@mantine/core'
+import { Button, useMantineTheme } from '@mantine/core'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { usePathname } from 'next/navigation';
 
-
 export default function NavItem({ children, href, icon }: {children: ReactNode, href: string, icon?: ReactNode}) {
   const pathname = usePathname()
+  const theme = useMantineTheme()
   
   return (
     <>
       <Button
         fullWidth
         variant='light'
-        color={pathname?.startsWith(href) ? 'blue' : 'gray'}
+        color={pathname?.startsWith(href) ? theme.primaryColor : 'gray'}
         radius={'md'}
         size='sm'
         styles={(theme) => ({
