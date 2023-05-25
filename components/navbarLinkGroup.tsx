@@ -59,11 +59,12 @@ interface LinksGroupProps {
   icon: React.FC<any>;
   label: string;
   initiallyOpened?: boolean;
-  links?: { label: string; link: string }[];
+  setNavOpened: any;
   href? : string;
+  links?: { label: string; link: string }[];
 }
 
-export function LinksGroup({ icon: Icon, label, initiallyOpened, links, href }: LinksGroupProps) {
+export function LinksGroup({ icon: Icon, label, initiallyOpened, setNavOpened, links, href }: LinksGroupProps) {
   const { classes, theme } = useStyles();
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
@@ -76,7 +77,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links, href }: 
       className={classes.link}
       href={link.link}
       key={link.label}
-      onClick={(event) => event.preventDefault()}
+      onClick={() => {setNavOpened((o: any) => !o)}}
     >
       {pathname?.startsWith(link.link) ? <strong>{link.label}</strong> : link.label}
     </Text>
@@ -85,7 +86,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links, href }: 
   return (
     <>
       {/* @ts-ignore */}
-      <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control} component={hasLinks ? undefined : Link} href={href}>
+      <UnstyledButton onClick={() => {hasLinks ? setOpened((o) => !o) : setNavOpened(o => !o)}} className={classes.control} component={hasLinks ? undefined : Link} href={href}>
         <Group position="apart" spacing={0}>
           {pathname?.startsWith(href as string) ? <motion.div layoutId='navIndicator' style={{position: 'absolute', height: '15px', width: '3px', backgroundColor: theme.colorScheme == 'light' ? theme.colors.blue[6] : theme.colors.blue[2], borderRadius: '200px', left: '6.5px'}} /> : <></>}
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -120,17 +121,3 @@ const mockdata = {
     { label: 'Releases schedule', link: '/' },
   ],
 };
-
-export function NavbarLinksGroup() {
-  return (
-    <Box
-      sx={(theme) => ({
-        minHeight: rem(220),
-        padding: theme.spacing.md,
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
-      })}
-    >
-      <LinksGroup {...mockdata} />
-    </Box>
-  );
-}

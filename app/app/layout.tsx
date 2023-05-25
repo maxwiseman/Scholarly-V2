@@ -23,6 +23,7 @@ import NavbarNested from '@/components/navbar'
 export default function Layout({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme()
   const [opened, setOpened] = useState(false)
+
   return (
     <AppShell
       styles={{
@@ -33,22 +34,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               : theme.colors.gray[0],
         },
       }}
+      layout='default'
       navbarOffsetBreakpoint='sm'
       navbar={
-        // <Navbar
-        //   p='md'
-        //   hiddenBreakpoint='sm'
-        //   hidden={!opened}
-        //   width={{ sm: 200, lg: 300 }}
-        // >
-        //   <Group spacing={'xs'}>
-        //   <NavItem href='/app/home' icon={<IconHome size={20} />}>Home</NavItem>
-        //   <NavItem href='/app/classes' icon={<IconNotebook size={20} />}>Classes</NavItem>
-        //   </Group>
-        // </Navbar>
         <NavbarNested opened={opened} setOpened={setOpened} />
       }
-      header={
+      header={ process.env.NEXT_PUBLIC_HEADER_HIDDEN == 'true' ? <></> :
         <Header height={{ base: 50, md: 70 }} px='md'>
           <div
             style={{ display: 'flex', alignItems: 'center', height: '100%' }}
@@ -70,8 +61,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               noWrap
               style={{ overflow: 'hidden' }}
             >
-              <Group spacing={'md'} noWrap mih={30} w={300} pos={'relative'}>
-                <Image src={process.env.NEXT_PUBLIC_APP_LOGO as string} alt={process.env.NEXT_PUBLIC_APP_NAME + ' Logo'} fill style={{objectFit: 'contain', objectPosition: 'left center', filter: theme.colorScheme == 'dark' ? 'invert(1)' : 'none'}} />
+              <Group spacing={'md'} noWrap mih={30} w={268} pos={'relative'}>
+                <Image src={process.env.NEXT_PUBLIC_APP_LOGO as string} alt={process.env.NEXT_PUBLIC_APP_NAME + ' Logo'} fill style={{objectFit: 'contain', objectPosition: 'center', filter: theme.colorScheme == 'dark' ? 'invert(1)' : 'none'}} />
               </Group>
               <MediaQuery smallerThan={'sm'} styles={{ display: 'none' }}>
               <Group spacing={'md'} noWrap>
