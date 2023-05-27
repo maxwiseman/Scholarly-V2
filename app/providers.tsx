@@ -22,8 +22,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     };
 
     useEffect(() => {
-      setColorScheme(getCookie('mantine-color-scheme') as 'dark'|'light' || useColorScheme())
-    })
+      setColorScheme(getCookie('mantine-color-scheme') as 'dark'|'light' || preferredColorScheme)
+    }, [preferredColorScheme])
 
   return (
     <SessionProvider>

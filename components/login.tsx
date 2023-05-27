@@ -65,7 +65,7 @@ export function Login() {
             </Text>
           </Stack>
           <Button type='submit' loading={loading}>Submit</Button>
-          <Text color={'dimmed'} size={'xs'} mt={0} w={'100%'} align='center'>Don't have an account? <Anchor component={Link} href={'/sign-up'}>Sign up</Anchor></Text>
+          <Text color={'dimmed'} size={'xs'} mt={0} w={'100%'} align='center'>{"Don't have an account? "}<Anchor component={Link} href={'/sign-up'}>Sign up</Anchor></Text>
         </Stack>
       </form>
     </>
