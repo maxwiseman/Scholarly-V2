@@ -40,7 +40,7 @@ export function Login() {
             <h1 style={{ marginTop: 0, marginBottom: 0 }}>
               Welcome back
             </h1>
-            <Text color={'dimmed'}>Let's get you signed in. Please enter your email and password.</Text>
+            <Text color={'dimmed'}>{"Let's get you signed in. Please enter your email and password."}</Text>
           </Stack>
 
           <TextInput
