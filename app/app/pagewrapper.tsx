@@ -13,7 +13,7 @@ export default function PageWrapper({
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: -20, opacity: 0 }}
       transition={{ ease: 'easeInOut', duration: 0.75, type: 'spring' }}
-      style={{ width: '100%', overflow: 'hidden' }}
+      style={{ width: '100%', overflow: 'hidden', margin: '16px' }}
     >
       {children}
     </motion.div>

@@ -7,8 +7,9 @@ import {
   Avatar,
   Text,
   createStyles,
+  Menu,
 } from '@mantine/core';
-import { IconChevronRight } from '@tabler/icons-react';
+import { IconArrowsLeftRight, IconChevronRight, IconLogout, IconMessageCircle, IconPhoto, IconSearch, IconSettings, IconTrash } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
   user: {
@@ -34,22 +35,29 @@ export function UserButton({ image, name, email, icon, ...others }: UserButtonPr
   const { classes } = useStyles();
 
   return (
-    <UnstyledButton className={classes.user} {...others}>
-      <Group>
-        <Avatar src={image} radius="xl" />
+    <Menu shadow="md" width={200} position="right-end">
+      <Menu.Target>
+      <UnstyledButton className={classes.user} {...others}>
+        <Group>
+          <Avatar src={image} radius="xl" />
+          <div style={{ flex: 1 }}>
+            <Text size="sm" weight={500} lineClamp={1} style={{wordBreak: 'break-all'}}>
+              {name}
+            </Text>
+            <Text color="dimmed" size="xs" lineClamp={1} style={{wordBreak: 'break-all'}}>
+              {email}
+            </Text>
+          </div>
+          {icon || <IconChevronRight size="0.9rem" stroke={1.5} />}
+        </Group>
+      </UnstyledButton>
+      </Menu.Target>
 
-        <div style={{ flex: 1 }}>
-          <Text size="sm" weight={500} lineClamp={1} style={{wordBreak: 'break-all'}}>
-            {name}
-          </Text>
-
-          <Text color="dimmed" size="xs" lineClamp={1} style={{wordBreak: 'break-all'}}>
-            {email}
-          </Text>
-        </div>
-
-        {icon || <IconChevronRight size="0.9rem" stroke={1.5} />}
-      </Group>
-    </UnstyledButton>
+      <Menu.Dropdown>
+        <Menu.Label>Account</Menu.Label>
+        <Menu.Item icon={<IconLogout size={14} />} color='red'>Sign Out</Menu.Item>
+        
+      </Menu.Dropdown>
+    </Menu>
   );
 }

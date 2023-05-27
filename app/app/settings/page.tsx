@@ -1,7 +1,9 @@
+import PageWrapper from "../pagewrapper";
+
 export default function Settings() {
   return(
-    <>
-      <h1>Settings</h1>
-    </>
+    <PageWrapper>
+      <h1 style={{marginTop: '0px'}}>Settings</h1>
+    </PageWrapper>
   )
 }

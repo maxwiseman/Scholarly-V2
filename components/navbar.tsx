@@ -12,6 +12,8 @@ import { UserButton } from './userButton';
 import { LinksGroup } from './navbarLinkGroup';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { PrismaClient } from "@prisma/client"
 
 const data = [
   { label: 'Home', icon: IconHome, href: '/app/home' },
@@ -80,6 +82,12 @@ export default function NavbarNested({opened, setOpened}: {opened: boolean, setO
   const { classes } = useStyles();
   const links = data.map((item) => <LinksGroup {...item} key={item.label} setNavOpened={setOpened} />);
   const theme = useMantineTheme()
+  const { data: session } = useSession()
+
+  console.log('Auth session', session)
+
+  // const prisma = new PrismaClient()
+  // const user = prisma.user.findUnique({where: {email: session?.data?.user?.email as string}})
 
   return (
     <Navbar hidden={!opened} width={{ md: 300 }} px="md" className={classes.navbar}>
@@ -102,9 +110,9 @@ export default function NavbarNested({opened, setOpened}: {opened: boolean, setO
 
       <Navbar.Section className={classes.footer}>
         <UserButton
-          image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-          name="Anna Nullpoint"
-          email="anullpointer@yahoo.com"
+          image={session?.user?.image?.toString() as string}
+          name={session?.user?.name?.toString() as string}
+          email={session?.user?.email?.toString() as string}
         />
       </Navbar.Section>
     </Navbar>
