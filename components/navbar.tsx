@@ -1,19 +1,27 @@
 'use client'
 
-import { Group, Input, Navbar, ScrollArea, createStyles, rem, useMantineTheme } from '@mantine/core';
+import {
+  Group,
+  Input,
+  Navbar,
+  ScrollArea,
+  createStyles,
+  rem,
+  useMantineTheme,
+} from '@mantine/core'
 import {
   IconAdjustments,
   IconHome,
   IconNotebook,
   IconChecklist,
   IconSearch,
-} from '@tabler/icons-react';
-import { UserButton } from './userButton';
-import { LinksGroup } from './navbarLinkGroup';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { PrismaClient } from "@prisma/client"
+} from '@tabler/icons-react'
+import { UserButton } from './userButton'
+import { LinksGroup } from './navbarLinkGroup'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { PrismaClient } from '@prisma/client'
 
 const data = [
   { label: 'Home', icon: IconHome, href: '/app/home' },
@@ -40,11 +48,12 @@ const data = [
     ],
   },
   { label: 'Settings', icon: IconAdjustments, href: '/app/settings' },
-];
+]
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
   navbar: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
+    backgroundColor:
+      theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
     paddingBottom: 0,
   },
 
@@ -76,34 +85,62 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
   },
-}));
+}))
 
-export default function NavbarNested({opened, setOpened}: {opened: boolean, setOpened: any}) {
-  const { classes } = useStyles();
-  const links = data.map((item) => <LinksGroup {...item} key={item.label} setNavOpened={setOpened} />);
+export default function NavbarNested({
+  opened,
+  setOpened,
+}: {
+  opened: boolean
+  setOpened: any
+}) {
+  const { classes } = useStyles()
+  const links = data.map(item => (
+    <LinksGroup {...item} key={item.label} setNavOpened={setOpened} />
+  ))
   const theme = useMantineTheme()
   const { data: session } = useSession()
-
-  console.log('Auth session', session)
 
   // const prisma = new PrismaClient()
   // const user = prisma.user.findUnique({where: {email: session?.data?.user?.email as string}})
 
   return (
-    <Navbar hidden={!opened} width={{ md: 300 }} px="md" className={classes.navbar}>
-      {process.env.NEXT_PUBLIC_HEADER_HIDDEN == 'true' ? <Navbar.Section>
-        <Group mt={'xl'} spacing={'xl'}>
-          <div style={{height: '30px', width: '100%', position: 'relative'}}><Image src={process.env.NEXT_PUBLIC_APP_LOGO as string} alt={process.env.NEXT_PUBLIC_APP_NAME + ' Logo'} fill style={{objectFit: 'contain', objectPosition: 'center', filter: theme.colorScheme == 'dark' ? 'invert(1)' : 'none'}} /></div>
-          <Input
-                  placeholder='Search'
-                  variant='filled'
-                  radius={'md'}
-                  w={'100%'}
-                  icon={<IconSearch size={14} />}
-                />
-        </Group>
-      </Navbar.Section> : <></>}
-      
+    <Navbar
+      hidden={!opened}
+      width={{ md: 300 }}
+      px='md'
+      className={classes.navbar}
+    >
+      {process.env.NEXT_PUBLIC_HEADER_HIDDEN == 'true' ? (
+        <Navbar.Section>
+          <Group mt={'xl'} spacing={'xl'}>
+            <div
+              style={{ height: '30px', width: '100%', position: 'relative' }}
+            >
+              <Image
+                src={process.env.NEXT_PUBLIC_APP_LOGO as string}
+                alt={process.env.NEXT_PUBLIC_APP_NAME + ' Logo'}
+                fill
+                style={{
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                  filter: theme.colorScheme == 'dark' ? 'invert(1)' : 'none',
+                }}
+              />
+            </div>
+            <Input
+              placeholder='Search'
+              variant='filled'
+              radius={'md'}
+              w={'100%'}
+              icon={<IconSearch size={14} />}
+            />
+          </Group>
+        </Navbar.Section>
+      ) : (
+        <></>
+      )}
+
       <Navbar.Section grow className={classes.links} component={ScrollArea}>
         <div className={classes.linksInner}>{links}</div>
       </Navbar.Section>
@@ -116,5 +153,5 @@ export default function NavbarNested({opened, setOpened}: {opened: boolean, setO
         />
       </Navbar.Section>
     </Navbar>
-  );
+  )
 }

@@ -90,7 +90,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, setNavOpened, l
         <Group position="apart" spacing={0}>
           {pathname?.startsWith(href as string) ? <motion.div layoutId='navIndicator' style={{position: 'absolute', height: '15px', width: '3px', backgroundColor: theme.colorScheme == 'light' ? theme.colors.blue[6] : theme.colors.blue[2], borderRadius: '200px', left: '6.5px'}} /> : <></>}
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <ThemeIcon variant="light" size={30} color={pathname?.startsWith(href as string) ? theme.primaryColor : 'gray'} style={{transition: '0.5s all ease-in-out'}}>
+            <ThemeIcon variant="light" size={30} color={pathname?.startsWith(href as string) ? theme.primaryColor : 'gray'} style={{transition: '0.5s background-color ease-in-out, 0.5s color ease-in-out'}}>
               <Icon size="1.1rem" />
             </ThemeIcon>
             <Box ml="md">{label}</Box>

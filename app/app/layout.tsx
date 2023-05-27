@@ -3,11 +3,7 @@
 import { useState } from 'react'
 import {
   AppShell,
-  Navbar,
   Header,
-  Footer,
-  Aside,
-  Text,
   MediaQuery,
   Burger,
   useMantineTheme,
@@ -15,14 +11,23 @@ import {
   Input,
 } from '@mantine/core'
 import { ThemeToggle } from '../../components/themeToggle'
-import { IconHome, IconNotebook, IconSearch } from '@tabler/icons-react'
-import NavItem from '@/components/navbarItem'
+import { IconSearch } from '@tabler/icons-react'
 import Image from 'next/image'
 import NavbarNested from '@/components/navbar'
+import { useSession } from 'next-auth/react'
+import LoginPage from '@/components/login'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme()
   const [opened, setOpened] = useState(false)
+  const session = useSession()
+
+
+  if (session.status == 'unauthenticated') {
+    return(
+      <LoginPage />
+    )
+  }
 
   return (
     <AppShell
