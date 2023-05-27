@@ -11,7 +11,7 @@ import {
   createStyles,
   rem,
 } from '@mantine/core';
-import { IconCalendarStats, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -111,13 +111,3 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, setNavOpened, l
     </>
   );
 }
-
-const mockdata = {
-  label: 'Releases',
-  icon: IconCalendarStats,
-  links: [
-    { label: 'Upcoming releases', link: '/' },
-    { label: 'Previous releases', link: '/' },
-    { label: 'Releases schedule', link: '/' },
-  ],
-};

@@ -10,6 +10,7 @@ import {
   Menu,
 } from '@mantine/core';
 import { IconArrowsLeftRight, IconChevronRight, IconLogout, IconMessageCircle, IconPhoto, IconSearch, IconSettings, IconTrash } from '@tabler/icons-react';
+import { signOut } from 'next-auth/react';
 
 const useStyles = createStyles((theme) => ({
   user: {
@@ -55,7 +56,7 @@ export function UserButton({ image, name, email, icon, ...others }: UserButtonPr
 
       <Menu.Dropdown>
         <Menu.Label>Account</Menu.Label>
-        <Menu.Item icon={<IconLogout size={14} />} color='red'>Sign Out</Menu.Item>
+        <Menu.Item icon={<IconLogout size={14} />} color='red' onClick={() => {signOut({redirect:false})}}>Sign Out</Menu.Item>
         
       </Menu.Dropdown>
     </Menu>

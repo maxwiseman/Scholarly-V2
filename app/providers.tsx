@@ -8,14 +8,22 @@ import {
 import { useColorScheme } from '@mantine/hooks'
 import { Notifications } from '@mantine/notifications'
 import { SessionProvider } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { setCookie, getCookie } from 'cookies-next'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const preferredColorScheme = useColorScheme()
   const [colorScheme, setColorScheme] =
     useState<ColorScheme>(preferredColorScheme)
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
+    const toggleColorScheme = (value?: ColorScheme) => {
+      const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
+      setColorScheme(nextColorScheme);
+      setCookie('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
+    };
+
+    useEffect(() => {
+      setColorScheme(getCookie('mantine-color-scheme') as 'dark'|'light' || useColorScheme())
+    })
 
   return (
     <SessionProvider>

@@ -4,7 +4,6 @@ import { Button, TextInput, Stack, Text, Anchor, Center, Card } from '@mantine/c
 import { useForm } from '@mantine/form'
 import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 export function Login() {
@@ -16,6 +15,7 @@ export function Login() {
 
     validate: {
       email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      password: value => (value != '' ? null : 'Enter a password')
     },
   })
   const [loading, setLoading] = useState(false)
@@ -25,14 +25,14 @@ export function Login() {
     <>
       <form
         onSubmit={form.onSubmit(async values => {
-          console.log('Signing in: ', values)
           setLoading(true)
-          await signIn('credentials', {
+          var res = await signIn('credentials', {
             email: values.email,
             password: values.password,
             redirect: false,
           })
           setLoading(false)
+          res?.status == 401 ? form.setErrors({email: 'Email or password is incorrect', password: 'Email or password is incorrect'}) : null
         })}
       >
         <Stack w={400}>
@@ -52,6 +52,7 @@ export function Login() {
           <Stack spacing={0}>
             <TextInput
               label='Password'
+              placeholder='securepassword123'
               type='password'
               disabled={loading}
               {...form.getInputProps('password')}
@@ -64,6 +65,7 @@ export function Login() {
             </Text>
           </Stack>
           <Button type='submit' loading={loading}>Submit</Button>
+          <Text color={'dimmed'} size={'xs'} mt={0} w={'100%'} align='center'>Don't have an account? <Anchor component={Link} href={'/sign-up'}>Sign up</Anchor></Text>
         </Stack>
       </form>
     </>
