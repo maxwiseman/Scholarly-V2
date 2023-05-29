@@ -6,6 +6,18 @@ import { signIn, useSession } from "next-auth/react"
 import Link from "next/link"
 import { useState } from "react"
 
+export default function SignupPage() {
+  return (
+    <>
+      <Center h={'100vh'}>
+      <Card shadow="lg" w={'max-content'} withBorder p={'xl'} radius={'md'}>
+        <Signup />
+      </Card>
+      </Center>
+    </>
+  )
+}
+
 export function Signup() {
   const form = useForm({
     initialValues: {
@@ -62,18 +74,6 @@ export function Signup() {
           <Text color={'dimmed'} size={'xs'} mt={0} w={'100%'} align='center'>{"Already have an account? "}<Anchor component={Link} href={'/app/home'}>Sign in</Anchor></Text>
         </Stack>
       </form>
-    </>
-  )
-}
-
-export default function SignupPage() {
-  return (
-    <>
-      <Center h={'100vh'}>
-      <Card shadow="lg" w={'max-content'} withBorder p={'xl'} radius={'md'}>
-        <Signup />
-      </Card>
-      </Center>
     </>
   )
 }
