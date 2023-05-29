@@ -18,7 +18,7 @@ export default function SignupPage() {
   )
 }
 
-export function Signup() {
+function Signup() {
   const form = useForm({
     initialValues: {
       email: '',
