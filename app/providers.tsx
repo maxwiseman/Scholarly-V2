@@ -21,9 +21,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       setCookie('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
     };
 
-    useEffect(() => {
-      setColorScheme(getCookie('mantine-color-scheme') as 'dark'|'light' || preferredColorScheme)
-    }, [preferredColorScheme])
+    // useEffect(() => {
+    //   setColorScheme(getCookie('mantine-color-scheme') as 'dark'|'light' || preferredColorScheme)
+    // }, [preferredColorScheme])
 
   return (
     <SessionProvider>

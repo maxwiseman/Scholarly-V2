@@ -1,10 +1,15 @@
 'use client'
 
-import { Button, TextInput, Stack, Text, Anchor, Center, Card } from '@mantine/core'
+import { Stack, Text } from '@mantine/core'
+import { Button } from '../components/ui/button'
+import { Input } from '../components/ui/input'
+import { Label } from '../components/ui/label'
 import { useForm } from '@mantine/form'
 import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { IconLoader } from '@tabler/icons-react'
+import Image from 'next/image'
 
 export function Login() {
   const form = useForm({
@@ -15,11 +20,11 @@ export function Login() {
 
     validate: {
       email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password: value => (value != '' ? null : 'Enter a password')
+      password: value => (value != '' ? null : 'Enter a password'),
     },
   })
   const [loading, setLoading] = useState(false)
-  const {data: session} = useSession()
+  const { data: session } = useSession()
 
   return (
     <>
@@ -32,40 +37,50 @@ export function Login() {
             redirect: false,
           })
           setLoading(false)
-          res?.status == 401 ? form.setErrors({email: 'Email or password is incorrect', password: 'Email or password is incorrect'}) : null
+          res?.status == 401
+            ? form.setErrors({
+                email: 'Email or password is incorrect',
+                password: 'Email or password is incorrect',
+              })
+            : null
         })}
       >
         <Stack w={400}>
           <Stack spacing={0} mb={'xs'}>
-            <h1 style={{ marginTop: 0, marginBottom: 0 }}>
-              Welcome back
-            </h1>
-            <Text color={'dimmed'}>{"Let's get you signed in. Please enter your email and password."}</Text>
-          </Stack>
-
-          <TextInput
-            label='Email Address'
-            placeholder='example@example.com'
-            disabled={loading}
-            {...form.getInputProps('email')}
-          />
-          <Stack spacing={0}>
-            <TextInput
-              label='Password'
-              placeholder='securepassword123'
-              type='password'
-              disabled={loading}
-              {...form.getInputProps('password')}
-            />
-            <Text color={'dimmed'} size={'xs'} mt={0}>
-              Forgot your password?{' '}
-              <Anchor component={Link} href={'/forgot'}>
-                Click here
-              </Anchor>
+            <h1 className='mt-0 mb-5 font-bold leading-tight text-4xl'>Welcome back to {process.env.NEXT_PUBLIC_APP_NAME}</h1>
+            <Text color={'dimmed'}>
+              {"Let's get you signed in. Please enter your email and password."}
             </Text>
           </Stack>
-          <Button type='submit' loading={loading}>Submit</Button>
-          <Text color={'dimmed'} size={'xs'} mt={0} w={'100%'} align='center'>{"Don't have an account? "}<Anchor component={Link} href={'/sign-up'}>Sign up</Anchor></Text>
+
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='email'>Email Address</Label>
+            <Input
+              placeholder='example@example.com'
+              disabled={loading}
+              id='email'
+              {...form.getInputProps('email')}
+            />
+          </div>
+          <Stack spacing={0}>
+            <div className='grid w-full max-w-sm items-center gap-1.5'>
+              <Label htmlFor='password'>Password</Label>
+              <Input
+                placeholder='securepassword123'
+                type='password'
+                disabled={loading}
+                id='password'
+                {...form.getInputProps('password')}
+              />
+              <p className="text-xs text-muted-foreground">Forgot your password? <Link href={'./forgot'}>Click here</Link></p>
+            </div>
+          </Stack>
+          <Button type='submit' disabled={loading}>
+            {loading ? (
+              <IconLoader className='mr-2 h-4 w-4 animate-spin' />
+            ) : null}{' '}
+            Submit
+          </Button>
         </Stack>
       </form>
     </>
@@ -73,13 +88,16 @@ export function Login() {
 }
 
 export default function LoginPage() {
-  return(
+  return (
     <>
-      <Center h={'100vh'}>
-      <Card shadow="lg" w={'max-content'} withBorder p={'xl'} radius={'md'}>
-        <Login />
-      </Card>
-      </Center>
+        <div className='flex flex-row'>
+        <div className='p-8 rounded-lg h-[100vh] min-w-[500px] flex justify-center items-center'>
+          <Login />
+        </div>
+        <div className='w-[75vw] max-h-[100vh] relative'>
+          <Image fill src={'https://source.unsplash.com/random/3840x2160?nature,landscape'} alt='Credit: Unsplash' className='object-center object-cover max-h-[100vh] w-[100%] h-[100%]' />
+        </div>
+        </div> 
     </>
   )
 }
