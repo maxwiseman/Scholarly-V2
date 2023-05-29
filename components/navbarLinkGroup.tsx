@@ -87,8 +87,8 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, setNavOpened, l
     <>
       {/* @ts-ignore */}
       <UnstyledButton onClick={() => {hasLinks ? setOpened((o) => !o) : setNavOpened(o => !o)}} className={classes.control} component={hasLinks ? undefined : Link} href={href}>
-        <Group position="apart" spacing={0}>
-          {pathname?.startsWith(href as string) ? <motion.div layoutId='navIndicator' style={{position: 'absolute', height: '15px', width: '3px', backgroundColor: theme.colorScheme == 'light' ? theme.colors.blue[6] : theme.colors.blue[2], borderRadius: '200px', left: '6.5px'}} /> : <></>}
+        <Group position="apart" spacing={0} pos={'relative'}>
+          {pathname?.startsWith(href as string) ? <motion.div layoutId='navIndicator' style={{position: 'absolute', height: '15px', width: '3px', backgroundColor: theme.colorScheme == 'light' ? theme.colors.blue[6] : theme.colors.blue[2], borderRadius: '200px', left: '-9.5px'}} /> : <></>}
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <ThemeIcon variant="light" size={30} color={pathname?.startsWith(href as string) ? theme.primaryColor : 'gray'} style={{transition: '0.5s background-color ease-in-out, 0.5s color ease-in-out'}}>
               <Icon size="1.1rem" />

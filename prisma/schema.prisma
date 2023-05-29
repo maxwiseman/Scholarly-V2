@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url  	= env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
   // If you want to use Prisma Migrate, you will need to manually create a shadow database
   // https://neon.tech/docs/guides/prisma-migrate#configure-a-shadow-database-for-prisma-migrate
@@ -14,24 +14,31 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(cuid()) @unique
-  email         String       @unique
-  emailVerified Boolean      @default(true)
+  id            String    @id @unique @default(cuid())
+  email         String    @unique
+  emailVerified Boolean   @default(true)
   password      String
   name          String
   image         String?
-  assignments   Assignment[]
+  classes       Classes[]
+  settings      Settings?
 }
 
-model Assignment {
-  id             String   @id @default(cuid()) @unique
-  userId         String
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  pointsPossible Int
-  pointsScored   Int      @default(0)
-  dueDate        DateTime?
-  name           String
-  description    String?
+model Settings {
+  id     String @id @unique @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  theme  String
+  
+}
+
+model Classes {
+  id          String  @id @unique @default(cuid())
+  canvasId    String
+  userId      String
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
 
   @@index([userId])
 }
