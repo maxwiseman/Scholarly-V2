@@ -93,8 +93,8 @@ export function Login() {
           </Stack>
           <Button type='submit' disabled={loading}>
             {loading ? (
-              <IconLoader className='mr-2 h-4 w-4 animate-spin' />
-            ) : null}{' '}
+              <IconLoader className='h-4 w-4 animate-spin' />
+            ) : null}
             Submit
           </Button>
         </Stack>
@@ -106,15 +106,14 @@ export function Login() {
 export default function LoginPage() {
   return (
     <>
-      <div className='flex flex-row max-w-[100vw]'>
-        <div className='p-8 rounded-lg h-[100vh] grow lg:min-w-[500px] max-w-[100vw] flex justify-center items-center'>
+      <div className='flex flex-row max-w-[100vw] h-[100%]'>
+        <div className='p-8 rounded-lg h-[100%] grow lg:min-w-[500px] max-w-[100vw] flex justify-center items-center'>
           <Login />
         </div>
-        <div className='w-0 lg:w-[75vw] max-h-[100vh] relative'>
-          <Image
-            fill
+        <div className='w-0 lg:w-[75vw] max-h-[100%] relative'>
+          <img
             src={
-              'https://source.unsplash.com/random/3840x2160?nature,landscape'
+              'https://source.unsplash.com/random/2560x1440?nature,landscape'
             }
             alt='Credit: Unsplash'
             className='object-center object-cover max-h-[100vh] w-[100%] h-[100%]'

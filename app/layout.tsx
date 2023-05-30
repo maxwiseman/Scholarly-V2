@@ -13,8 +13,8 @@ export default function RootLayout({
 }) {
   return (
     <Providers>
-      <html lang='en'>
-        <body>{children}</body>
+      <html lang='en' className='h-[100%]'>
+        <body className='h-[100%]'>{children}</body>
       </html>
     </Providers>
   )
