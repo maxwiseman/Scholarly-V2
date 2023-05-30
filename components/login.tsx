@@ -45,7 +45,7 @@ export function Login() {
             : null
         })}
       >
-        <Stack w={400}>
+        <Stack maw={400}>
           <Stack spacing={0} mb={'xs'}>
             <h1 className='mt-0 mb-5 font-bold leading-tight text-4xl'>
               Welcome back to {process.env.NEXT_PUBLIC_APP_NAME}
@@ -106,8 +106,8 @@ export function Login() {
 export default function LoginPage() {
   return (
     <>
-      <div className='flex flex-row'>
-        <div className='p-8 rounded-lg h-[100vh] grow lg:min-w-[500px] flex justify-center items-center'>
+      <div className='flex flex-row max-w-[100vw]'>
+        <div className='p-8 rounded-lg h-[100vh] grow lg:min-w-[500px] max-w-[100vw] flex justify-center items-center'>
           <Login />
         </div>
         <div className='w-0 lg:w-[75vw] max-h-[100vh] relative'>
