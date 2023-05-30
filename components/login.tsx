@@ -47,32 +47,48 @@ export function Login() {
       >
         <Stack w={400}>
           <Stack spacing={0} mb={'xs'}>
-            <h1 className='mt-0 mb-5 font-bold leading-tight text-4xl'>Welcome back to {process.env.NEXT_PUBLIC_APP_NAME}</h1>
+            <h1 className='mt-0 mb-5 font-bold leading-tight text-4xl'>
+              Welcome back to {process.env.NEXT_PUBLIC_APP_NAME}
+            </h1>
             <Text color={'dimmed'}>
               {"Let's get you signed in. Please enter your email and password."}
             </Text>
           </Stack>
 
-          <div className='grid w-full max-w-sm items-center gap-1.5'>
+          <div className='grid w-full items-center gap-1.5'>
             <Label htmlFor='email'>Email Address</Label>
             <Input
               placeholder='example@example.com'
               disabled={loading}
               id='email'
+              // @ts-ignore
+              style={
+                form.errors.email
+                  ? { '--input': '0 100% 50%', color: 'hsl(0 100% 50%)' }
+                  : null
+              }
               {...form.getInputProps('email')}
             />
           </div>
           <Stack spacing={0}>
-            <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <div className='grid w-full items-center gap-1.5'>
               <Label htmlFor='password'>Password</Label>
               <Input
                 placeholder='securepassword123'
                 type='password'
                 disabled={loading}
                 id='password'
+                // @ts-ignore
+                style={
+                  form.errors.password
+                    ? { '--input': '0 100% 50%', color: 'hsl(0 100% 50%)' }
+                    : null
+                }
                 {...form.getInputProps('password')}
               />
-              <p className="text-xs text-muted-foreground">Forgot your password? <Link href={'./forgot'}>Click here</Link></p>
+              <p className='text-xs text-muted-foreground'>
+                Forgot your password? <Link href={'./forgot'}>Click here</Link>
+              </p>
             </div>
           </Stack>
           <Button type='submit' disabled={loading}>
@@ -90,14 +106,21 @@ export function Login() {
 export default function LoginPage() {
   return (
     <>
-        <div className='flex flex-row'>
-        <div className='p-8 rounded-lg h-[100vh] min-w-[500px] flex justify-center items-center'>
+      <div className='flex flex-row'>
+        <div className='p-8 rounded-lg h-[100vh] grow lg:min-w-[500px] flex justify-center items-center'>
           <Login />
         </div>
-        <div className='w-[75vw] max-h-[100vh] relative'>
-          <Image fill src={'https://source.unsplash.com/random/3840x2160?nature,landscape'} alt='Credit: Unsplash' className='object-center object-cover max-h-[100vh] w-[100%] h-[100%]' />
+        <div className='w-0 lg:w-[75vw] max-h-[100vh] relative'>
+          <Image
+            fill
+            src={
+              'https://source.unsplash.com/random/3840x2160?nature,landscape'
+            }
+            alt='Credit: Unsplash'
+            className='object-center object-cover max-h-[100vh] w-[100%] h-[100%]'
+          />
         </div>
-        </div> 
+      </div>
     </>
   )
 }
