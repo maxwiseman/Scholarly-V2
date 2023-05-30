@@ -1,22 +1,14 @@
 'use client'
 
-import { Anchor, Badge, Button, Card, Center, Group, Stack, Text, TextInput } from "@mantine/core"
-import { useForm } from "@mantine/form"
-import { signIn, useSession } from "next-auth/react"
-import Link from "next/link"
-import { useState } from "react"
-
-export default function SignupPage() {
-  return (
-    <>
-      <Center h={'100vh'}>
-      <Card shadow="lg" w={'max-content'} withBorder p={'xl'} radius={'md'}>
-        <Signup />
-      </Card>
-      </Center>
-    </>
-  )
-}
+import { Stack, Text } from '@mantine/core'
+import { Button } from '../../components/ui/button'
+import { Input } from '../../components/ui/input'
+import { Label } from '../../components/ui/label'
+import { useForm } from '@mantine/form'
+import { signIn, useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useState } from 'react'
+import { IconLoader } from '@tabler/icons-react'
 
 function Signup() {
   const form = useForm({
@@ -27,11 +19,11 @@ function Signup() {
 
     validate: {
       email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password: value => (value != '' ? null : 'Enter a password')
+      password: value => (value != '' ? null : 'Enter a password'),
     },
   })
   const [loading, setLoading] = useState(false)
-  const {data: session} = useSession()
+  const { data: session } = useSession()
 
   return (
     <>
@@ -44,36 +36,86 @@ function Signup() {
             redirect: false,
           })
           setLoading(false)
-          res?.status == 401 ? form.setErrors({email: 'Email or password is incorrect', password: 'Email or password is incorrect'}) : null
+          res?.status == 401
+            ? form.setErrors({
+                email: 'Email or password is incorrect',
+                password: 'Email or password is incorrect',
+              })
+            : null
         })}
       >
-        <Stack w={400}>
+        <Stack maw={400}>
           <Stack spacing={0} mb={'xs'}>
-            <h1 style={{ marginTop: 0, marginBottom: 0, display: 'flex', alignItems: 'center' }}>
-              Welcome to {process.env.NEXT_PUBLIC_APP_NAME} {process.env.NEXT_PUBLIC_BETA == 'true' ? <Badge ml={'xs'}>Beta</Badge> : null}
+            <h1 className='mt-0 mb-5 font-bold leading-tight text-4xl'>
+              Welcome to {process.env.NEXT_PUBLIC_APP_NAME}
             </h1>
-            <Text color={'dimmed'}>{"Let's get your account set up. But first, what email and password should we use?"}</Text>
+            <p className='text-muted-foreground'>
+              {"Let's get you signed up. Please enter your email and password. If you have an account, "} <Link href={'/app/home'}>click here</Link> {" to login."}
+            </p>
           </Stack>
 
-          <TextInput
-            label='Email Address'
-            placeholder='example@example.com'
-            disabled={loading}
-            {...form.getInputProps('email')}
-          />
-          <Stack spacing={0}>
-            <TextInput
-              label='Password'
-              placeholder='securepassword123'
-              type='password'
+          <div className='grid w-full items-center gap-1.5'>
+            <Label htmlFor='email'>Email Address</Label>
+            <Input
+              placeholder='example@example.com'
               disabled={loading}
-              {...form.getInputProps('password')}
+              id='email'
+              // @ts-ignore
+              style={
+                form.errors.email
+                  ? { '--input': '0 100% 50%', color: 'hsl(0 100% 50%)' }
+                  : null
+              }
+              {...form.getInputProps('email')}
             />
+          </div>
+          <Stack spacing={0}>
+            <div className='grid w-full items-center gap-1.5'>
+              <Label htmlFor='password'>Password</Label>
+              <Input
+                placeholder='securepassword123'
+                type='password'
+                disabled={loading}
+                id='password'
+                // @ts-ignore
+                style={
+                  form.errors.password
+                    ? { '--input': '0 100% 50%', color: 'hsl(0 100% 50%)' }
+                    : null
+                }
+                {...form.getInputProps('password')}
+              />
+            </div>
           </Stack>
-          <Button type='submit' loading={loading}>Submit</Button>
-          <Text color={'dimmed'} size={'xs'} mt={0} w={'100%'} align='center'>{"Already have an account? "}<Anchor component={Link} href={'/app/home'}>Sign in</Anchor></Text>
+          <Button type='submit' disabled={loading}>
+            {loading ? (
+              <IconLoader className='h-4 w-4 animate-spin' />
+            ) : null}
+            Submit
+          </Button>
         </Stack>
       </form>
+    </>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <>
+      <div className='flex flex-row max-w-[100vw] h-[100%]'>
+        <div className='p-8 rounded-lg h-[100%] grow lg:min-w-[500px] max-w-[100vw] flex justify-center items-center'>
+          <Signup />
+        </div>
+        <div className='w-0 lg:w-[75vw] max-h-[100%] relative'>
+          <img
+            src={
+              'https://source.unsplash.com/random/2560x1440?nature,landscape'
+            }
+            alt='Credit: Unsplash'
+            className='object-center object-cover max-h-[100vh] w-[100%] h-[100%]'
+          />
+        </div>
+      </div>
     </>
   )
 }
