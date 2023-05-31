@@ -10,6 +10,10 @@ a:hover {
   text-decoration: underline;
 }
 
+a {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+}
+
 a.underline {
   display: inline-block;
   position: relative;

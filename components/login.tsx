@@ -50,6 +50,7 @@ export function Login() {
           <div className='grid w-full items-center gap-1.5'>
             <Label htmlFor='email'>Email Address</Label>
             <Input
+              className='text-primary'
               placeholder='example@example.com'
               disabled={loading}
               id='email'
@@ -67,6 +68,7 @@ export function Login() {
             <div className='grid w-full items-center gap-1.5'>
               <Label htmlFor='password'>Password</Label>
               <Input
+                className='text-primary'
                 placeholder='securepassword123'
                 type='password'
                 disabled={loading}
@@ -150,7 +152,7 @@ export default function LoginPage() {
           </Tabs>
         </div>
         <div className='w-0 hidden lg:block lg:w-[75vw] h-[100%] max-h-[100%] relative'>
-          <p className='absolute right-0 bottom-0 p-5 z-50 text-white text-right'>
+          <p className='absolute right-0 bottom-0 m-5 z-50 text-white text-right'>
             <Link
               target='_blank'
               href={'https://unsplash.com/photos/' + image?.id + unsplashUTM}
@@ -181,6 +183,12 @@ export default function LoginPage() {
             <img
               src={image?.urls?.regular}
               alt={image?.alt_description}
+              // title={
+              //   image?.location?.name ||
+              //   image?.description ||
+              //   image?.user?.username ||
+              //   'Unsplash Image'
+              // }
               className='object-center object-cover max-h-[100vh] w-[100%] h-[100%] absolute'
             />
           ) : null}
@@ -238,6 +246,7 @@ function Signup() {
           <div className='grid w-full items-center gap-1.5'>
             <Label htmlFor='name'>Full Name</Label>
             <Input
+              className='text-primary'
               placeholder='John Doe'
               disabled={loading}
               id='name'
@@ -253,6 +262,7 @@ function Signup() {
           <div className='grid w-full items-center gap-1.5'>
             <Label htmlFor='email'>Email Address</Label>
             <Input
+              className='text-primary'
               placeholder='example@example.com'
               disabled={loading}
               id='email'
@@ -270,6 +280,7 @@ function Signup() {
             <div className='grid w-full items-center gap-1.5'>
               <Label htmlFor='password'>Password</Label>
               <Input
+                className='text-primary'
                 placeholder='securepassword123'
                 type='password'
                 disabled={loading}
