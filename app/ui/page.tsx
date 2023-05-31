@@ -1,4 +1,6 @@
+import { Input } from '@/components/ui/input'
 import { Button } from '../../components/ui/button'
+import { IconSearch } from '@tabler/icons-react'
 
 export default function UI() {
   return (
@@ -10,6 +12,32 @@ export default function UI() {
       <Button variant={'ghost'}>Ghost</Button>
       <Button variant={'destructive'}>Danger</Button>
       <Button variant={'link'}>Link</Button>
+      <br />
+      <Button variant={'disabled'}>Save Changes</Button>
+      <Button variant={'default'} disabled>
+        Primary
+      </Button>
+      <Button variant={'secondary'} disabled>
+        Secondary
+      </Button>
+      <Button variant={'outline'} disabled>
+        Outline
+      </Button>
+      <Button variant={'ghost'} disabled>
+        Ghost
+      </Button>
+      <Button variant={'destructive'} disabled>
+        Danger
+      </Button>
+      <Button variant={'link'} disabled>
+        Link
+      </Button>
+      <br />
+      <Input
+        placeholder='Input'
+        icon={<IconSearch />}
+        className='max-w-[500px]'
+      />
     </div>
   )
 }

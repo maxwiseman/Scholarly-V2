@@ -1,34 +1,36 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from 'react'
+import { Slot } from '@radix-ui/react-slot'
+import { cva, type VariantProps } from 'class-variance-authority'
 
-import { cn } from "@/lib/utils"
-import Link from "next/link"
+import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background gap-2",
+  'active:translate-y-[1px] inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background gap-2',
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         outline:
-          "border border-input hover:bg-accent hover:text-accent-foreground",
+          'border border-input hover:bg-accent hover:text-accent-foreground',
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "underline-offset-4 hover:underline text-primary",
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'underline-offset-4 hover:underline text-primary',
+        disabled:
+          'active:translate-y-0 bg-secondary cursor-not-allowed text-muted-foreground border border-input',
       },
       size: {
-        default: "h-10 py-2 px-4",
-        sm: "h-9 px-3 rounded-md",
-        lg: "h-11 px-8 rounded-md",
+        default: 'h-10 py-2 px-4',
+        sm: 'h-9 px-3 rounded-md',
+        lg: 'h-11 px-8 rounded-md',
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: 'default',
+      size: 'default',
     },
   }
 )
@@ -41,13 +43,13 @@ export interface ButtonProps
 export interface LinkButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean,
+  asChild?: boolean
   href: string
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+    const Comp = asChild ? Slot : 'button'
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
@@ -60,19 +62,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 const LinkButton = React.forwardRef<HTMLButtonElement, LinkButtonProps>(
   ({ className, href, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+    const Comp = asChild ? Slot : 'button'
     return (
       <Link href={href}>
         <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
+          className={cn(buttonVariants({ variant, size, className }))}
+          ref={ref}
+          {...props}
+        />
       </Link>
     )
   }
 )
-Button.displayName = "Button"
-LinkButton.displayName = "LinkButton"
+Button.displayName = 'Button'
+LinkButton.displayName = 'LinkButton'
 
 export { Button, LinkButton, buttonVariants }

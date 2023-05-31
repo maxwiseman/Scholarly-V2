@@ -33,8 +33,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       >
         <MantineProvider
           theme={{ colorScheme }}
-          withGlobalStyles
-          withNormalizeCSS
+          
         >
           <Notifications />
           {children}

@@ -1,14 +1,15 @@
 'use client'
 
-import { Stack, Text } from '@mantine/core'
+import { Stack } from '@mantine/core'
+import { useForm } from '@mantine/form'
+import { IconLoader } from '@tabler/icons-react'
+import { signIn, useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { Blurhash } from 'react-blurhash'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
-import { useForm } from '@mantine/form'
-import { signIn, useSession } from 'next-auth/react'
-import Link from 'next/link'
-import { useState } from 'react'
-import { IconLoader } from '@tabler/icons-react'
 
 function Signup() {
   const form = useForm({
@@ -50,7 +51,10 @@ function Signup() {
               Welcome to {process.env.NEXT_PUBLIC_APP_NAME}
             </h1>
             <p className='text-muted-foreground'>
-              {"Let's get you signed up. Please enter your email and password. If you have an account, "} <Link href={'/app/home'}>click here</Link> {" to login."}
+              {
+                "Let's get you signed up. Please enter your email and password. If you have an account, "
+              }{' '}
+              <Link href={'/app/home'}>click here</Link> {' to login.'}
             </p>
           </Stack>
 
@@ -88,9 +92,7 @@ function Signup() {
             </div>
           </Stack>
           <Button type='submit' disabled={loading}>
-            {loading ? (
-              <IconLoader className='h-4 w-4 animate-spin' />
-            ) : null}
+            {loading ? <IconLoader className='h-4 w-4 animate-spin' /> : null}
             Submit
           </Button>
         </Stack>
@@ -100,22 +102,152 @@ function Signup() {
 }
 
 export default function LoginPage() {
+  const [image, setImage] = useState<Image | undefined>()
+  const [loading, setLoading] = useState<boolean>(true)
+  useEffect(() => {
+    fetch('/api/unsplash', { cache: 'reload' })
+      .then(res => res.json())
+      .then((res: Image) => {
+        setImage(res)
+        console.log('Random Unsplash Image: ', res)
+        const img = new Image()
+        img.onload = () => {
+          setLoading(false)
+        }
+        img.src = res.urls.regular
+      })
+  }, [])
+  const unsplashUTM =
+    '?utm_source=' +
+    process.env.NEXT_PUBLIC_UNSPLASH_NAME +
+    '&utm_medium=referral&utm_campaign=api-credit'
+
   return (
     <>
       <div className='flex flex-row max-w-[100vw] h-[100%]'>
         <div className='p-8 rounded-lg h-[100%] grow lg:min-w-[500px] max-w-[100vw] flex justify-center items-center'>
           <Signup />
         </div>
-        <div className='w-0 lg:w-[75vw] max-h-[100%] relative'>
-          <img
-            src={
-              'https://source.unsplash.com/random/2560x1440?nature,landscape'
-            }
-            alt='Credit: Unsplash'
-            className='object-center object-cover max-h-[100vh] w-[100%] h-[100%]'
-          />
+        <div className='w-0 lg:w-[75vw] h-[100%] max-h-[100%] relative'>
+          <p className='absolute right-0 bottom-0 p-5 z-50 text-white text-right'>
+            <Link
+              target='_blank'
+              href={'https://unsplash.com/photos/' + image?.id + unsplashUTM}
+            >
+              Photo
+            </Link>{' '}
+            by <br />
+            <Link
+              target='_blank'
+              href={image?.user?.links.html + unsplashUTM || ''}
+            >
+              {image?.user.name}
+            </Link>{' '}
+            via{' '}
+            <Link target='_blank' href={'https://unsplash.com' + unsplashUTM}>
+              Unsplash
+            </Link>
+          </p>
+          {image?.blur_hash && loading ? (
+            <Blurhash
+              hash={image?.blur_hash}
+              width={'100%'}
+              height={'100%'}
+              className={'absolute'}
+            />
+          ) : null}
+          {!loading ? (
+            <img
+              src={image?.urls?.regular}
+              alt={image?.alt_description}
+              className='object-center object-cover max-h-[100vh] w-[100%] h-[100%] absolute'
+            />
+          ) : null}
         </div>
       </div>
     </>
   )
+}
+
+interface Image {
+  id: string
+  created_at: string
+  updated_at: string
+  promoted_at: string
+  width: number
+  height: number
+  color: string
+  blur_hash: string
+  description: string
+  alt_description: string
+  urls: {
+    raw: string
+    full: string
+    regular: string
+    small: string
+    thumb: string
+  }
+  links: {
+    self: string
+    html: string
+    download: string
+    download_location: string
+  }
+  categories: []
+  likes: number
+  liked_by_user: boolean
+  current_user_collections: []
+  sponsorship: null
+  user: {
+    id: string
+    updated_at: string
+    username: string
+    name: string
+    first_name: string
+    last_name: string
+    twitter_username: string
+    portfolio_url: string
+    bio: string
+    location: string
+    links: {
+      self: string
+      html: string
+      photos: string
+      likes: string
+      portfolio: string
+      following: string
+      followers: string
+    }
+    profile_image: {
+      small: string
+      medium: string
+      large: string
+    }
+    instagram_username: string
+    total_collections: number
+    total_likes: number
+    total_photos: number
+    accepted_tos: boolean
+    for_hire: boolean
+  }
+  exif: {
+    make: string
+    model: string
+    exposure_time: string
+    aperture: string
+    focal_length: string
+    iso: number
+  }
+  location: {
+    title: string
+    name: string
+    city: string
+    country: string
+    position: {
+      latitude: number
+      longitude: number
+    }
+  }
+  views: number
+  downloads: number
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import {
   AppShell,
   Header,
@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const session = useSession()
 
   if (session.status == 'unauthenticated') {
-    return <LoginPage />
+    return (<Suspense fallback={<></>}><LoginPage /></Suspense>)
   }
 
   return (

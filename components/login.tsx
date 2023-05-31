@@ -9,8 +9,8 @@ import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { IconLoader } from '@tabler/icons-react'
-import { motion } from 'framer-motion'
 import { Blurhash } from 'react-blurhash'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 
 export function Login() {
   const form = useForm({
@@ -47,24 +47,13 @@ export function Login() {
         })}
       >
         <Stack maw={400}>
-          <Stack spacing={0} mb={'xs'}>
-            <h1 className='mt-0 mb-5 font-bold leading-tight text-4xl'>
-              Welcome back to {process.env.NEXT_PUBLIC_APP_NAME}
-            </h1>
-            <p className='text-muted-foreground'>
-              {
-                "Let's get you signed in. Please enter your email and password. If you don't have an account, "
-              }{' '}
-              <Link href={'/sign-up'}>click here</Link> {' to make one.'}
-            </p>
-          </Stack>
-
           <div className='grid w-full items-center gap-1.5'>
             <Label htmlFor='email'>Email Address</Label>
             <Input
               placeholder='example@example.com'
               disabled={loading}
               id='email'
+              type='email'
               // @ts-ignore
               style={
                 form.errors.email
@@ -91,7 +80,10 @@ export function Login() {
                 {...form.getInputProps('password')}
               />
               <p className='text-xs text-muted-foreground'>
-                Forgot your password? <Link href={'./forgot'}>Click here</Link>
+                Forgot your password?{' '}
+                <Link target='blank' href={'./forgot'}>
+                  Click here
+                </Link>
               </p>
             </div>
           </Stack>
@@ -109,7 +101,7 @@ export default function LoginPage() {
   const [image, setImage] = useState<Image | undefined>()
   const [loading, setLoading] = useState<boolean>(true)
   useEffect(() => {
-    fetch('/api/unsplash', { cache: 'no-cache' })
+    fetch('/api/unsplash', { cache: 'reload' })
       .then(res => res.json())
       .then((res: Image) => {
         setImage(res)
@@ -129,17 +121,53 @@ export default function LoginPage() {
   return (
     <>
       <div className='flex flex-row max-w-[100vw] h-[100%]'>
-        <div className='p-8 rounded-lg h-[100%] grow lg:min-w-[500px] max-w-[100vw] flex justify-center items-center'>
-          <Login />
+        <div className='flex-col p-8 rounded-lg h-[100%] grow lg:min-w-[500px] max-w-[100vw] flex justify-center items-center'>
+          <Stack spacing={0} maw={400}>
+            <h1 className='mt-0 mb-5 font-bold leading-tight text-4xl'>
+              Welcome back to {process.env.NEXT_PUBLIC_APP_NAME}
+            </h1>
+            <p className='text-muted-foreground'>
+              {
+                "Let's get you signed in. Please enter your details. If you don't have an account, you can make one."
+              }
+            </p>
+          </Stack>
+          <Tabs defaultValue='login' className='w-[400px]'>
+            <TabsList className='w-[100%] mb-4 mt-4'>
+              <TabsTrigger className='grow' value='login'>
+                Sign in
+              </TabsTrigger>
+              <TabsTrigger className='grow' value='signup'>
+                Sign up
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value='login'>
+              <Login />
+            </TabsContent>
+            <TabsContent value='signup'>
+              <Signup />
+            </TabsContent>
+          </Tabs>
         </div>
-        <div className='w-0 lg:w-[75vw] h-[100%] max-h-[100%] relative'>
+        <div className='w-0 hidden lg:block lg:w-[75vw] h-[100%] max-h-[100%] relative'>
           <p className='absolute right-0 bottom-0 p-5 z-50 text-white text-right'>
-            <Link href={'https://unsplash.com/photos/' + image?.id + unsplashUTM}>Photo</Link> by <br />
-            <Link href={image?.user?.links.html + unsplashUTM || ''}>
+            <Link
+              target='_blank'
+              href={'https://unsplash.com/photos/' + image?.id + unsplashUTM}
+            >
+              Photo
+            </Link>{' '}
+            by <br />
+            <Link
+              target='_blank'
+              href={image?.user?.links.html + unsplashUTM || ''}
+            >
               {image?.user.name}
             </Link>{' '}
             via{' '}
-            <Link href={'https://unsplash.com' + unsplashUTM}>Unsplash</Link>
+            <Link target='_blank' href={'https://unsplash.com' + unsplashUTM}>
+              Unsplash
+            </Link>
           </p>
           {image?.blur_hash && loading ? (
             <Blurhash
@@ -158,6 +186,85 @@ export default function LoginPage() {
           ) : null}
         </div>
       </div>
+    </>
+  )
+}
+
+function Signup() {
+  const form = useForm({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+
+    validate: {
+      email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      password: value => (value != '' ? null : 'Enter a password'),
+    },
+  })
+  const [loading, setLoading] = useState(false)
+  const { data: session } = useSession()
+
+  return (
+    <>
+      <form
+        onSubmit={form.onSubmit(async values => {
+          setLoading(true)
+          var res = await signIn('credentials', {
+            email: values.email,
+            password: values.password,
+            redirect: false,
+          })
+          setLoading(false)
+          res?.status == 401
+            ? form.setErrors({
+                email: 'Email or password is incorrect',
+                password: 'Email or password is incorrect',
+              })
+            : null
+        })}
+      >
+        <Stack maw={400}>
+          <div className='grid w-full items-center gap-1.5'>
+            <Label htmlFor='email'>Email Address</Label>
+            <Input
+              placeholder='example@example.com'
+              disabled={loading}
+              id='email'
+              type='email'
+              // @ts-ignore
+              style={
+                form.errors.email
+                  ? { '--input': '0 100% 50%', color: 'hsl(0 100% 50%)' }
+                  : null
+              }
+              {...form.getInputProps('email')}
+            />
+          </div>
+          <Stack spacing={0}>
+            <div className='grid w-full items-center gap-1.5'>
+              <Label htmlFor='password'>Password</Label>
+              <Input
+                placeholder='securepassword123'
+                type='password'
+                disabled={loading}
+                id='password'
+                // @ts-ignore
+                style={
+                  form.errors.password
+                    ? { '--input': '0 100% 50%', color: 'hsl(0 100% 50%)' }
+                    : null
+                }
+                {...form.getInputProps('password')}
+              />
+            </div>
+          </Stack>
+          <Button type='submit' disabled={loading}>
+            {loading ? <IconLoader className='h-4 w-4 animate-spin' /> : null}
+            Submit
+          </Button>
+        </Stack>
+      </form>
     </>
   )
 }

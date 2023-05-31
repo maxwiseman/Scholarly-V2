@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <Providers>
-      <html lang='en' className='h-[100%]'>
+      <html lang='en' className={'h-[100%] dark'}>
         <body className='h-[100%]'>{children}</body>
       </html>
     </Providers>
