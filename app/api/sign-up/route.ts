@@ -12,10 +12,10 @@ export async function POST(req: NextRequest) {
         email: body.email,
         emailVerified: true,
         password: await hash(body.password, 10),
-        image: body.image,
       },
     })
     .catch(err => {
+      console.log('Account creation error: ', err)
       return new Response(err, { status: 500 })
     })
 

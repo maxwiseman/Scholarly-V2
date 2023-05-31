@@ -1,15 +1,15 @@
 'use client'
 
-import { Stack, Text } from '@mantine/core'
-import { Button } from '../components/ui/button'
-import { Input } from '../components/ui/input'
-import { Label } from '../components/ui/label'
+import { Stack } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { IconLoader } from '@tabler/icons-react'
 import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { IconLoader } from '@tabler/icons-react'
 import { Blurhash } from 'react-blurhash'
+import { Button } from '../components/ui/button'
+import { Input } from '../components/ui/input'
+import { Label } from '../components/ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 
 export function Login() {
@@ -193,11 +193,13 @@ export default function LoginPage() {
 function Signup() {
   const form = useForm({
     initialValues: {
+      name: '',
       email: '',
       password: '',
     },
 
     validate: {
+      name: value => (value != '' ? null : 'Enter your name'),
       email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
       password: value => (value != '' ? null : 'Enter a password'),
     },
@@ -210,7 +212,15 @@ function Signup() {
       <form
         onSubmit={form.onSubmit(async values => {
           setLoading(true)
-          var res = await signIn('credentials', {
+          const res = await fetch('/api/sign-up', {
+            method: 'POST',
+            body: JSON.stringify({
+              name: values.name,
+              email: values.email,
+              password: values.password,
+            }),
+          })
+          await signIn('credentials', {
             email: values.email,
             password: values.password,
             redirect: false,
@@ -225,6 +235,21 @@ function Signup() {
         })}
       >
         <Stack maw={400}>
+          <div className='grid w-full items-center gap-1.5'>
+            <Label htmlFor='name'>Full Name</Label>
+            <Input
+              placeholder='John Doe'
+              disabled={loading}
+              id='name'
+              // @ts-ignore
+              style={
+                form.errors.name
+                  ? { '--input': '0 100% 50%', color: 'hsl(0 100% 50%)' }
+                  : null
+              }
+              {...form.getInputProps('name')}
+            />
+          </div>
           <div className='grid w-full items-center gap-1.5'>
             <Label htmlFor='email'>Email Address</Label>
             <Input

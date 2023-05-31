@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 
-const url = 'https://api.unsplash.com/photos/random?topics=6sMVjTLSkeQ'
+const url =
+  'https://api.unsplash.com/photos/random?topics=6sMVjTLSkeQ&content_filter=high'
 
 export async function GET(req: NextRequest) {
   var image = await fetch(url, {
