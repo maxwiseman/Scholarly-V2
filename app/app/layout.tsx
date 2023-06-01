@@ -1,29 +1,30 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import NavbarNested from '@/components/navbar'
 import {
   AppShell,
-  Header,
-  MediaQuery,
   Burger,
-  useMantineTheme,
   Group,
+  Header,
   Input,
+  MediaQuery,
+  useMantineTheme,
 } from '@mantine/core'
-import { ThemeToggle } from '../../components/themeToggle'
 import { IconSearch } from '@tabler/icons-react'
-import Image from 'next/image'
-import NavbarNested from '@/components/navbar'
 import { useSession } from 'next-auth/react'
-import LoginPage from '@/components/login'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { ThemeToggle } from '../../components/themeToggle'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme()
   const [opened, setOpened] = useState(false)
   const session = useSession()
+  const router = useRouter()
 
   if (session.status == 'unauthenticated') {
-    return (<Suspense fallback={<></>}><LoginPage /></Suspense>)
+    router.push('/login')
   }
 
   return (
