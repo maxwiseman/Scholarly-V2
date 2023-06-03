@@ -1,24 +1,23 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Button } from '@/src/components/ui/button'
+import { Input } from '@/src/components/ui/input'
+import { Label } from '@/src/components/ui/label'
 import { useForm } from '@mantine/form'
 import { IconLoader } from '@tabler/icons-react'
 import { signIn, useSession } from 'next-auth/react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-export function Signup() {
+export function Login() {
   const form = useForm({
     initialValues: {
-      name: '',
       email: '',
       password: '',
     },
 
     validate: {
-      name: value => (value != '' ? null : 'Enter your name'),
       email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
       password: value => (value != '' ? null : 'Enter a password'),
     },
@@ -31,15 +30,7 @@ export function Signup() {
       <form
         onSubmit={form.onSubmit(async values => {
           setLoading(true)
-          const res = await fetch('/api/sign-up', {
-            method: 'POST',
-            body: JSON.stringify({
-              name: values.name,
-              email: values.email,
-              password: values.password,
-            }),
-          })
-          await signIn('credentials', {
+          var res = await signIn('credentials', {
             email: values.email,
             password: values.password,
             redirect: false,
@@ -54,22 +45,6 @@ export function Signup() {
         })}
       >
         <div className='flex flex-col gap-4 max-w-[400px]'>
-          <div className='grid w-full items-center gap-1.5'>
-            <Label htmlFor='name'>Full Name</Label>
-            <Input
-              className='text-primary'
-              placeholder='John Doe'
-              disabled={loading}
-              id='name'
-              // @ts-ignore
-              style={
-                form.errors.name
-                  ? { '--input': '0 100% 50%', color: 'hsl(0 100% 50%)' }
-                  : null
-              }
-              {...form.getInputProps('name')}
-            />
-          </div>
           <div className='grid w-full items-center gap-1.5'>
             <Label htmlFor='email'>Email Address</Label>
             <Input
@@ -104,6 +79,12 @@ export function Signup() {
                 }
                 {...form.getInputProps('password')}
               />
+              <p className='text-xs text-muted-foreground'>
+                Forgot your password?{' '}
+                <Link target='blank' href={'./forgot'}>
+                  Click here
+                </Link>
+              </p>
             </div>
           </div>
           <Button type='submit' disabled={loading}>

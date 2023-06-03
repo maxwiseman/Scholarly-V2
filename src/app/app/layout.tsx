@@ -1,6 +1,6 @@
 'use client'
 
-import NavbarNested from '@/components/navbar'
+import NavbarNested from '@/src/components/navbar'
 import {
   AppShell,
   Burger,
