@@ -1,4 +1,4 @@
-import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 import {
   Tabs,
   TabsContent,
@@ -6,13 +6,17 @@ import {
   TabsTrigger,
 } from '../../components/ui/tabs'
 import { UnsplashImage } from './image'
-import { Login } from './login'
-import { Signup } from './signup'
-import { redirect } from 'next/navigation'
+import { SignIn } from './sign-in'
+import { SignUpButton } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs'
 
-export default async function LoginPage() {
-  const session = await getServerSession()
-  if (session) {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: any
+}) {
+  const user = await currentUser()
+  if (user) {
     redirect('/app/home')
   }
 
@@ -40,10 +44,10 @@ export default async function LoginPage() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value='login'>
-              <Login />
+              <SignIn redirectURL={searchParams.redirect_url} />
             </TabsContent>
             <TabsContent value='signup'>
-              <Signup />
+              <SignUpButton />
             </TabsContent>
           </Tabs>
         </div>
