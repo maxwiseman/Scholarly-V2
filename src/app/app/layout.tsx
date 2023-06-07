@@ -11,21 +11,13 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { IconSearch } from '@tabler/icons-react'
-import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { ThemeToggle } from '../../components/themeToggle'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme()
   const [opened, setOpened] = useState(false)
-  const session = useSession()
-  const router = useRouter()
-
-  if (session.status == 'unauthenticated') {
-    router.push('/login')
-  }
 
   return (
     <AppShell

@@ -5,12 +5,14 @@ import { Input } from '@/src/components/ui/input'
 import { Label } from '@/src/components/ui/label'
 import { useForm } from '@mantine/form'
 import { IconLoader } from '@tabler/icons-react'
-import { signIn, useSession } from 'next-auth/react'
+import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-export function Login() {
+export function SignIn({ redirectURL }: { redirectURL?: string }) {
+  const { isLoaded, signIn, setActive } = useSignIn()
+
   const form = useForm({
     initialValues: {
       email: '',
@@ -22,26 +24,34 @@ export function Login() {
       password: value => (value != '' ? null : 'Enter a password'),
     },
   })
-  const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
 
   return (
     <>
       <form
         onSubmit={form.onSubmit(async values => {
-          setLoading(true)
-          var res = await signIn('credentials', {
-            email: values.email,
-            password: values.password,
-            redirect: false,
-          })
-          res?.status == 401
-            ? form.setErrors({
-                email: 'Email or password is incorrect',
-                password: 'Email or password is incorrect',
+          try {
+            setLoading(true)
+            await signIn
+              ?.create({
+                identifier: values.email,
+                password: values.password,
               })
-            : router.push('/app/home')
-          setLoading(false)
+              .then(res => {
+                console.log(res)
+                res?.status != 'complete'
+                  ? form.setErrors({
+                      email: 'Email or password is incorrect',
+                      password: 'Email or password is incorrect',
+                    })
+                  : setActive({ session: res.createdSessionId })
+                setLoading(false)
+              })
+          } catch (err: any) {
+            console.error('error', err.errors[0].longMessage)
+            setLoading(false)
+          }
         })}
       >
         <div className='flex flex-col gap-4 max-w-[400px]'>
@@ -50,7 +60,7 @@ export function Login() {
             <Input
               className='text-primary'
               placeholder='example@example.com'
-              disabled={loading}
+              disabled={!isLoaded || loading}
               id='email'
               type='email'
               // @ts-ignore
@@ -69,7 +79,7 @@ export function Login() {
                 className='text-primary'
                 placeholder='securepassword123'
                 type='password'
-                disabled={loading}
+                disabled={!isLoaded || loading}
                 id='password'
                 // @ts-ignore
                 style={
@@ -87,8 +97,10 @@ export function Login() {
               </p>
             </div>
           </div>
-          <Button type='submit' disabled={loading}>
-            {loading ? <IconLoader className='h-4 w-4 animate-spin' /> : null}
+          <Button type='submit' disabled={!isLoaded || loading}>
+            {!isLoaded || loading ? (
+              <IconLoader className='h-4 w-4 animate-spin' />
+            ) : null}
             Submit
           </Button>
         </div>

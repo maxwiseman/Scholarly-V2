@@ -11,17 +11,15 @@ import {
 } from '@mantine/core'
 import {
   IconAdjustments,
+  IconChecklist,
   IconHome,
   IconNotebook,
-  IconChecklist,
   IconSearch,
 } from '@tabler/icons-react'
-import { UserButton } from './userButton'
-import { LinksGroup } from './navbarLinkGroup'
+// import { UserButton } from './userButton'
+import { UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
-import { PrismaClient } from '@prisma/client'
+import { LinksGroup } from './navbarLinkGroup'
 
 const data = [
   { label: 'Home', icon: IconHome, href: '/app/home' },
@@ -99,7 +97,6 @@ export default function NavbarNested({
     <LinksGroup {...item} key={item.label} setNavOpened={setOpened} />
   ))
   const theme = useMantineTheme()
-  const { data: session } = useSession()
 
   // const prisma = new PrismaClient()
   // const user = prisma.user.findUnique({where: {email: session?.data?.user?.email as string}})
@@ -146,11 +143,12 @@ export default function NavbarNested({
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <UserButton
+        {/* <UserButton
           image={session?.user?.image?.toString() as string}
           name={session?.user?.name?.toString() as string}
           email={session?.user?.email?.toString() as string}
-        />
+        /> */}
+        <UserButton />
       </Navbar.Section>
     </Navbar>
   )
