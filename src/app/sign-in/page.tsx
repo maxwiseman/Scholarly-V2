@@ -9,6 +9,11 @@ import { UnsplashImage } from './image'
 import { SignIn } from './sign-in'
 import { SignUpButton } from '@clerk/nextjs'
 import { currentUser } from '@clerk/nextjs'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Sign In - ' + process.env.NEXT_PUBLIC_APP_NAME,
+}
 
 export default async function LoginPage({
   searchParams,

@@ -49,7 +49,6 @@
     "framer-motion": "^10.12.12",
     "lucide-react": "^0.224.0",
     "next": "^13.4.4",
-    "next-auth": "^4.22.1",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-blurhash": "^0.3.0",

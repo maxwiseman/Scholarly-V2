@@ -12,7 +12,6 @@ import {
 } from '@mantine/core'
 import { IconSearch } from '@tabler/icons-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { ThemeToggle } from '../../components/themeToggle'
 

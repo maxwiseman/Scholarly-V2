@@ -8,7 +8,6 @@ import {
 import { useColorScheme } from '@mantine/hooks'
 import { Notifications } from '@mantine/notifications'
 import { setCookie } from 'cookies-next'
-import { SessionProvider } from 'next-auth/react'
 import { useState } from 'react'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -28,7 +27,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   // }, [preferredColorScheme])
 
   return (
-    // <SessionProvider>
     <ColorSchemeProvider
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}
@@ -38,6 +36,5 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         {children}
       </MantineProvider>
     </ColorSchemeProvider>
-    // </SessionProvider>
   )
 }
