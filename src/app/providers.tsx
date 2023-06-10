@@ -27,14 +27,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   // }, [preferredColorScheme])
 
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider theme={{ colorScheme }}>
-        <Notifications />
-        {children}
-      </MantineProvider>
-    </ColorSchemeProvider>
+    // <ColorSchemeProvider
+    //   colorScheme={colorScheme}
+    //   toggleColorScheme={toggleColorScheme}
+    // >
+    //   <MantineProvider theme={{ colorScheme }}>
+    //     <Notifications />
+    { children }
+    //   </MantineProvider>
+    // </ColorSchemeProvider>
   )
 }
