@@ -1,21 +1,28 @@
-'use client'
-
-import { Button } from '@mantine/core'
-import { Metadata } from 'next'
-import Link from 'next/link'
+import { db } from '@/src/database/db'
 import PageWrapper from './pagewrapper'
+import { users } from '@/src/database/schema'
 
 // export const metadata: Metadata = {
 //   title: 'Home - ' + process.env.NEXT_PUBLIC_APP_NAME,
 // }
 
-export default function Page() {
+async function getData() {
+  'use server'
+  const res = await db
+    .select({
+      id: users.id,
+      name: users.fullName,
+    })
+    .from(users)
+  console.log(res[0])
+  return JSON.stringify(res[0])
+}
+
+export default async function Page() {
   return (
     <PageWrapper>
       <h1 className='mt-0'>Test Page</h1>
-      <Button component={Link} href={'/app/classes'}>
-        Test
-      </Button>
+      <p>{await getData()}</p>
     </PageWrapper>
   )
 }
