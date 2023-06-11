@@ -1,5 +1,4 @@
 import './globals.css'
-import Providers from './providers'
 import { ClerkProvider } from '@clerk/nextjs'
 
 export const metadata = {
@@ -14,11 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      {/* <Providers> */}
       <html lang='en' className={'h-[100%] dark'}>
         <body className='h-[100%]'>{children}</body>
       </html>
-      {/* </Providers> */}
     </ClerkProvider>
   )
 }

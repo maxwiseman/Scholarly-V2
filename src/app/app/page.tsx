@@ -20,9 +20,9 @@ async function getData() {
 
 export default async function Page() {
   return (
-    <PageWrapper>
+    <>
       <h1 className='mt-0'>Test Page</h1>
       <p>{await getData()}</p>
-    </PageWrapper>
+    </>
   )
 }
