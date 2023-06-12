@@ -7,15 +7,16 @@ import { users } from '@/src/database/schema'
 // }
 
 async function getData() {
-  'use server'
-  const res = await db
-    .select({
-      id: users.id,
-      name: users.fullName,
-    })
-    .from(users)
-  console.log(res[0])
-  return JSON.stringify(res[0])
+  // 'use server'
+  // const res = await db
+  //   .select({
+  //     id: users.id,
+  //     name: users.fullName,
+  //   })
+  //   .from(users)
+  // console.log(res[0])
+  // return JSON.stringify(res[0])
+  return 'Hello World'
 }
 
 export default async function Page() {
