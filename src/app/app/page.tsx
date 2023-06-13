@@ -1,29 +1,26 @@
+'use client'
+
 import { db } from '@/src/database/db'
-import PageWrapper from './pagewrapper'
 import { users } from '@/src/database/schema'
+import { useCourses } from '@/src/lib/hooks'
+import { getToken } from '@/src/lib/hooks/getToken'
+import { useAuth } from '@clerk/nextjs'
+import { useContext, useEffect, useState } from 'react'
+import { TokenContext } from '../providers'
 
 // export const metadata: Metadata = {
 //   title: 'Home - ' + process.env.NEXT_PUBLIC_APP_NAME,
 // }
 
-async function getData() {
-  // 'use server'
-  // const res = await db
-  //   .select({
-  //     id: users.id,
-  //     name: users.fullName,
-  //   })
-  //   .from(users)
-  // console.log(res[0])
-  // return JSON.stringify(res[0])
-  return 'Hello World'
-}
+export default function Page() {
+  const auth = useAuth()
+  const token = useContext(TokenContext)
 
-export default async function Page() {
   return (
     <>
       <h1 className='mt-0'>Test Page</h1>
-      <p>{await getData()}</p>
+      {/* @ts-ignore */}
+      <p>{!false ? JSON.stringify(token) : 'Loading...'}</p>
     </>
   )
 }

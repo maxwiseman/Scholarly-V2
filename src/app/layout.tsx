@@ -1,5 +1,6 @@
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
+import { Providers } from './providers'
 
 export const metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME,
@@ -13,9 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang='en' className={'h-[100%] dark'}>
-        <body className='h-[100%]'>{children}</body>
-      </html>
+      <Providers>
+        <html lang='en' className={'h-[100%] dark'}>
+          <body className='h-[100%]'>{children}</body>
+        </html>
+      </Providers>
     </ClerkProvider>
   )
 }
