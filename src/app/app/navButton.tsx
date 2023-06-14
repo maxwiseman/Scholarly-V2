@@ -38,11 +38,11 @@ export function NavCollapsibleButton(props: {
   href: string
   children?: any
 }) {
-  const [opened, setOpened] = useState(false)
+  const [opened, setOpened] = useState(true)
   const pathname = usePathname()
 
   return (
-    <Collapsible open={opened} onOpenChange={setOpened}>
+    <Collapsible open={opened} onOpenChange={setOpened} className='mb-1'>
       <div>
         <CollapsibleTrigger asChild>
           <Button

@@ -1,6 +1,7 @@
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Providers } from './providers'
+import { Toaster } from '../components/ui/toaster'
 
 export const metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME,
@@ -16,7 +17,9 @@ export default function RootLayout({
     <ClerkProvider>
       <Providers>
         <html lang='en' className={'h-[100%] dark'}>
-          <body className='h-[100%]'>{children}</body>
+          <body className='h-[100%]'>
+            {children} <Toaster />
+          </body>
         </html>
       </Providers>
     </ClerkProvider>
