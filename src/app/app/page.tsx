@@ -14,7 +14,7 @@ export default function Page() {
 
   return (
     <>
-      <h1 className='mt-0'>Test Page</h1>
+      <h1 className='mt-0 text-4xl font-bold'>Test Page</h1>
       {/* @ts-ignore */}
       <p>{!false ? JSON.stringify(token) : 'Loading...'}</p>
       <Button

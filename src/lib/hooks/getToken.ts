@@ -2,9 +2,14 @@
 
 import { db } from '@/src/database/db'
 import { users } from '@/src/database/schema'
+import { auth } from '@clerk/nextjs'
 import { eq } from 'drizzle-orm'
 
 export async function getToken(userId: string | undefined | null) {
+  // const { userId } = auth() // This causes an error:
+  // ! Clerk: auth() and currentUser() are only supported in App Router (/app directory).
+  // ! If you're using /pages, try getAuth() instead.
+
   if (userId == undefined || userId == null) {
     console.error('No user ID provided to getToken() function!')
     return 'No user ID provided to getToken() function!'

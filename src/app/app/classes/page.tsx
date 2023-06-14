@@ -12,7 +12,7 @@ import PageWrapper from '../pagewrapper'
 export default function Page() {
   return (
     <PageWrapper>
-      <h1 className='mt-0'>Classes</h1>
+      <h1 className='mt-0 text-4xl font-bold'>Classes</h1>
       <Link href={'/app/home'}>
         <Button>Test</Button>
       </Link>

@@ -13,7 +13,7 @@ import { UserButton } from '@clerk/nextjs'
 export default function Page() {
   return (
     <PageWrapper>
-      <h1 className='mt-0'>Home</h1>
+      <h1 className='mt-0 text-4xl font-bold'>Home</h1>
       <UserButton />
       <Link href={'/app/classes'}>
         <Button>Test</Button>
