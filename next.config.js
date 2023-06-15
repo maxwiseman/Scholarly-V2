@@ -3,6 +3,14 @@ module.exports = {
   experimental: {
     serverActions: true,
   },
+  async rewrites() {
+     return [
+      {
+        source: '/api/canvas/knoxschools/:path*',
+        destination: 'https://knoxschools.instructure.com/:path*',
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {

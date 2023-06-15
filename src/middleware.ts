@@ -1,7 +1,7 @@
 import { authMiddleware } from '@clerk/nextjs'
 
 export default authMiddleware({
-  publicRoutes: ['/', '/api/unsplash'],
+  publicRoutes: ['/', '/api/unsplash', '/api/canvas(.*)'],
 })
 
 export const config = {

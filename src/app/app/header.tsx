@@ -25,13 +25,14 @@ export function Header() {
             alt='Logo'
             fill
             src={process.env.NEXT_PUBLIC_APP_LOGO as string}
+            className='dark:invert invert-0'
           />
         </div>
       </div>
       <div>
         <DropdownMenu>
           <DropdownMenuTrigger className='focus-visible:outline-none'>
-            <Avatar className='w-8 h-8'>
+            <Avatar className='h-8 w-8 aspect-square flex justify-center items-center'>
               <AvatarImage src={user?.imageUrl} />
               <AvatarFallback>
                 {/* @ts-ignore */}

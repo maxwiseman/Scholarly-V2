@@ -53,6 +53,7 @@
     "framer-motion": "^10.12.12",
     "lucide-react": "^0.224.0",
     "next": "^13.4.4",
+    "nextjs-cors": "^2.1.2",
     "postcss": "8.4.23",
     "postgres": "^3.3.5",
     "react": "18.2.0",

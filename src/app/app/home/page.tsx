@@ -15,7 +15,7 @@ export default function Page() {
     <PageWrapper>
       <h1 className='mt-0 text-4xl font-bold'>Home</h1>
       <UserButton />
-      <Link href={'/app/classes'}>
+      <Link href={'/app/courses'}>
         <Button>Test</Button>
       </Link>
     </PageWrapper>

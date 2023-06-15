@@ -6,7 +6,10 @@ import { useCourses } from '@/src/lib/hooks'
 import { Course } from '@/src/lib/types'
 
 export default function Navbar() {
-  const { data, isLoading } = useCourses()
+  const { data, isLoading } = useCourses() as {
+    data: Course[]
+    isLoading: boolean
+  }
 
   return (
     <nav className='fixed p-5 left-0 z-39 h-full border-r bg-background min-w-[18rem] max-w-[18rem]'>
@@ -15,11 +18,11 @@ export default function Navbar() {
       </NavButton>
       <NavCollapsibleButton
         links={
-          !isLoading
-            ? data.map(course => {
-                return { href: `/app/classes/${course.id}`, text: course.name }
+          !isLoading && data && data[0]
+            ? data.map((course: any) => {
+                return { href: `/app/courses/${course.id}`, text: course.name }
               })
-            : [{ href: '/app/classes', text: 'Loading...' }]
+            : [{ href: '/app/courses', text: 'Loading...' }]
         }
         icon={<IconNotebook />}
         href='/app/classes'

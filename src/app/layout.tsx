@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Providers } from './providers'
@@ -17,11 +16,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <Providers>
-        <html lang='en' className={'h-[100%] '}>
-          <body className='h-[100%]'>
-            {children} <Toaster />
-          </body>
-        </html>
+        <body className='h-[100%]'>
+          {children} <Toaster />
+        </body>
       </Providers>
     </ClerkProvider>
   )
