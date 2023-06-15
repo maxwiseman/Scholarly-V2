@@ -31,6 +31,18 @@ module.exports = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'inst-fs-iad-prod.inscloudgate.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'instructure-uploads.s3.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 }

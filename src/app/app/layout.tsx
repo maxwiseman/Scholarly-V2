@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className='flex flex-row gap-0 h-full'>
           <Navbar />
           <div className='min-w-[18rem]' />
-          <div className='grow m-8 h-full w-full'>
+          <div className='grow h-full w-full'>
             <PageWrapper>{children}</PageWrapper>
           </div>
         </div>

@@ -3,6 +3,7 @@
 import { createContext, useEffect, useState } from 'react'
 import { getToken } from '../lib/hooks'
 import { useAuth } from '@clerk/nextjs'
+import { TooltipProvider } from '../components/ui/tooltip'
 
 export const TokenContext = createContext('')
 
@@ -26,9 +27,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <TokenContext.Provider value={token as string}>
-      <html lang='en' className={'h-[100%] ' + theme}>
-        {children}
-      </html>
+      <TooltipProvider>
+        <html lang='en' className={'h-[100%] ' + theme}>
+          {children}
+        </html>
+      </TooltipProvider>
     </TokenContext.Provider>
   )
 }

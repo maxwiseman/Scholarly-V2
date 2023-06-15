@@ -30,6 +30,7 @@ export interface Course {
    * has set a nickname for the course.
    */
   original_name: string
+  image_download_url: string
   /**
    * the current state of the course one of 'unpublished', 'available',
    * 'completed', or 'deleted'
@@ -64,7 +65,7 @@ export interface Course {
   total_students: number
   /** course calendar */
   calendar: {
-    // The URL of the calendar in ICS format
+    /** The URL of the calendar in ICS format */
     ics: URL
   }
   /**
@@ -96,20 +97,33 @@ export interface Course {
    * include[]=course_progress
    */
   course_progress: {
-    // total number of requirements from all modules
+    /** total number of requirements from all modules */
     requirement_count: number
-    // total number of requirements the user has completed from all modules
+    /** total number of requirements the user has completed from all modules */
     requirement_completed_count: number
-    // url to next module item that has an unmet requirement. null if the user has
-    // completed the course or the current module does not require sequential
-    // progress
+    /**
+     * url to next module item that has an unmet requirement. null if the user has
+     * completed the course or the current module does not require sequential
+     * progress
+     */
     next_requirement_url: URL
-    // date the course was completed. null if the course has not been completed by
-    // this user
+    /**
+     * date the course was completed. null if the course has not been completed by
+     * this user
+     */
     completed_at: Date
   }
   /** weight final grade based on assignment group percentages */
   apply_assignment_group_weights: boolean
+  /** optional: an array of teachers of the course. returned only if include[]=teachers */
+  teachers: {
+    id: number
+    anonymous_id: string
+    display_name: string
+    avatar_image_url: string
+    html_url: URL
+    pronouns: any
+  }[]
   /**
    * optional: the permissions the user has for the course. returned only for a
    * single course and include[]=permissions

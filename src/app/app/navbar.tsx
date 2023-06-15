@@ -20,9 +20,9 @@ export default function Navbar() {
         links={
           !isLoading && data && data[0]
             ? data.map((course: any) => {
-                return { href: `/app/courses/${course.id}`, text: course.name }
+                return { id: course.id, text: course.name }
               })
-            : [{ href: '/app/courses', text: 'Loading...' }]
+            : [{ id: '', text: 'Loading...' }]
         }
         icon={<IconNotebook />}
         href='/app/classes'

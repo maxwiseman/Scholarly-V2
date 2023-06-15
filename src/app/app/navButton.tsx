@@ -33,7 +33,7 @@ export function NavButton(props: {
 }
 
 export function NavCollapsibleButton(props: {
-  links: { href: string; text: string }[]
+  links: { id: string; text: string }[]
   icon: ReactElement
   href: string
   children?: any
@@ -66,12 +66,14 @@ export function NavCollapsibleButton(props: {
               return (
                 <LinkButton
                   variant={
-                    pathname.startsWith(link.href) ? 'secondary' : 'ghost'
+                    pathname.startsWith('/app/courses/' + link.id)
+                      ? 'secondary'
+                      : 'ghost'
                   }
                   size={'sm'}
                   className='w-full justify-start'
-                  href={link.href}
-                  key={link.text}
+                  href={'/app/courses/' + link.id}
+                  key={link.id}
                 >
                   {link.text}
                 </LinkButton>
