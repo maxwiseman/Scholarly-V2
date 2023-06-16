@@ -31,6 +31,7 @@ export interface Course {
    */
   original_name: string
   image_download_url: string
+  banner_image_download_url: string
   /**
    * the current state of the course one of 'unpublished', 'available',
    * 'completed', or 'deleted'
@@ -113,6 +114,7 @@ export interface Course {
      */
     completed_at: Date
   }
+  course_color: string
   /** weight final grade based on assignment group percentages */
   apply_assignment_group_weights: boolean
   /** optional: an array of teachers of the course. returned only if include[]=teachers */

@@ -6,8 +6,15 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/src/components/ui/collapsible'
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from '@/src/components/ui/context-menu'
 import { cn } from '@/src/lib/utils'
 import { IconChevronDown, IconNotebook } from '@tabler/icons-react'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ReactElement, cloneElement, useState } from 'react'
 
@@ -64,19 +71,36 @@ export function NavCollapsibleButton(props: {
           <div className='flex flex-col gap-1 pl-5'>
             {props.links.map(link => {
               return (
-                <LinkButton
-                  variant={
-                    pathname.startsWith('/app/courses/' + link.id)
-                      ? 'secondary'
-                      : 'ghost'
-                  }
-                  size={'sm'}
-                  className='w-full justify-start'
-                  href={'/app/courses/' + link.id}
-                  key={link.id}
-                >
-                  {link.text}
-                </LinkButton>
+                <ContextMenu key={link.id}>
+                  <ContextMenuTrigger>
+                    <LinkButton
+                      variant={
+                        pathname.startsWith('/app/courses/' + link.id)
+                          ? 'secondary'
+                          : 'ghost'
+                      }
+                      size={'sm'}
+                      className='w-full justify-start'
+                      href={'/app/courses/' + link.id}
+                    >
+                      {link.text}
+                    </LinkButton>
+                  </ContextMenuTrigger>
+                  <ContextMenuContent className='w-64'>
+                    <ContextMenuItem>
+                      <Link
+                        className='hover:no-underline cursor-default'
+                        href={'/app/courses/' + link.id}
+                      >
+                        Open
+                      </Link>
+                    </ContextMenuItem>
+                    <ContextMenuItem>Rename</ContextMenuItem>
+                    <ContextMenuItem>Change image</ContextMenuItem>
+                    <ContextMenuItem>Change class image</ContextMenuItem>
+                    <ContextMenuItem>Change class image</ContextMenuItem>
+                  </ContextMenuContent>
+                </ContextMenu>
               )
             })}
           </div>

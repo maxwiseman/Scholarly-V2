@@ -16,7 +16,7 @@ export function useCourses(id?: number | string) {
     [
       url +
         (id ? '/' + id : '') +
-        `?access_token=${token}&include[]=teachers&include[]=course_image`,
+        `?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`,
     ],
     fetcher
   )

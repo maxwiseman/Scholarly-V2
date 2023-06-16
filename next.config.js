@@ -9,6 +9,10 @@ module.exports = {
         source: '/api/canvas/knoxschools/:path*',
         destination: 'https://knoxschools.instructure.com/:path*',
       },
+      {
+        source: '/api/canvas/k12/:path*',
+        destination: 'https://k12.instructure.com/:path*',
+      },
     ]
   },
   images: {
