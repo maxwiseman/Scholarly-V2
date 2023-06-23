@@ -13,8 +13,14 @@ import {
   TooltipTrigger,
 } from '@/src/components/ui/tooltip'
 import Image from 'next/image'
-import { Button } from '@/src/components/ui'
-import { IconDotsVertical } from '@tabler/icons-react'
+import { Button, LinkButton } from '@/src/components/ui'
+import {
+  IconChevronRight,
+  IconComponents,
+  IconDotsVertical,
+  IconNotebook,
+} from '@tabler/icons-react'
+import { AvatarStack } from '@/src/components/avatarStack'
 
 export default function Class({ params }: { params: { id: string } }) {
   const { data, isLoading } = useCourses(params.id) as {
@@ -24,7 +30,10 @@ export default function Class({ params }: { params: { id: string } }) {
   console.log(data)
   return (
     <PageWrapper>
-      <div className='h-80 relative w-full'>
+      <div
+        className='h-80 relative w-full'
+        style={{ backgroundColor: data?.course_color }}
+      >
         {data?.image_download_url ? (
           <Image
             className='object-cover object-center'
@@ -45,57 +54,32 @@ export default function Class({ params }: { params: { id: string } }) {
             <IconDotsVertical className='h-4 w-4' />
           </Button>
         </div>
-        <div
-          className={
-            'flex flex-row mt-2 w-[' + data?.teachers?.length * 5 + 5 + 'px]'
-          }
-        >
-          {data?.teachers?.map((teacher, index) => {
-            if (index <= 2)
-              return (
-                <div key={index} className='ml-[-10px] translate-x-[10px]'>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Avatar
-                        className={`z-[${
-                          index + 1
-                        }] bg-secondary aspect-square w-7 h-7 border-[1px] border-solid`}
-                      >
-                        <AvatarImage src={teacher.avatar_image_url} />
-                      </Avatar>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      {teacher?.display_name.split(' ').map(name => {
-                        return (
-                          name[0].toUpperCase() +
-                          name.slice(1).toLowerCase() +
-                          ' '
-                        )
-                      })}
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-              )
-            else if (index === 3)
-              return (
-                <div key={index} className='ml-[-15px] translate-x-[15px]'>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Avatar className='aspect-square w-8 h-8'>
-                        <AvatarFallback>
-                          +{data.teachers.length - index}
-                        </AvatarFallback>
-                      </Avatar>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      {data.teachers.length - index} more teachers
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-              )
-          })}
-        </div>
+        <AvatarStack people={data?.teachers} />
         {data?.public_description && <p>{data.public_description}</p>}
+        <div className='flex flex-col gap-2'>
+          <LinkButton
+            href={`./${params.id}/assignments`}
+            variant={'outline'}
+            className='justify-between w-full'
+          >
+            <div className='flex flex-row items-center'>
+              <IconNotebook className='h-4 w-4 mr-2' />
+              Assignments
+            </div>
+            <IconChevronRight className='h-4 w-4' />
+          </LinkButton>
+          <LinkButton
+            href={`./${params.id}/modules`}
+            variant={'outline'}
+            className='justify-between w-full'
+          >
+            <div className='flex flex-row items-center'>
+              <IconComponents className='h-4 w-4 mr-2' />
+              Modules
+            </div>
+            <IconChevronRight className='h-4 w-4' />
+          </LinkButton>
+        </div>
       </div>
     </PageWrapper>
   )

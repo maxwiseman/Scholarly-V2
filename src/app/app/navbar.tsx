@@ -25,7 +25,7 @@ export default function Navbar() {
             : [{ id: '', text: 'Loading...' }]
         }
         icon={<IconNotebook />}
-        href='/app/classes'
+        href='/app/courses'
       >
         Classes
       </NavCollapsibleButton>
