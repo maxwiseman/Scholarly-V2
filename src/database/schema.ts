@@ -1,7 +1,7 @@
 import { pgTable, serial, text, varchar, uuid } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  fullName: text('full_name'),
-  phone: varchar('phone', { length: 256 }),
+  id: text('id').primaryKey(),
+  canvas_api_token: text('canvas_api_token'),
+  canvas_base_url: text('canvas_base_url'),
 })

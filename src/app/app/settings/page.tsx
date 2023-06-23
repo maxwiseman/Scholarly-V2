@@ -1,9 +1,9 @@
-import PageWrapper from "../pagewrapper";
+import PageWrapper from '../pagewrapper'
 
 export default function Settings() {
-  return(
+  return (
     <PageWrapper>
-      <h1 style={{marginTop: '0px'}}>Settings</h1>
+      <h1 className='mt-0 text-4xl font-bold'>Settings</h1>
     </PageWrapper>
   )
 }
