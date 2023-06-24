@@ -6,9 +6,6 @@ a {
   text-decoration: none;
   text-underline-offset: 4px;
 }
-a:hover {
-  text-decoration: underline;
-}
 
 a {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
