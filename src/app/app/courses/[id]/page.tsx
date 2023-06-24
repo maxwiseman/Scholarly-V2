@@ -1,33 +1,24 @@
-'use client'
-
-import { TokenContext } from '@/src/app/providers'
-import PageWrapper from '../../pagewrapper'
-import { useContext } from 'react'
-import { useCourses } from '@/src/lib/hooks'
+import { AvatarStack } from '@/src/components/avatarStack'
+import { Button, LinkButton } from '@/src/components/ui/button'
 import { Course } from '@/src/lib/types'
-import { Badge } from '@/src/components/ui/badge'
-import { Avatar, AvatarFallback, AvatarImage } from '@/src/components/ui/avatar'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/src/components/ui/tooltip'
-import Image from 'next/image'
-import { Button, LinkButton } from '@/src/components/ui'
 import {
   IconChevronRight,
   IconComponents,
   IconDotsVertical,
   IconNotebook,
 } from '@tabler/icons-react'
-import { AvatarStack } from '@/src/components/avatarStack'
+import Image from 'next/image'
+import PageWrapper from '../../pagewrapper'
+import { currentUser } from '@clerk/nextjs'
 
-export default function Class({ params }: { params: { id: string } }) {
-  const { data, isLoading } = useCourses(params.id) as {
-    data: Course
-    isLoading: boolean
-  }
-  console.log(data)
+export default async function Class({ params }: { params: { id: string } }) {
+  const user = await currentUser()
+  const token = user?.unsafeMetadata?.canvasToken
+
+  const data = await fetch(
+    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/courses/${params.id}?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
+  ).then(res => res.json() as Promise<Course>)
+
   return (
     <PageWrapper>
       <div
@@ -47,15 +38,13 @@ export default function Class({ params }: { params: { id: string } }) {
       </div>
       <div className='m-8'>
         <div className='flex items-center justify-between w-full'>
-          <h1 className='mt-0 text-4xl font-bold'>
-            {data ? data.name : 'Loading...'}
-          </h1>
+          <h1 className='mt-0 text-4xl font-bold'>{data?.name}</h1>
           <Button variant={'ghost'} className='w-9 p-2' size={'sm'}>
             <IconDotsVertical className='h-4 w-4' />
           </Button>
         </div>
         <AvatarStack people={data?.teachers} />
-        {data?.public_description && <p>{data.public_description}</p>}
+        <p>{data?.public_description}</p>
         <div className='flex flex-col gap-2'>
           <LinkButton
             href={`./${params.id}/assignments`}
