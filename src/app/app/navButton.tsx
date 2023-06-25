@@ -83,8 +83,8 @@ export function NavCollapsibleButton(props: {
           <div className="flex flex-col gap-1 pl-5">
             {props.links.map((link) => {
               return (
-                <Dialog>
-                  <ContextMenu key={link.id}>
+                <Dialog key={link.id}>
+                  <ContextMenu>
                     <ContextMenuTrigger>
                       <LinkButton
                         variant={
