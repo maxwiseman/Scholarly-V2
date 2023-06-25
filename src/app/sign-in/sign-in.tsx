@@ -56,7 +56,7 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
             alt="Apple Logo"
             width={20}
             height={20}
-            className="w-5 h-5 object-contain"
+            className="w-5 h-5 object-contain dark:invert"
             src="/logos/apple.svg"
           />
         </Button>
@@ -70,7 +70,7 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
             alt="Apple Logo"
             width={20}
             height={20}
-            className="w-5 h-5 object-contain"
+            className="w-5 h-5 object-contain dark:invert"
             src="/logos/github.svg"
           />
         </Button>
@@ -84,7 +84,7 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
             alt="Apple Logo"
             width={20}
             height={20}
-            className="w-5 h-5 object-contain"
+            className="w-5 h-5 object-contain dark:invert"
             src="/logos/google.svg"
           />
         </Button>

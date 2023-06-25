@@ -12,6 +12,18 @@ import Image from "next/image";
 import { CourseSettings } from "../../courseSettingsDialog";
 import PageWrapper from "../../pagewrapper";
 import { Dialog, DialogTrigger } from "@/src/components/ui/dialog";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const user = await currentUser();
+  const token = user?.unsafeMetadata?.canvasToken;
+  const data = await fetch(
+    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/courses/${params.id}?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
+  ).then((res) => res.json() as Promise<Course>);
+  return {
+    title: data?.name + " - " + process.env.NEXT_PUBLIC_APP_NAME,
+  };
+}
 
 export default async function Class({ params }: { params: { id: string } }) {
   const user = await currentUser();
