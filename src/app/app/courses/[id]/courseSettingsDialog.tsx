@@ -1,7 +1,6 @@
 "use client";
 
 import { Button, Input, useToast } from "@/src/components/ui";
-import { ContextMenuItem } from "@/src/components/ui/context-menu";
 import {
   Dialog,
   DialogContent,
@@ -56,7 +55,12 @@ export function CourseSettings({
   const router = useRouter();
 
   return (
-    <>
+    <Dialog>
+      <DialogTrigger>
+        <Button variant={"ghost"} size={"icon"}>
+          <IconDotsVertical className="h-4 w-4" />
+        </Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{course.name}</DialogTitle>
@@ -147,6 +151,6 @@ export function CourseSettings({
           </form>
         </Form>
       </DialogContent>
-    </>
+    </Dialog>
   );
 }

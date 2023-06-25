@@ -1,16 +1,15 @@
 import { AvatarStack } from "@/src/components/avatarStack";
-import { Button, LinkButton } from "@/src/components/ui/button";
+import { LinkButton } from "@/src/components/ui/button";
 import { Course } from "@/src/lib/types";
+import { currentUser } from "@clerk/nextjs";
 import {
   IconChevronRight,
   IconComponents,
-  IconDotsVertical,
   IconNotebook,
 } from "@tabler/icons-react";
 import Image from "next/image";
+import { CourseSettings } from "./courseSettingsDialog";
 import PageWrapper from "../../pagewrapper";
-import { currentUser } from "@clerk/nextjs";
-import { CourseSettings } from "../../courseSettingsDialog";
 
 export default async function Class({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -23,13 +22,15 @@ export default async function Class({ params }: { params: { id: string } }) {
   const data = await fetch(
     `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/courses/${params.id}?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
   ).then((res) => res.json() as Promise<Course>);
-  console.log(user.unsafeMetadata);
+  const userdata = await fetch(
+    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/users/self/colors/course_${params.id}?access_token=${token}`
+  ).then((res) => res.json() as Promise<{ hexcode: string }>);
 
   return (
     <PageWrapper>
       <div
         className="h-80 relative w-full"
-        style={{ backgroundColor: data?.course_color }}
+        style={{ backgroundColor: userdata.hexcode }}
       >
         {data?.image_download_url ? (
           <Image
@@ -45,7 +46,7 @@ export default async function Class({ params }: { params: { id: string } }) {
       <div className="m-8">
         <div className="flex items-center justify-between w-full">
           <h1 className="mt-0 text-4xl font-bold">{data?.name}</h1>
-          <CourseSettings user={user} course={data} />
+          <CourseSettings user={user} color={userdata.hexcode} course={data} />
         </div>
         <AvatarStack people={data?.teachers} />
         <p>{data?.public_description}</p>
