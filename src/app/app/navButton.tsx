@@ -12,11 +12,19 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/src/components/ui/context-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/src/components/ui/dialog";
 import { cn } from "@/src/lib/utils";
 import { IconChevronDown, IconNotebook } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactElement, cloneElement, useState } from "react";
+import { CourseSettings } from "./courseSettingsDialog";
+import { Course } from "@/src/lib/types";
 
 export function NavButton(props: {
   href: string;
@@ -95,10 +103,7 @@ export function NavCollapsibleButton(props: {
                         Open
                       </Link>
                     </ContextMenuItem>
-                    <ContextMenuItem>Rename</ContextMenuItem>
-                    <ContextMenuItem>Change image</ContextMenuItem>
-                    <ContextMenuItem>Change class image</ContextMenuItem>
-                    <ContextMenuItem>Change class image</ContextMenuItem>
+                    <ContextMenuItem>Course settings</ContextMenuItem>
                   </ContextMenuContent>
                 </ContextMenu>
               );

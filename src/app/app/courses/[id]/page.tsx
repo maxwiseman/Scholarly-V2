@@ -10,14 +10,20 @@ import {
 import Image from "next/image";
 import PageWrapper from "../../pagewrapper";
 import { currentUser } from "@clerk/nextjs";
+import { CourseSettings } from "../../courseSettingsDialog";
 
 export default async function Class({ params }: { params: { id: string } }) {
   const user = await currentUser();
   const token = user?.unsafeMetadata?.canvasToken;
 
+  if (user == null) {
+    return;
+  }
+
   const data = await fetch(
     `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/courses/${params.id}?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
   ).then((res) => res.json() as Promise<Course>);
+  console.log(user.unsafeMetadata);
 
   return (
     <PageWrapper>
@@ -39,9 +45,7 @@ export default async function Class({ params }: { params: { id: string } }) {
       <div className="m-8">
         <div className="flex items-center justify-between w-full">
           <h1 className="mt-0 text-4xl font-bold">{data?.name}</h1>
-          <Button variant={"ghost"} size={"icon"}>
-            <IconDotsVertical className="h-4 w-4" />
-          </Button>
+          <CourseSettings user={user} course={data} />
         </div>
         <AvatarStack people={data?.teachers} />
         <p>{data?.public_description}</p>
