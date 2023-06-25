@@ -11,7 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.19.0",
     "@emotion/react": "^11.11.0",
-    "@mantine/carousel": "^6.0.11",
+    "@mantine/carousel": "^6.0.14",
     "@mantine/dates": "^6.0.11",
     "@mantine/dropzone": "^6.0.11",
     "@mantine/form": "^6.0.11",
