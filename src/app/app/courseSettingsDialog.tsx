@@ -21,6 +21,8 @@ import {
   FormMessage,
 } from "@/src/components/ui/form";
 import { InputMask } from "@/src/components/ui/input-mask";
+import { useCourses } from "@/src/lib/hooks";
+import { useColors } from "@/src/lib/hooks/useColors";
 import { Course } from "@/src/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconDotsVertical } from "@tabler/icons-react";
@@ -28,16 +30,10 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-export function CourseSettings({
-  course,
-  user,
-  color,
-}: {
-  course: Course;
-  user: any;
-  color: string;
-}) {
+export function CourseSettings({ user, id }: { user: any; id: string }) {
   const { toast } = useToast();
+  const { data: course } = useCourses(id);
+  const { data: color } = useColors(id);
   const formSchema = z.object({
     nickname: z.string().min(2, {
       message: "Nickname must be at least 2 characters.",

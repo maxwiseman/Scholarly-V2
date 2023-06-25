@@ -82,9 +82,6 @@ export function NavCollapsibleButton(props: {
         <CollapsibleContent>
           <div className="flex flex-col gap-1 pl-5">
             {props.links.map((link) => {
-              const course = useCourses(link.id);
-              const { data: color } = useColors(link.id);
-
               return (
                 <Dialog>
                   <ContextMenu key={link.id}>
@@ -114,11 +111,7 @@ export function NavCollapsibleButton(props: {
                       <DialogTrigger>
                         <ContextMenuItem>Course settings</ContextMenuItem>
                       </DialogTrigger>
-                      <CourseSettings
-                        course={course?.data}
-                        user={user?.user}
-                        color={color?.hexcode}
-                      />
+                      <CourseSettings id={link.id} user={user?.user} />
                     </ContextMenuContent>
                   </ContextMenu>
                 </Dialog>
