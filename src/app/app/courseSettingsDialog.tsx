@@ -24,47 +24,60 @@ import { InputMask } from "@/src/components/ui/input-mask";
 import { useCourses } from "@/src/lib/hooks";
 import { useColors } from "@/src/lib/hooks/useColors";
 import { Course } from "@/src/lib/types";
+import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconDotsVertical } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-export function CourseSettings({ user, id }: { user: any; id: string }) {
+export function CourseSettings({ id }: { id: string }) {
   const { toast } = useToast();
-  const { data: course } = useCourses(id);
-  const { data: color } = useColors(id);
+  const { data: course, isLoading: courseLoading } = useCourses(id);
+  const { data: color, isLoading: colorLoading } = useColors(id);
   const formSchema = z.object({
     nickname: z.string().min(2, {
-      message: "Nickname must be at least 2 characters.",
+      message: "Nickname must be at least 2 characters",
     }),
     color: z.string().regex(/\#([A-Fa-f0-9]{6})/, {
-      message: "Invalid color.",
+      message: "Invalid hex code",
     }),
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nickname: course.name,
-      color: color,
+      nickname: course?.name,
+      color: color?.hexcode,
+    },
+    resetOptions: {
+      keepDirtyValues: true,
     },
   });
+  const { user } = useUser();
   const router = useRouter();
+
+  useEffect(() => {
+    form.reset({
+      nickname: course?.name,
+      color: color?.hexcode,
+    });
+  }, [courseLoading, colorLoading]);
 
   return (
     <>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{course.name}</DialogTitle>
+          <DialogTitle>{course?.name}</DialogTitle>
           <DialogDescription>
-            Here you can adjust the settings for the {course.name} course.
+            Here you can adjust the settings for the {course?.name} course.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(async (data) => {
               const res = await fetch(
-                `/api/canvas/${user.unsafeMetadata.district}/api/v1/users/self/colors/course_${course.id}?access_token=${user.unsafeMetadata.canvasToken}`,
+                `/api/canvas/${user?.unsafeMetadata.district}/api/v1/users/self/colors/course_${course.id}?access_token=${user?.unsafeMetadata.canvasToken}`,
                 {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },
@@ -72,7 +85,7 @@ export function CourseSettings({ user, id }: { user: any; id: string }) {
                 }
               );
               const res2 = await fetch(
-                `/api/canvas/${user.unsafeMetadata.district}/api/v1/users/self/course_nicknames/${course.id}?access_token=${user.unsafeMetadata.canvasToken}`,
+                `/api/canvas/${user?.unsafeMetadata.district}/api/v1/users/self/course_nicknames/${course.id}?access_token=${user?.unsafeMetadata.canvasToken}`,
                 {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },
@@ -136,7 +149,16 @@ export function CourseSettings({ user, id }: { user: any; id: string }) {
               <Button type="submit" className="mr-2">
                 Submit
               </Button>
-              <Button type="reset" variant={"outline"}>
+              <Button
+                type="reset"
+                variant={"outline"}
+                onClick={() => {
+                  form.reset({
+                    nickname: course?.name,
+                    color: color?.hexcode,
+                  });
+                }}
+              >
                 Reset
               </Button>
             </DialogFooter>

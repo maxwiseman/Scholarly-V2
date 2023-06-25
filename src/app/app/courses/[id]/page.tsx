@@ -1,15 +1,17 @@
 import { AvatarStack } from "@/src/components/avatarStack";
-import { LinkButton } from "@/src/components/ui/button";
+import { Button, LinkButton } from "@/src/components/ui/button";
 import { Course } from "@/src/lib/types";
 import { currentUser } from "@clerk/nextjs";
 import {
   IconChevronRight,
   IconComponents,
+  IconDotsVertical,
   IconNotebook,
 } from "@tabler/icons-react";
 import Image from "next/image";
-import { CourseSettings } from "./courseSettingsDialog";
+import { CourseSettings } from "../../courseSettingsDialog";
 import PageWrapper from "../../pagewrapper";
+import { Dialog, DialogTrigger } from "@/src/components/ui/dialog";
 
 export default async function Class({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -46,7 +48,14 @@ export default async function Class({ params }: { params: { id: string } }) {
       <div className="m-8">
         <div className="flex items-center justify-between w-full">
           <h1 className="mt-0 text-4xl font-bold">{data?.name}</h1>
-          <CourseSettings user={user} color={userdata.hexcode} course={data} />
+          <Dialog>
+            <DialogTrigger>
+              <Button variant={"ghost"} size={"icon"}>
+                <IconDotsVertical className="h-4 w-4" />
+              </Button>
+            </DialogTrigger>
+            <CourseSettings id={params.id} />
+          </Dialog>
         </div>
         <AvatarStack people={data?.teachers} />
         <p>{data?.public_description}</p>
