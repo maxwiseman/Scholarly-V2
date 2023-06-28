@@ -21,7 +21,7 @@
     "@mantine/nprogress": "^6.0.14",
     "@mantine/prism": "^6.0.14",
     "@mantine/spotlight": "^6.0.14",
-    "@mantine/tiptap": "^6.0.14",
+    "@mantine/tiptap": "^6.0.15",
     "@neondatabase/serverless": "^0.4.9",
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-collapsible": "^1.0.3",
