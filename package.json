@@ -71,6 +71,6 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.18.1"
+    "drizzle-kit": "^0.19.2"
   }
 }
