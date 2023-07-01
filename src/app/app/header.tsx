@@ -19,19 +19,17 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { useClerk } from "@clerk/nextjs";
 import {
-  IconDeviceDesktop,
   IconLogout,
-  IconMoon,
+  IconMoonStars,
   IconSearch,
   IconSettings,
-  IconSun,
   IconUser,
 } from "@tabler/icons-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 
 export function Header() {
   // const user = useUser()
@@ -88,7 +86,7 @@ export function Header() {
             </DropdownMenuItem>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
-                <IconSun className="mr-2 h-4 w-4" /> Theme
+                <IconMoonStars className="mr-2 h-4 w-4" /> Theme
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>

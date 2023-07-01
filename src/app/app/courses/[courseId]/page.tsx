@@ -1,29 +1,61 @@
 import { AvatarStack } from "@/src/components/avatarStack";
-import { Button, LinkButton } from "@/src/components/ui/button";
+import { LinkButton } from "@/src/components/ui/button";
 import { Course } from "@/src/lib/types";
+import { currentUser } from "@clerk/nextjs";
 import {
   IconChevronRight,
   IconComponents,
-  IconDotsVertical,
   IconNotebook,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import PageWrapper from "../../pagewrapper";
-import { currentUser } from "@clerk/nextjs";
+import dynamic from "next/dynamic";
+// import { SettingsButton } from "./settingsButton";
 
-export default async function Class({ params }: { params: { id: string } }) {
+const SettingsButton = dynamic(
+  () => import("@/src/app/app/courses/[courseId]/settingsButton"),
+  { ssr: false }
+);
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { courseId: string };
+}) {
+  const user = await currentUser();
+  const token = user?.unsafeMetadata?.canvasToken;
+  const data = await fetch(
+    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/courses/${params.courseId}?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
+  ).then((res) => res.json() as Promise<Course>);
+  return {
+    title: data?.name + " - " + process.env.NEXT_PUBLIC_APP_NAME,
+  };
+}
+
+export default async function Class({
+  params,
+}: {
+  params: { courseId: string };
+}) {
   const user = await currentUser();
   const token = user?.unsafeMetadata?.canvasToken;
 
+  if (user == null) {
+    return;
+  }
+
   const data = await fetch(
-    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/courses/${params.id}?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
+    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/courses/${params.courseId}?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
   ).then((res) => res.json() as Promise<Course>);
+  const userdata = await fetch(
+    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/users/self/colors/course_${params.courseId}?access_token=${token}`
+  ).then((res) => res.json() as Promise<{ hexcode: string }>);
 
   return (
     <PageWrapper>
       <div
         className="h-80 relative w-full"
-        style={{ backgroundColor: data?.course_color }}
+        style={{ backgroundColor: userdata.hexcode }}
       >
         {data?.image_download_url ? (
           <Image
@@ -39,15 +71,13 @@ export default async function Class({ params }: { params: { id: string } }) {
       <div className="m-8">
         <div className="flex items-center justify-between w-full">
           <h1 className="mt-0 text-4xl font-bold">{data?.name}</h1>
-          <Button variant={"ghost"} size={"icon"}>
-            <IconDotsVertical className="h-4 w-4" />
-          </Button>
+          <SettingsButton params={params} />
         </div>
         <AvatarStack people={data?.teachers} />
         <p>{data?.public_description}</p>
         <div className="flex flex-col gap-2">
           <LinkButton
-            href={`./${params.id}/assignments`}
+            href={`./${params.courseId}/assignments`}
             variant={"outline"}
             className="justify-between w-full"
           >
@@ -58,7 +88,7 @@ export default async function Class({ params }: { params: { id: string } }) {
             <IconChevronRight className="h-4 w-4" />
           </LinkButton>
           <LinkButton
-            href={`./${params.id}/modules`}
+            href={`./${params.courseId}/modules`}
             variant={"outline"}
             className="justify-between w-full"
           >
