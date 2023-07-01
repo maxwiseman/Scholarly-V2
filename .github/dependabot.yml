@@ -5,12 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: 'npm' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: 'daily'
-    target-branch: 'beta'
-     ignore:
+      interval: "daily"
+    target-branch: "beta"
+    ignore:
       - dependency-name: "@mantine/carousel"
       - dependency-name: "@mantine/dates"
       - dependency-name: "@mantine/dropzone"
