@@ -10,3 +10,15 @@ updates:
     schedule:
       interval: 'daily'
     target-branch: 'beta'
+     ignore:
+      - dependency-name: "@mantine/carousel"
+      - dependency-name: "@mantine/dates"
+      - dependency-name: "@mantine/dropzone"
+      - dependency-name: "@mantine/form"
+      - dependency-name: "@mantine/hooks"
+      - dependency-name: "@mantine/modals"
+      - dependency-name: "@mantine/notifications"
+      - dependency-name: "@mantine/nprogress"
+      - dependency-name: "@mantine/prism"
+      - dependency-name: "@mantine/spotlight"
+      - dependency-name: "@mantine/tiptap"
