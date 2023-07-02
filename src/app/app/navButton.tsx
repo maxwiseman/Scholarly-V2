@@ -36,6 +36,10 @@ export function NavButton(props: {
 }) {
   const pathname = usePathname();
 
+  if (pathname == null) {
+    return <></>;
+  }
+
   return (
     <LinkButton
       href={props.href}
@@ -59,6 +63,10 @@ export function NavCollapsibleButton(props: {
   const [opened, setOpened] = useState(true);
   const pathname = usePathname();
   const user = useUser();
+
+  if (pathname == null) {
+    return <></>;
+  }
 
   return (
     <Collapsible open={opened} onOpenChange={setOpened} className="mb-1">
