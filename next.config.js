@@ -66,7 +66,7 @@ module.exports = withSentryConfig(
     silent: true,
 
     org: "max-wiseman",
-    project: "javascript-nextjs",
+    project: "scholarly",
   },
   {
     // For all available options, see:
