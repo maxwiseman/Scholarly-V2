@@ -22,13 +22,21 @@ export function Combobox({
   data,
   placeholder,
   className,
+  value: initialValue = "",
+  onChange,
 }: {
   data: { value: string; label: string }[];
   placeholder: string;
   className?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+
+  React.useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
 
   return (
     <div className={className}>
@@ -49,9 +57,9 @@ export function Combobox({
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="w-[200px] p-0 max-h-96 overflow-scroll">
           <Command>
-            <CommandInput placeholder="Search framework..." />
+            <CommandInput placeholder="Search items..." />
             <CommandEmpty>Nothing found.</CommandEmpty>
             <CommandGroup>
               {data.map((item) => (
@@ -60,6 +68,7 @@ export function Combobox({
                   onSelect={(currentValue: any) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
+                    if (onChange) onChange(value);
                   }}
                 >
                   <Check

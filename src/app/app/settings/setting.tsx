@@ -10,6 +10,8 @@ import {
   FormMessage,
 } from "@/src/components/ui/form";
 import React, { JSXElementConstructor, ReactElement, ReactNode } from "react";
+import { ThemeSelector } from "./themeSelector";
+import { Textarea } from "@/src/components/ui/textarea";
 
 export function Setting({
   form,
@@ -19,6 +21,7 @@ export function Setting({
   type,
   data,
   placeholder,
+  className,
 }: {
   form: any;
   name: string;
@@ -26,15 +29,18 @@ export function Setting({
   description: string;
   type?:
     | "text"
+    | "longText"
     | "password"
     | "email"
     | "number"
     | "futureDate"
     | "pastDate"
     | "birthDate"
-    | "select";
+    | "select"
+    | "theme";
   data?: any;
   placeholder: string;
+  className?: string;
 }) {
   return (
     <FormField
@@ -45,23 +51,51 @@ export function Setting({
           <FormItem>
             <div className="flex flex-col space-y-2">
               <FormLabel className="mb-0">{label}</FormLabel>
+              {type == "theme" && (
+                <FormDescription className="mt-0">
+                  {description}
+                </FormDescription>
+              )}
               <FormControl>
                 <>
                   {type == "text" && (
-                    <Input type="text" placeholder={placeholder} {...field} />
+                    <Input
+                      type="text"
+                      className={className}
+                      placeholder={placeholder}
+                      {...field}
+                    />
+                  )}
+                  {type == "longText" && (
+                    <Textarea
+                      className={className}
+                      placeholder={placeholder}
+                      {...field}
+                    />
                   )}
                   {type == "password" && (
                     <Input
                       type="password"
                       placeholder={placeholder}
+                      className={className}
                       {...field}
                     />
                   )}
                   {type == "email" && (
-                    <Input type="email" placeholder={placeholder} {...field} />
+                    <Input
+                      type="email"
+                      placeholder={placeholder}
+                      className={className}
+                      {...field}
+                    />
                   )}
                   {type == "number" && (
-                    <Input type="number" placeholder={placeholder} {...field} />
+                    <Input
+                      type="number"
+                      placeholder={placeholder}
+                      className={className}
+                      {...field}
+                    />
                   )}
                   {type == "futureDate" && (
                     <DatePicker
@@ -88,11 +122,20 @@ export function Setting({
                     />
                   )}
                   {type == "select" && (
-                    <Combobox data={data} placeholder={placeholder} />
+                    <Combobox
+                      data={data}
+                      placeholder={placeholder}
+                      {...field}
+                    />
                   )}
+                  {type == "theme" && <ThemeSelector {...field} />}
                 </>
               </FormControl>
-              <FormDescription className="mt-0">{description}</FormDescription>
+              {type != "theme" && (
+                <FormDescription className="mt-0">
+                  {description}
+                </FormDescription>
+              )}
               <FormMessage />
             </div>
           </FormItem>

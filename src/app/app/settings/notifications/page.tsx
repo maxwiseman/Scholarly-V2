@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Setting } from "./setting";
+import { Setting } from "../setting";
 
 export default function AccountSettings() {
   const { user, isLoaded } = useUser();
@@ -63,7 +63,7 @@ export default function AccountSettings() {
           Lorem ipsum dolor sit amet
         </p>
       </div>
-      <Separator className="mb-8" />
+      <Separator className="mb-3" />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((data) => {
@@ -79,7 +79,7 @@ export default function AccountSettings() {
             description="This is the first name that will be displayed on your profile
                   and in emails."
             type="text"
-            // className="max-w-[280px]"
+            className="max-w-[280px]"
           />
           <Setting
             form={form}
@@ -89,7 +89,7 @@ export default function AccountSettings() {
             description="This is the last name that will be displayed on your profile
                   and in emails."
             type="text"
-            // className="max-w-[280px]"
+            className="max-w-[280px]"
           />
           <Setting
             form={form}

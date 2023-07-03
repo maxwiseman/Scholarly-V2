@@ -12,21 +12,35 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/src/components/ui/popover";
+import { Input } from "./input";
 
 export function DatePicker({
   reversed,
   className,
   type,
-  mode = "single",
+  mode,
+  value = undefined,
+  onChange,
 }: {
   reversed?: boolean;
   className?: string;
   type?: "past" | "future" | "birthday";
   mode?: "single" | "range";
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
+  // const { reversed, className, type, mode } = props;
   const [date, setDate] = React.useState<Date>();
   const birthDate = new Date();
   birthDate.setFullYear(new Date().getFullYear() - 13);
+
+  React.useEffect(() => {
+    if (value) setDate(new Date(value));
+  }, [value]);
+
+  React.useEffect(() => {
+    if (onChange) onChange(date?.toString() || "");
+  }, [value]);
 
   return (
     <div className={className}>
@@ -41,9 +55,27 @@ export function DatePicker({
             )}
           >
             {reversed != true && <CalendarIcon className="mr-2 h-4 w-4" />}
-            {date ? format(date, "PPP") : <span>Pick a date</span>}
+            {/* @ts-ignore */}
+            {date && date != "Invalid Date" ? (
+              format(date, "PPP")
+            ) : (
+              <span>Pick a date</span>
+            )}
             {reversed == true && <CalendarIcon className="mr-2 h-4 w-4" />}
           </Button>
+          {/* <Input
+            className={cn(
+              "w-[280px] justify-start text-left font-normal",
+              !date && "text-muted-foreground",
+              reversed && "justify-between"
+            )}
+            placeholder={"Pick a date"}
+            value={date ? format(date, "PPP") : ""}
+            onChange={(event) => {
+              setDate(event.target.valueAsDate as Date | undefined);
+            }}
+            {...props}
+          /> */}
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
           <Calendar
