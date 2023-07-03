@@ -30,7 +30,6 @@ export default function AccountSettings() {
       // keepDirtyValues: true,
     },
   });
-  const router = useRouter();
 
   useEffect(() => {
     form.reset({
@@ -73,9 +72,8 @@ export default function AccountSettings() {
             form={form}
             name="username"
             label="Username"
-            placeholder="John"
-            description="This is the first name that will be displayed on your profile
-                  and in emails."
+            placeholder="JohnDoe123"
+            description="This is your public display name. It can be your real name or a pseudonym. You can only change this once every 30 days."
             type="text"
             // className="max-w-[280px]"
           />
@@ -84,8 +82,7 @@ export default function AccountSettings() {
             name="email"
             label="Email"
             placeholder="example@example.com"
-            description="This is the last name that will be displayed on your profile
-                  and in emails."
+            description="You can manage verified email addresses in your email settings."
             type="text"
             // className="max-w-[280px]"
           />
@@ -93,8 +90,8 @@ export default function AccountSettings() {
             form={form}
             name="bio"
             label="Bio"
-            placeholder="Select a date"
-            description="Your date of birth is used to calculate your age."
+            placeholder="Tell us a little bit about yourself"
+            description="Tell us a little bit about yourself."
             type="longText"
           />
           <div className="flex sm:justify-start">

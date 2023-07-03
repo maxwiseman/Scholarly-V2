@@ -23,7 +23,7 @@ import { IconChevronDown, IconNotebook } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactElement, cloneElement, useState } from "react";
-import { CourseSettings } from "./courseSettingsDialog";
+import { CourseSettings } from "./courses/courseSettingsDialog";
 import { Course } from "@/src/lib/types";
 import { useUser } from "@clerk/nextjs";
 import { useCourses } from "@/src/lib/hooks";
