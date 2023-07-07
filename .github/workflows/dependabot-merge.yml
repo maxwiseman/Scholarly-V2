@@ -1,14 +1,14 @@
 name: Dependabot Auto Merge
+
 on:
   pull_request:
-    types: [opened, reopened, edited]
+
 jobs:
-  Add_Merge_Comment:
+  auto-merge:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
-    permissions:
-      pull-requests: write
     steps:
-      - uses: mshick/add-pr-comment@v2
+      - uses: actions/checkout@v2
+      - uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
-          message: "@dependabot squash and merge"
+          target: minor
+          github-token: ${{ secrets.mytoken }}
