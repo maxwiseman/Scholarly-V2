@@ -1,15 +1,12 @@
-name: Add comment to successful Dependabot PRs
-
+name: Dependabot Auto Merge
 on: pull_request
-
 jobs:
-  add-dependabot-comment:
+  Add_Merge_Comment:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' }}
+    if: github.actor == 'dependabot[bot]'
+    permissions:
+      pull-requests: write
     steps:
-      # ... some steps before
-      - name: Add merge comment for dependabot PRs
-        uses: jo-sm/at-dependabot-merge@v1.1
+      - uses: mshick/add-pr-comment@v2
         with:
-          run-id: ${{ github.event.workflow_run.id }}
-          token: ${{ secrets.TOKEN_FOR_USER_WITH_PUSH_PERMS }}
+          message: "@dependabot merge"
