@@ -1,0 +1,2 @@
+- name: Merge Dependabot PRs automatically
+  uses: jo-sm/at-dependabot-merge@v1.3.1

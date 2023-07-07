@@ -70,7 +70,9 @@ export default async function Class({
       </div>
       <div className="m-8">
         <div className="flex items-center justify-between w-full">
-          <h1 className="mt-0 text-4xl font-bold">{data?.name}</h1>
+          <h1 className="mt-0 text-4xl font-extrabold leading-tight tracking-tight">
+            {data?.name}
+          </h1>
           <SettingsButton params={params} />
         </div>
         <AvatarStack people={data?.teachers} />
