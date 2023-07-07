@@ -52,7 +52,7 @@
     "autoprefixer": "10.4.14",
     "bcrypt": "^5.1.0",
     "blurhash": "^2.0.5",
-    "class-variance-authority": "^0.6.0",
+    "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
     "cookies-next": "^2.1.2",
