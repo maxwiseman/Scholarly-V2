@@ -1,5 +1,7 @@
 name: Dependabot Auto Merge
-on: pull_request
+on:
+  pull_request:
+    types: [opened, reopened, edited]
 jobs:
   Add_Merge_Comment:
     runs-on: ubuntu-latest
