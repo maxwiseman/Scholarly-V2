@@ -27,8 +27,8 @@ export default async function LoginPage({
 
   return (
     <>
-      <div className="flex flex-row max-w-[100vw] h-[100%] min-h-max">
-        <div className="flex-col p-8 rounded-lg h-[100%] grow lg:min-w-[500px] max-w-[100vw] flex justify-center items-center overflow-y-scroll">
+      <div className="flex flex-row max-w-[100vw] min-h-screen">
+        <div className="flex-col p-8 rounded-lg grow lg:min-w-[500px] max-w-[100vw] flex justify-center items-center overflow-y-scroll">
           <div className="flex flex-col gap-0 max-w-[400px] min-h-max">
             <h1 className="mt-0 mb-5 font-bold leading-tight text-4xl">
               Welcome back to {process.env.NEXT_PUBLIC_APP_NAME}
@@ -65,7 +65,7 @@ export default async function LoginPage({
             </TabsContent>
           </Tabs>
         </div>
-        <UnsplashImage className="w-0 hidden lg:block lg:w-[75vw] h-[100%] max-h-[100%] relative" />
+        <UnsplashImage className="w-0 hidden lg:block lg:w-[75vw] max-h-[100%] relative" />
       </div>
     </>
   );
