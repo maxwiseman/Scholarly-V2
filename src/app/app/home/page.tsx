@@ -1,15 +1,21 @@
 "use client";
 
-import { Card, CardDescription, CardTitle } from "@/src/components/ui";
+import { Card, CardDescription, CardTitle } from "@/src/components/ui/card";
 import PageWrapper from "../pagewrapper";
 import { Separator } from "@/src/components/ui/separator";
 import { IconClipboardText } from "@tabler/icons-react";
 import { Percent } from "lucide-react";
-import { AreaChart, Area } from "recharts";
+import dynamic from "next/dynamic";
+import { Area } from "recharts";
 
 // export const metadata: Metadata = {
 //   title: 'Home - ' + process.env.NEXT_PUBLIC_APP_NAME,
 // }
+
+const AreaChart = dynamic(
+  () => import("recharts").then((recharts) => recharts.AreaChart),
+  { ssr: false }
+);
 
 export default function Page() {
   return (

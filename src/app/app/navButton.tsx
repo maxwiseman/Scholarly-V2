@@ -43,7 +43,7 @@ export function NavButton(props: {
   return (
     <LinkButton
       href={props.href}
-      variant={pathname.startsWith(props.href) ? "default" : "ghost"}
+      variant={pathname.startsWith(props.href) ? "secondary" : "ghost"}
       className="w-full justify-between mb-1"
     >
       <div className="flex flex-row gap-2 items-center">
@@ -73,7 +73,8 @@ export function NavCollapsibleButton(props: {
       <div>
         <CollapsibleTrigger asChild>
           <Button
-            variant={pathname.startsWith(props.href) ? "default" : "ghost"}
+            // variant={pathname.startsWith(props.href) ? "default" : "ghost"}
+            variant={"ghost"}
             className="w-full justify-between mb-1"
           >
             <div className="flex flex-row gap-2 items-center">
