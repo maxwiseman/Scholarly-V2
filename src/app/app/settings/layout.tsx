@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         </div>
         <Separator />
         <div className="flex flex-col lg:flex-row my-8 gap-8 max-w-full">
-          <div className="grow space-y-2">
+          <div className="grow flex flex-col gap-1">
             <LinkButton
               variant={pathname == "/app/settings" ? "secondary" : "ghost"}
               className="lg:justify-start lg:w-full"

@@ -18,7 +18,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed p-5 left-0 z-39 h-full border-r bg-background min-w-[18rem] max-w-[18rem]">
+    <nav className="fixed p-5 left-0 z-39 h-full border-r bg-background min-w-[18rem] max-w-[18rem] flex flex-col space-y-1">
       <NavButton href="/app/home" icon={<IconHome />}>
         Home
       </NavButton>
