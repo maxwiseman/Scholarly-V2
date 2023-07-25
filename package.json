@@ -23,7 +23,7 @@
     "@mantine/prism": "^6.0.15",
     "@mantine/spotlight": "^6.0.15",
     "@mantine/tiptap": "^6.0.15",
-    "@neondatabase/serverless": "^0.4.9",
+    "@neondatabase/serverless": "^0.5.6",
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-context-menu": "^2.1.4",
