@@ -98,28 +98,13 @@ export function Setting({
                     />
                   )}
                   {type == "futureDate" && (
-                    <DatePicker
-                      className="my-2"
-                      type="future"
-                      reversed
-                      {...field}
-                    />
+                    <DatePicker className="my-2" type="future" {...field} />
                   )}
                   {type == "pastDate" && (
-                    <DatePicker
-                      className="my-2"
-                      type="past"
-                      reversed
-                      {...field}
-                    />
+                    <DatePicker className="my-2" type="past" {...field} />
                   )}
                   {type == "birthDate" && (
-                    <DatePicker
-                      className="my-2"
-                      type="birthday"
-                      reversed
-                      {...field}
-                    />
+                    <DatePicker className="my-2" type="birthday" {...field} />
                   )}
                   {type == "select" && (
                     <Combobox

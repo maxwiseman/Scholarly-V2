@@ -44,7 +44,7 @@ export function NavButton(props: {
     <LinkButton
       href={props.href}
       variant={pathname.startsWith(props.href) ? "secondary" : "ghost"}
-      className="w-full justify-between mb-1"
+      className="w-full justify-between"
     >
       <div className="flex flex-row gap-2 items-center">
         {cloneElement(props.icon, { className: "w-4 h-4" })}
@@ -69,13 +69,13 @@ export function NavCollapsibleButton(props: {
   }
 
   return (
-    <Collapsible open={opened} onOpenChange={setOpened} className="mb-1">
-      <div>
+    <Collapsible open={opened} onOpenChange={setOpened}>
+      <div className="flex flex-col space-y-1">
         <CollapsibleTrigger asChild>
           <Button
             // variant={pathname.startsWith(props.href) ? "default" : "ghost"}
             variant={"ghost"}
-            className="w-full justify-between mb-1"
+            className="w-full justify-between"
           >
             <div className="flex flex-row gap-2 items-center">
               {cloneElement(props.icon, { className: "w-4 h-4" })}
@@ -89,7 +89,7 @@ export function NavCollapsibleButton(props: {
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
-          <div className="flex flex-col gap-1 pl-5">
+          <div className="flex flex-col space-y-1 pl-5">
             {props.links.map((link) => {
               return (
                 <Dialog key={link.id}>
