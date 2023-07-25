@@ -16,6 +16,7 @@ import { Input } from "./input";
 
 export function DatePicker({
   reversed,
+  noIcon,
   className,
   type,
   mode,
@@ -23,6 +24,7 @@ export function DatePicker({
   onChange,
 }: {
   reversed?: boolean;
+  noIcon?: boolean;
   className?: string;
   type?: "past" | "future" | "birthday";
   mode?: "single" | "range";
@@ -51,17 +53,22 @@ export function DatePicker({
             className={cn(
               "w-[280px] justify-start text-left font-normal",
               !date && "text-muted-foreground",
-              reversed && "justify-between"
+              reversed && "justify-between",
+              noIcon && "px-3"
             )}
           >
-            {reversed != true && <CalendarIcon className="mr-2 h-4 w-4" />}
+            {reversed != true && !noIcon && (
+              <CalendarIcon className="mr-2 h-4 w-4" />
+            )}
             {/* @ts-ignore */}
             {date && date != "Invalid Date" ? (
               format(date, "PPP")
             ) : (
               <span>Pick a date</span>
             )}
-            {reversed == true && <CalendarIcon className="mr-2 h-4 w-4" />}
+            {reversed == true && !noIcon && (
+              <CalendarIcon className="mr-2 h-4 w-4" />
+            )}
           </Button>
           {/* <Input
             className={cn(

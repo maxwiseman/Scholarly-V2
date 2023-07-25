@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import PageWrapper from "../../pagewrapper";
 import dynamic from "next/dynamic";
+import { Separator } from "@/src/components/ui/separator";
 // import { SettingsButton } from "./settingsButton";
 
 const SettingsButton = dynamic(
@@ -75,7 +76,14 @@ export default async function Class({
           </h1>
           <SettingsButton params={params} />
         </div>
-        <AvatarStack people={data?.teachers} />
+        <div className="mt-2 flex gap-1 flex-col">
+          <div className="flex w-full items-center gap-2">
+            Teachers:
+            <AvatarStack people={data?.teachers} />
+          </div>
+          <div className="flex w-full items-center gap-2 h-8">Grade: 98%</div>
+        </div>
+        <Separator className="my-4" />
         <p>{data?.public_description}</p>
         <div className="flex flex-col gap-2">
           <LinkButton

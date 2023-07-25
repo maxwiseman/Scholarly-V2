@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { LinkButton } from "../components/ui/button";
+import { LinkButton } from "../../components/ui/button";
 
 export const metadata = {
   title: "Not Found - " + process.env.NEXT_PUBLIC_APP_NAME,
@@ -27,7 +27,7 @@ export default function NotFound() {
           The resource you requested does not exist
         </p>
       </div>
-      <LinkButton href="/">Back home</LinkButton>
+      <LinkButton href="/app/home">Back home</LinkButton>
     </div>
   );
 }

@@ -57,11 +57,11 @@ export function Combobox({
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0 max-h-96 overflow-scroll">
+        <PopoverContent className="w-[200px] p-0 transition-[height]">
           <Command>
             <CommandInput placeholder="Search items..." />
             <CommandEmpty>Nothing found.</CommandEmpty>
-            <CommandGroup>
+            <CommandGroup className="max-h-96 overflow-scroll overscroll-contain">
               {data.map((item) => (
                 <CommandItem
                   key={item.value}
