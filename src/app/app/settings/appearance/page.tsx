@@ -9,45 +9,28 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Setting } from "./setting";
+import { Setting } from "../setting";
 
-export default function AccountSettings() {
+export default function AppearanceSettings() {
   const { user, isLoaded } = useUser();
   const { toast } = useToast();
   const formSchema = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    birthDate: z.string(),
-    language: z.string(),
+    theme: z.string(),
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: user?.firstName?.toString(),
-      lastName: user?.lastName?.toString(),
-      birthDate: user?.unsafeMetadata?.birthDate as string,
-      language: user?.unsafeMetadata?.language as string,
+      theme: user?.unsafeMetadata?.theme as string,
     },
     resetOptions: {
-      keepDirtyValues: true,
+      // keepDirtyValues: true,
     },
   });
-  const router = useRouter();
-
-  useEffect(() => {
-    form.reset({
-      firstName: user?.firstName?.toString(),
-      lastName: user?.lastName?.toString(),
-    });
-  }, [isLoaded]);
 
   useEffect(() => {
     form.reset(
       {
-        firstName: user?.firstName?.toString(),
-        lastName: user?.lastName?.toString(),
-        birthDate: user?.unsafeMetadata?.birthDate as string,
-        language: user?.unsafeMetadata?.language as string,
+        theme: user?.unsafeMetadata?.theme as string,
       },
       {
         keepDirtyValues: true,
@@ -56,9 +39,9 @@ export default function AccountSettings() {
   }, [isLoaded]);
 
   return (
-    <div className="max-w-2xl w-full">
+    <div className="max-w-2xl w-full mb-8">
       <div className="flex gap-1 mb-3 flex-col">
-        <h1 className="mt-0 text-lg font-medium">Account</h1>
+        <h1 className="mt-0 text-lg font-medium">Appearance</h1>
         <p className="text-muted-foreground text-sm">
           Lorem ipsum dolor sit amet
         </p>
@@ -73,40 +56,11 @@ export default function AccountSettings() {
         >
           <Setting
             form={form}
-            name="firstName"
-            label="First name"
-            placeholder="John"
-            description="This is the first name that will be displayed on your profile
-                  and in emails."
-            type="text"
-            // className="max-w-[280px]"
-          />
-          <Setting
-            form={form}
-            name="lastName"
-            label="Last name"
-            placeholder="Doe"
-            description="This is the last name that will be displayed on your profile
-                  and in emails."
-            type="text"
-            // className="max-w-[280px]"
-          />
-          <Setting
-            form={form}
-            name="birthDate"
-            label="Date of birth"
-            placeholder="Select a date"
-            description="Your date of birth is used to calculate your age."
-            type="birthDate"
-          />
-          <Setting
-            form={form}
-            name="language"
-            label="Language"
-            placeholder="Select a language"
-            description="This is the language that will be used in the dashboard."
-            type="select"
-            data={languages}
+            name="theme"
+            label="Theme"
+            placeholder="Select a theme"
+            description="Select the theme for the dashboard."
+            type="theme"
           />
           <div className="flex sm:justify-start">
             <Button type="submit" className="mr-2">
@@ -118,10 +72,7 @@ export default function AccountSettings() {
               onClick={() => {
                 form.reset(
                   {
-                    firstName: user?.firstName?.toString(),
-                    lastName: user?.lastName?.toString(),
-                    birthDate: user?.unsafeMetadata?.birthDate as string,
-                    language: user?.unsafeMetadata?.language as string,
+                    theme: user?.unsafeMetadata?.theme as string,
                   },
                   {
                     keepDirtyValues: false,

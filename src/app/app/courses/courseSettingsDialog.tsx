@@ -1,15 +1,12 @@
 "use client";
 
 import { Button, Input, useToast } from "@/src/components/ui";
-import { ContextMenuItem } from "@/src/components/ui/context-menu";
 import {
-  Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/src/components/ui/dialog";
 import {
   Form,
@@ -23,10 +20,8 @@ import {
 import { InputMask } from "@/src/components/ui/input-mask";
 import { useCourses } from "@/src/lib/hooks";
 import { useColors } from "@/src/lib/hooks/useColors";
-import { Course } from "@/src/lib/types";
 import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IconDotsVertical } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -115,12 +110,12 @@ export function CourseSettings({ id }: { id: string }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nickname</FormLabel>
-                  <FormDescription style={{ marginTop: "0" }}>
-                    This is shown only to you
-                  </FormDescription>
                   <FormControl>
                     <Input placeholder="Fun course" {...field} />
                   </FormControl>
+                  <FormDescription style={{ marginTop: "0" }}>
+                    This is shown only to you
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -131,9 +126,6 @@ export function CourseSettings({ id }: { id: string }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Color</FormLabel>
-                  <FormDescription style={{ marginTop: "0" }}>
-                    This is shown only to you
-                  </FormDescription>
                   <FormControl>
                     <InputMask
                       mask={"#******"}
@@ -141,6 +133,9 @@ export function CourseSettings({ id }: { id: string }) {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription style={{ marginTop: "0" }}>
+                    This is shown only to you
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

@@ -1,6 +1,12 @@
 "use client";
 
-import { IconHome, IconNotebook, IconSettings } from "@tabler/icons-react";
+import {
+  IconAlertOctagon,
+  IconError404,
+  IconHome,
+  IconNotebook,
+  IconSettings,
+} from "@tabler/icons-react";
 import { NavButton, NavCollapsibleButton } from "./navButton";
 import { useCourses } from "@/src/lib/hooks";
 import { Course } from "@/src/lib/types";
@@ -29,6 +35,9 @@ export default function Navbar() {
       >
         Classes
       </NavCollapsibleButton>
+      <NavButton href="/app/missing" icon={<IconAlertOctagon />}>
+        Missing Assignments
+      </NavButton>
       <NavButton href="/app/settings" icon={<IconSettings />}>
         Settings
       </NavButton>

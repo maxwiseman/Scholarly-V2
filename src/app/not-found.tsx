@@ -1,8 +1,12 @@
 import { LinkButton } from "../components/ui/button";
 
+export const metadata = {
+  title: "Not Found - " + process.env.NEXT_PUBLIC_APP_NAME,
+};
+
 export default function NotFound() {
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col gap-5">
+    <div className="w-screen h-full flex justify-center items-center flex-col gap-5">
       <div className="relative">
         <h1 className="absolute text-9xl font-black text-center w-full bottom-full">
           404

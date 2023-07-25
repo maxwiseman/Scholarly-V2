@@ -3,7 +3,7 @@
 import { Button } from "@/src/components/ui";
 import { Dialog, DialogTrigger } from "@/src/components/ui/dialog";
 import { IconDotsVertical } from "@tabler/icons-react";
-import { CourseSettings } from "../../courseSettingsDialog";
+import { CourseSettings } from "../courseSettingsDialog";
 import dynamic from "next/dynamic";
 
 export default function SettingsButton({
