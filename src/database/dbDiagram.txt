@@ -1,0 +1,48 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table assignments {
+  id varchar
+  description varchar
+  submission varchar
+}
+
+Table users {
+  id integer [primary key]
+  username varchar
+  email varchar
+  role varchar
+  created_at timestamp
+}
+
+Table courses {
+  id integer [primary key]
+  name varchar
+  assignments text [note: 'Content of the post']
+  modules text
+  user_id integer
+  status varchar
+  created_at timestamp
+}
+
+Table pages {
+  id integer
+  name text
+  body text
+}
+
+Table modules {
+  id varchar
+  assignments varchar
+  pages integer
+}
+
+Ref: courses.user_id > users.id // many-to-one
+
+Ref: courses.assignments > assignments.id
+
+Ref: modules.assignments > assignments.id
+
+Ref: courses.modules > modules.id
+
+Ref: modules.pages > pages.id
