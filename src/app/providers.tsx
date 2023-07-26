@@ -4,6 +4,7 @@ import { createContext, useEffect, useState } from "react";
 import { getToken } from "../lib/hooks";
 import { useAuth } from "@clerk/nextjs";
 import { TooltipProvider } from "../components/ui/tooltip";
+import { AnimatePresence } from "framer-motion";
 
 export const TokenContext = createContext("");
 
@@ -20,9 +21,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <TokenContext.Provider value={token as string}>
       <TooltipProvider>
-        <html lang="en" className={"h-[100%] "}>
-          {children}
-        </html>
+        <AnimatePresence initial={false}>
+          <html lang="en" className={"h-[100%] "}>
+            {children}
+          </html>
+        </AnimatePresence>
       </TooltipProvider>
     </TokenContext.Provider>
   );

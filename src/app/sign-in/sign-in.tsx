@@ -164,7 +164,10 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
               </p>
             </div>
           </div>
-          <Button type="submit" disabled={!isLoaded || loading}>
+          <Button
+            type="submit"
+            variant={!isLoaded || loading ? "disabled" : "default"}
+          >
             {!isLoaded || loading ? (
               <IconLoader className="h-4 w-4 animate-spin" />
             ) : null}

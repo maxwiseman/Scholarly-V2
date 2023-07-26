@@ -1,10 +1,10 @@
-import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import { Providers } from "./providers";
-import { Toaster } from "../components/ui/toaster";
-import { ThemeProvider } from "../components/themeProvider";
 import { fontSans } from "@/src/lib/font";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "../components/themeProvider";
+import { Toaster } from "../components/ui/toaster";
 import { cn } from "../lib/utils";
+import "./globals.css";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME,
