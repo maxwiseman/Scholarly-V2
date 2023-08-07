@@ -2,6 +2,7 @@
 
 import {
   IconAlertOctagon,
+  IconBook,
   IconError404,
   IconHome,
   IconNotebook,
@@ -37,6 +38,9 @@ export default function Navbar() {
       </NavCollapsibleButton>
       <NavButton href="/app/missing" icon={<IconAlertOctagon />}>
         Missing Assignments
+      </NavButton>
+      <NavButton href="/app/read" icon={<IconBook />}>
+        Read
       </NavButton>
       <NavButton href="/app/settings" icon={<IconSettings />}>
         Settings

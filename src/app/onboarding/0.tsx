@@ -5,20 +5,16 @@ import Continue from "./continueButton";
 import Motion from "./motion";
 
 export default function Step0({
-  setStep,
+  paginate,
+  page,
 }: {
-  setStep: Dispatch<SetStateAction<number>>;
+  paginate: (arg0: number) => void;
+  page: number;
 }) {
-  const stepNumber = 0;
-
   return (
-    <Motion key={stepNumber}>
+    <>
       <p className="">{`Welcome! \nLet's get you set up`}</p>
-      <Continue
-        className="w-full mt-2"
-        setStep={setStep}
-        currentStep={stepNumber}
-      />
-    </Motion>
+      <Continue page={page} className="w-full mt-2" paginate={paginate} />
+    </>
   );
 }

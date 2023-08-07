@@ -48,7 +48,8 @@ export function Combobox({
             aria-expanded={open}
             className={cn(
               "w-[200px] justify-between font-normal",
-              !value && "text-muted-foreground"
+              !value && "text-muted-foreground",
+              className
             )}
           >
             {value

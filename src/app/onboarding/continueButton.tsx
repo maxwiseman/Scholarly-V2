@@ -6,32 +6,31 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 export default function Continue(props: {
   onClick?: () => Promise<void>;
-  setStep: Dispatch<SetStateAction<number>>;
-  currentStep: number;
+  paginate: (arg0: number) => void;
+  page: number;
   className: string;
 }) {
   const [loading, setLoading] = useState(false);
-  const { onClick, setStep, currentStep } = props;
+  const { onClick, paginate, page } = props;
 
   return (
     <div className={cn("flex gap-2", props.className)}>
-      {currentStep != 0 ? (
+      {page != 0 && (
         <Button
-          variant={"outline"}
+          variant={loading ? "disabled" : "outline"}
           size={"icon"}
-          onClick={() => setStep(currentStep - 1)}
+          onClick={() => paginate(-1)}
+          type="submit"
         >
           <IconArrowLeft className="w-4 h-4" />
         </Button>
-      ) : (
-        <></>
       )}
       <Button
         variant={loading ? "disabled" : "default"}
         onClick={async () => {
           setLoading(true);
           if (onClick) await onClick();
-          setStep(currentStep + 1);
+          paginate(1);
         }}
         className="flex-grow"
       >

@@ -9,17 +9,20 @@ import Image from "next/image";
 import { Button, Input, Label } from "@/src/components/ui";
 import { Setting } from "../app/settings/setting";
 import { IconClipboardText } from "@tabler/icons-react";
+import { Combobox } from "@/src/components/ui/combobox";
+import Link from "next/link";
 
 export default function Step2({
-  setStep,
+  paginate,
+  page,
 }: {
-  setStep: Dispatch<SetStateAction<number>>;
+  paginate: (arg0: number) => void;
+  page: number;
 }) {
-  const stepNumber = 2;
   const [token, setToken] = useState("");
 
   return (
-    <Motion key={stepNumber}>
+    <>
       <div className="justify-left space-y-2 w-full relative">
         <Label htmlFor="token">Canvas Access Token</Label>
         <div className="relative">
@@ -46,11 +49,27 @@ export default function Step2({
           You can find this in Canvas settings
         </p>
       </div>
-      <Continue
-        className={"w-full mt-2"}
-        setStep={setStep}
-        currentStep={stepNumber}
-      />
-    </Motion>
+      <div className="justify-left space-y-2 w-full relative">
+        <Label>Canvas District</Label>
+        <Combobox
+          data={[
+            { value: "knox", label: "Knox County Schools" },
+            {
+              value: "university of tennessee",
+              label: "University of Tennessee, Knoxville",
+            },
+          ]}
+          placeholder="Select a district..."
+          className="w-full"
+        />
+        <p className="text-[0.8rem] text-muted-foreground">
+          {`If your district isn't listed, please click `}{" "}
+          <Link href={"/request"} className="underline">
+            here
+          </Link>
+        </p>
+      </div>
+      <Continue page={page} paginate={paginate} className={"w-full mt-2"} />
+    </>
   );
 }

@@ -26,7 +26,7 @@ export function Setting({
   form: any;
   name: string;
   label: string;
-  description: string;
+  description?: string;
   type?:
     | "text"
     | "longText"
@@ -38,7 +38,7 @@ export function Setting({
     | "birthDate"
     | "select"
     | "theme";
-  data?: any;
+  data?: [{ value: string; label: string }] | any;
   placeholder: string;
   className?: string;
 }) {
@@ -51,7 +51,7 @@ export function Setting({
           <FormItem>
             <div className="flex flex-col space-y-2">
               <FormLabel className="mb-0">{label}</FormLabel>
-              {type == "theme" && (
+              {type == "theme" && description && (
                 <FormDescription className="mt-0">
                   {description}
                 </FormDescription>
@@ -131,7 +131,7 @@ export function Setting({
                   {type == "theme" && <ThemeSelector {...field} />}
                 </>
               </FormControl>
-              {type != "theme" && (
+              {type != "theme" && description && (
                 <FormDescription className="mt-0">
                   {description}
                 </FormDescription>
