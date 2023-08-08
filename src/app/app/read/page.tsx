@@ -22,10 +22,15 @@ export default function Page() {
           </NewModal>
         </div>
         <Separator className="my-4" />
-        <Link href={"/read/chapter1"}>
+        <Link href={"/app/read/chapter1"}>
           <Card className="min-h-32 p-5">
             <div className="flex gap-2 flex-col">
-              <CardTitle className="text-lg">Chapter 1</CardTitle>
+              <div>
+                <span className="text-xs text-muted-foreground font-semibold m-0">
+                  English 1
+                </span>
+                <CardTitle className="text-lg m-0">Chapter 1</CardTitle>
+              </div>
               <CardDescription className="line-clamp-3">
                 Aliqua Lorem reprehenderit minim nulla quis. Nostrud eu magna
                 duis deserunt non pariatur eu eu. Officia cupidatat aliquip eu
