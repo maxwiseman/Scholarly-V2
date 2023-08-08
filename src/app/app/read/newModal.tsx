@@ -74,7 +74,11 @@ export default function NewModal({ children }: { children: React.ReactNode }) {
             ]}
           />
           <DialogFooter className="sm:justify-start">
-            <Button type="submit" disabled={!form.formState.isValid}>
+            <Button
+              type="submit"
+              variant={!form.formState.isValid ? "disabled" : "default"}
+              disabled={!form.formState.isValid}
+            >
               <IconArrowRight className="w-4 h-4" />
               Next
             </Button>
