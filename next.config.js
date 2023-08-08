@@ -6,7 +6,7 @@ module.exports = {
   async rewrites() {
      return [
       {
-        source: '/api/canvas/knoxschools/:path*',
+        source: '/api/canvas/knox/:path*',
         destination: 'https://knoxschools.instructure.com/:path*',
       },
       {
