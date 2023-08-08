@@ -102,7 +102,7 @@ export function NavCollapsibleButton(props: {
                             : "ghost"
                         }
                         size={"sm"}
-                        className="w-full justify-start"
+                        className="w-full justify-start line-clamp-1"
                         href={"/app/courses/" + link.id}
                       >
                         {link.text}
