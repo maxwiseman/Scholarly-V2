@@ -53,7 +53,7 @@ export function Combobox({
             )}
           >
             {value
-              ? data.find((item) => item.value === value)?.label
+              ? data.find((item) => item.value == value)?.label
               : placeholder}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
@@ -67,15 +67,16 @@ export function Combobox({
                 <CommandItem
                   key={item.value}
                   onSelect={(currentValue: any) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    setValue(value == item.value ? "" : item.value);
                     setOpen(false);
-                    if (onChange) onChange(value);
+                    if (onChange && value == item.value) onChange("");
+                    else if (onChange) onChange(item.value);
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === item.value ? "opacity-100" : "opacity-0"
+                      value == item.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {item.label}
