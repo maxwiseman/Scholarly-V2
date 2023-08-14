@@ -3,7 +3,6 @@
 import { Button, useToast } from "@/src/components/ui";
 import { Form } from "@/src/components/ui/form";
 import { Separator } from "@/src/components/ui/separator";
-import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -12,7 +11,6 @@ import * as z from "zod";
 import { Setting } from "../setting";
 
 export default function AppearanceSettings() {
-  const { user, isLoaded } = useUser();
   const { toast } = useToast();
   const formSchema = z.object({
     theme: z.string(),
@@ -20,7 +18,7 @@ export default function AppearanceSettings() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      theme: user?.unsafeMetadata?.theme as string,
+      theme: "",
     },
     resetOptions: {
       // keepDirtyValues: true,
@@ -30,13 +28,13 @@ export default function AppearanceSettings() {
   useEffect(() => {
     form.reset(
       {
-        theme: user?.unsafeMetadata?.theme as string,
+        theme: "",
       },
       {
         keepDirtyValues: true,
       }
     );
-  }, [isLoaded]);
+  }, []);
 
   return (
     <div className="max-w-2xl w-full mb-8">
@@ -72,7 +70,7 @@ export default function AppearanceSettings() {
               onClick={() => {
                 form.reset(
                   {
-                    theme: user?.unsafeMetadata?.theme as string,
+                    theme: "",
                   },
                   {
                     keepDirtyValues: false,
