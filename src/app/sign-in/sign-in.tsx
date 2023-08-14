@@ -10,17 +10,15 @@ import {
   IconBrandGoogle,
   IconLoader,
 } from "@tabler/icons-react";
-import { useSignIn } from "@clerk/nextjs";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Separator } from "@/src/components/ui/separator";
-import { OAuthStrategy } from "@clerk/nextjs/dist/types/server";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+import { toast } from "@/src/components/ui";
 
 export function SignIn({ redirectURL }: { redirectURL?: string }) {
-  const { isLoaded, signIn, setActive } = useSignIn();
-
   const form = useForm({
     initialValues: {
       email: "",
@@ -32,22 +30,20 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
       password: (value) => (value != "" ? null : "Enter a password"),
     },
   });
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
-
-  const signInWith = (strategy: OAuthStrategy) => {
-    return signIn?.authenticateWithRedirect({
-      strategy,
-      redirectUrl: "/sso-callback",
-      redirectUrlComplete: "/app/home",
-    });
-  };
+  const searchParams = useSearchParams();
+  const callbackURL = searchParams.get("callbackUrl");
 
   return (
     <div className="overflow-scroll">
       <div className="flex gap-5 items-center justify-between">
         <Button
-          onClick={() => signInWith("oauth_apple")}
+          onClick={() => {
+            signIn("github", {
+              redirect: true,
+              callbackUrl: callbackURL || "/app/home",
+            });
+          }}
           variant={"outline"}
           size={"icon"}
           className="h-12 grow"
@@ -61,7 +57,7 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
           />
         </Button>
         <Button
-          onClick={() => signInWith("oauth_github")}
+          onClick={() => {}}
           variant={"outline"}
           size={"icon"}
           className="h-12 grow"
@@ -75,7 +71,7 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
           />
         </Button>
         <Button
-          onClick={() => signInWith("oauth_google")}
+          onClick={() => {}}
           variant={"outline"}
           size={"icon"}
           className="h-12 grow"
@@ -100,23 +96,18 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
         onSubmit={form.onSubmit(async (values) => {
           try {
             setLoading(true);
-            await signIn
-              ?.create({
-                identifier: values.email,
-                password: values.password,
-              })
-              .then((res) => {
-                console.log(res);
-                res?.status != "complete"
-                  ? form.setErrors({
-                      email: "Email or password is incorrect",
-                      password: "Email or password is incorrect",
-                    })
-                  : setActive({ session: res.createdSessionId });
-                setLoading(false);
-              });
+            signIn("credentials", {
+              email: values.email,
+              password: values.password,
+              redirect: true,
+              callbackUrl: callbackURL || "/app/home",
+            });
           } catch (err: any) {
             console.error("error", err.errors[0].longMessage);
+            toast({
+              title: "Something went wrong!",
+              description: err.errors[0].longMessage,
+            });
             setLoading(false);
           }
         })}
@@ -127,7 +118,7 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
             <Input
               className="text-primary"
               placeholder="example@example.com"
-              disabled={!isLoaded || loading}
+              disabled={loading}
               id="email"
               type="email"
               // @ts-ignore
@@ -146,7 +137,7 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
                 className="text-primary"
                 placeholder="securepassword123"
                 type="password"
-                disabled={!isLoaded || loading}
+                disabled={loading}
                 id="password"
                 // @ts-ignore
                 style={
@@ -164,13 +155,8 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
               </p>
             </div>
           </div>
-          <Button
-            type="submit"
-            variant={!isLoaded || loading ? "disabled" : "default"}
-          >
-            {!isLoaded || loading ? (
-              <IconLoader className="h-4 w-4 animate-spin" />
-            ) : null}
+          <Button type="submit" variant={loading ? "disabled" : "default"}>
+            {loading ? <IconLoader className="h-4 w-4 animate-spin" /> : null}
             Submit
           </Button>
         </div>

@@ -1,7 +1,6 @@
 import { AvatarStack } from "@/src/components/avatarStack";
 import { LinkButton } from "@/src/components/ui/button";
 import { Course } from "@/src/lib/types";
-import { currentUser } from "@clerk/nextjs";
 import {
   IconChevronRight,
   IconComponents,
@@ -23,10 +22,13 @@ export async function generateMetadata({
 }: {
   params: { courseId: string };
 }) {
-  const user = await currentUser();
-  const token = user?.unsafeMetadata?.canvasToken;
+  const token = "user?.unsafeMetadata?.canvasToken";
   const data = await fetch(
-    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/courses/${params.courseId}?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
+    `${
+      process.env.URL
+    }/api/canvas/${"user?.unsafeMetadata?.district"}/api/v1/courses/${
+      params.courseId
+    }?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
   ).then((res) => res.json() as Promise<Course>);
   return {
     title: data?.name + " - " + process.env.NEXT_PUBLIC_APP_NAME,
@@ -38,18 +40,25 @@ export default async function Class({
 }: {
   params: { courseId: string };
 }) {
-  const user = await currentUser();
-  const token = user?.unsafeMetadata?.canvasToken;
+  const token = "user?.unsafeMetadata?.canvasToken";
 
-  if (user == null) {
+  if ("user" == null) {
     return;
   }
 
   const data = await fetch(
-    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/courses/${params.courseId}?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
+    `${
+      process.env.URL
+    }/api/canvas/${"user?.unsafeMetadata?.district"}/api/v1/courses/${
+      params.courseId
+    }?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
   ).then((res) => res.json() as Promise<Course>);
   const userdata = await fetch(
-    `${process.env.URL}/api/canvas/${user?.unsafeMetadata?.district}/api/v1/users/self/colors/course_${params.courseId}?access_token=${token}`
+    `${
+      process.env.URL
+    }/api/canvas/${"user?.unsafeMetadata?.district"}/api/v1/users/self/colors/course_${
+      params.courseId
+    }?access_token=${token}`
   ).then((res) => res.json() as Promise<{ hexcode: string }>);
 
   return (

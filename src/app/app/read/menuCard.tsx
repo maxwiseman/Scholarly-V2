@@ -5,13 +5,19 @@ export default function MenuCard(props: {
   title: string;
   description: string;
   href: string;
+  class: string;
 }) {
   return (
     <>
-      <Link href={props.href}>
+      <Link href={"/app/read/" + props.href}>
         <Card className="min-h-32 p-5">
           <div className="flex gap-2 flex-col">
-            <CardTitle className="text-lg">{props.title}</CardTitle>
+            <div>
+              <CardTitle className="text-lg m-0">{props.title}</CardTitle>
+              <span className="text-xs text-muted-foreground font-semibold m-0">
+                {props.class}
+              </span>
+            </div>
             <CardDescription className="line-clamp-3">
               {props.description}
             </CardDescription>

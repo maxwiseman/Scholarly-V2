@@ -7,8 +7,6 @@ import {
 } from "../../components/ui/tabs";
 import { UnsplashImage } from "./image";
 import { SignIn } from "./sign-in";
-import { SignUp } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,10 +18,9 @@ export default async function LoginPage({
 }: {
   searchParams: any;
 }) {
-  const user = await currentUser();
-  if (user) {
-    redirect("/app/home");
-  }
+  // if (user) {
+  //   redirect("/app/home");
+  // }
 
   return (
     <>
@@ -52,16 +49,7 @@ export default async function LoginPage({
               <SignIn redirectURL={searchParams.redirect_url} />
             </TabsContent>
             <TabsContent value="signup">
-              <SignUp
-                appearance={{
-                  elements: {
-                    formFieldInput:
-                      "flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-primary transition-[border] disabled:cursor-not-allowed disabled:opacity-50",
-                    formButtonPrimary:
-                      "bg-primary text-primary-foreground hover:bg-primary/90",
-                  },
-                }}
-              />
+              <p>Sign up</p>
             </TabsContent>
           </Tabs>
         </div>

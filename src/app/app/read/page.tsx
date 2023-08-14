@@ -1,14 +1,39 @@
 "use client";
 
-import { Separator } from "@/src/components/ui/separator";
-import PageWrapper from "../pagewrapper";
 import { Button } from "@/src/components/ui/button";
-import { Card, CardDescription, CardTitle } from "@/src/components/ui/card";
+import { Separator } from "@/src/components/ui/separator";
 import { IconPlus } from "@tabler/icons-react";
-import Link from "next/link";
+import PageWrapper from "../pagewrapper";
+import MenuCard from "./menuCard";
 import NewModal from "./newModal";
+import getReads from "./getReads()";
+import { useEffect, useState } from "react";
 
 export default function Page() {
+  const [data, setData] = useState<
+    | {
+        id: string;
+        userId: string | null;
+        courseId: string | null;
+        createdAt: string | null;
+        title: string | null;
+        body: string | null;
+        course: {
+          id: string;
+          name: string | null;
+          userId: string | null;
+        } | null;
+      }[]
+    | undefined
+  >();
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getReads();
+      setData(result);
+    };
+    fetchData();
+  });
+
   return (
     <PageWrapper>
       <div className="m-8">
@@ -22,33 +47,20 @@ export default function Page() {
           </NewModal>
         </div>
         <Separator className="my-4" />
-        <Link href={"/app/read/chapter1"}>
-          <Card className="min-h-32 p-5">
-            <div className="flex gap-2 flex-col">
-              <div>
-                <span className="text-xs text-muted-foreground font-semibold m-0">
-                  English 1
-                </span>
-                <CardTitle className="text-lg m-0">Chapter 1</CardTitle>
-              </div>
-              <CardDescription className="line-clamp-3">
-                Aliqua Lorem reprehenderit minim nulla quis. Nostrud eu magna
-                duis deserunt non pariatur eu eu. Officia cupidatat aliquip eu
-                ipsum officia mollit deserunt exercitation ex id officia.
-                Consectetur ut ullamco et deserunt excepteur culpa ex. Aliqua
-                anim laborum commodo quis in laborum non. Laborum sint ut esse
-                quis labore eiusmod incididunt consectetur. In sint est
-                excepteur aliquip voluptate. Aliqua Lorem reprehenderit minim
-                nulla quis. Nostrud eu magna duis deserunt non pariatur eu eu.
-                Officia cupidatat aliquip eu ipsum officia mollit deserunt
-                exercitation ex id officia. Consectetur ut ullamco et deserunt
-                excepteur culpa ex. Aliqua anim laborum commodo quis in laborum
-                non. Laborum sint ut esse quis labore eiusmod incididunt
-                consectetur. In sint est excepteur aliquip voluptate.
-              </CardDescription>
-            </div>
-          </Card>
-        </Link>
+        <div className="flex flex-col gap-2">
+          {data &&
+            data?.map((item, index) => {
+              return (
+                <MenuCard
+                  key={index}
+                  title={item.title || ""}
+                  description={item.body || ""}
+                  class={item.course?.name || ""}
+                  href={item.id}
+                />
+              );
+            })}
+        </div>
       </div>
     </PageWrapper>
   );
