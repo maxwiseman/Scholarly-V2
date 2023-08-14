@@ -1,25 +1,18 @@
 "use client";
 
-import { createContext, useEffect, useState } from "react";
-import { getToken } from "../lib/hooks";
-import { useAuth } from "@clerk/nextjs";
-import { TooltipProvider } from "../components/ui/tooltip";
 import { AnimatePresence } from "framer-motion";
+import { TooltipProvider } from "../components/ui/tooltip";
+import { SessionProvider } from "next-auth/react";
 
-export const TokenContext = createContext("");
-
-export function Providers({ children }: { children: React.ReactNode }) {
-  const [token, setToken] = useState<string | null>();
-  const auth = useAuth();
-
-  useEffect(() => {
-    getToken(auth.userId).then((res) => {
-      setToken(res);
-    });
-  });
-
+export function Providers({
+  children,
+  session,
+}: {
+  children: React.ReactNode;
+  session: any;
+}) {
   return (
-    <TokenContext.Provider value={token as string}>
+    <SessionProvider session={session}>
       <TooltipProvider>
         <AnimatePresence initial={false}>
           <html lang="en" className={"h-[100%] "}>
@@ -27,6 +20,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
           </html>
         </AnimatePresence>
       </TooltipProvider>
-    </TokenContext.Provider>
+    </SessionProvider>
   );
 }

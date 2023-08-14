@@ -19,7 +19,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { useClerk } from "@clerk/nextjs";
 import {
   IconLogout,
   IconMoonStars,
@@ -27,14 +26,15 @@ import {
   IconSettings,
   IconUser,
 } from "@tabler/icons-react";
+import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 
 export function Header() {
   // const user = useUser()
-  const { signOut, user } = useClerk();
   const { theme, setTheme } = useTheme();
+  const { data: session, status } = useSession();
 
   return (
     <>
@@ -62,20 +62,23 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger className="focus-visible:outline-none">
               <Avatar className="h-8 w-8 aspect-square flex justify-center items-center">
-                <AvatarImage src={user?.imageUrl} />
+                <AvatarImage src={session?.user?.image || ""} />
                 <AvatarFallback>
-                  {user?.firstName?.charAt(0).toString() ||
-                    "" + user?.lastName?.charAt(0).toString() ||
-                    ""}
+                  {session?.user?.name
+                    ?.split(" ")
+                    .map((i) => {
+                      return i.charAt(0);
+                    })
+                    .join("")}
                 </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
               <DropdownMenuLabel className="pb-0">
-                {user?.fullName}
+                {session?.user?.name}
               </DropdownMenuLabel>
-              <DropdownMenuLabel className="text-xs font-normal pt-0">
-                {user?.primaryEmailAddress?.emailAddress}
+              <DropdownMenuLabel className="text-xs text-muted-foreground line-clamp-1 font-normal pt-0">
+                {session?.user?.email}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
@@ -119,7 +122,7 @@ export function Header() {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => {
-                  signOut();
+                  signOut({ redirect: true, callbackUrl: "/" });
                 }}
               >
                 <IconLogout className="mr-2 h-4 w-4" />

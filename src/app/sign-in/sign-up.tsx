@@ -1,32 +1,31 @@
-'use client'
+"use client";
 
-import { Button } from '@/src/components/ui/button'
-import { Input } from '@/src/components/ui/input'
-import { Label } from '@/src/components/ui/label'
-import { useForm } from '@mantine/form'
-import { IconLoader } from '@tabler/icons-react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { SignUp as ClerkSignUp } from '@clerk/nextjs'
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import { Label } from "@/src/components/ui/label";
+import { useForm } from "@mantine/form";
+import { IconLoader } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function SignUp() {
   const form = useForm({
     initialValues: {
-      name: '',
-      email: '',
-      password: '',
+      name: "",
+      email: "",
+      password: "",
     },
 
     validate: {
-      name: value => (value != '' ? null : 'Enter your name'),
-      email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password: value => (value != '' ? null : 'Enter a password'),
+      name: (value) => (value != "" ? null : "Enter your name"),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      password: (value) => (value != "" ? null : "Enter a password"),
     },
-  })
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  });
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  return <ClerkSignUp />
+  return <></>;
 
   // return (
   //   <>

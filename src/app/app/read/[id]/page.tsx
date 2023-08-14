@@ -2,19 +2,29 @@ import { Separator } from "@/src/components/ui/separator";
 import styles from "./page.module.css";
 import PageWrapper from "../../pagewrapper";
 import { cn } from "@/src/lib/utils";
+import { db } from "@/src/database/db";
+import { eq } from "drizzle-orm";
+import { reads } from "@/src/database/schema";
 
-export default function Page(props: { params: { id: string } }) {
+export default async function Page(props: { params: { id: string } }) {
+  const data = await db.query.reads.findFirst({
+    where: eq(reads.id, props.params.id),
+    with: {
+      course: true,
+    },
+  });
+
   return (
     <PageWrapper>
       <div className="m-8 max-w-full flex flex-row justify-center items-center shrink">
         <div className="max-w-[580px] shrink">
           <span className="mb-4 text-muted-foreground tracking-wide font-semibold text-sm">
-            English 1
+            {data?.course?.name}
           </span>
-          <h1 className="mt-0 text-4xl font-bold mb-2">Article Title</h1>
+          <h1 className="mt-0 text-4xl font-bold mb-2">{data?.title}</h1>
           <div className="flex gap-2 flex-row">
             <span className="text-muted-foreground text-base">
-              By: Author Name
+              By: {data?.author}
             </span>
             <span className="w-[2px] h-[2px] rounded-full bg-muted-foreground inline-block self-center" />
             <time className="text-muted-foreground text-base">
@@ -22,8 +32,11 @@ export default function Page(props: { params: { id: string } }) {
             </time>
           </div>
           <Separator className="my-7" />
-          <div className={cn(styles.reading, "space-y-7")}>
-            <p>
+          <div
+            className={cn(styles.reading, "space-y-7")}
+            dangerouslySetInnerHTML={{ __html: data?.body as string }}
+          >
+            {/* <p>
               Quis deserunt Lorem dolore. Incididunt aute mollit amet aliqua
               sint dolor labore commodo cillum aute. Est laborum voluptate
               minim. Dolor incididunt cupidatat id laboris voluptate incididunt
@@ -62,9 +75,8 @@ export default function Page(props: { params: { id: string } }) {
               exercitation esse cillum amet labore quis. Fugiat adipisicing
               cillum velit id nostrud ea fugiat adipisicing occaecat. Commodo
               veniam consectetur minim in anim ullamco sint consectetur ex sint.
-            </p>
+            </p> */}
           </div>
-          p
         </div>
       </div>
     </PageWrapper>

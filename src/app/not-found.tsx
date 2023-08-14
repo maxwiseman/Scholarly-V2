@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { LinkButton } from "../components/ui/button";
 
 export const metadata = {
@@ -16,14 +15,6 @@ export default function NotFound() {
       >
         404
       </h1>
-      {/* <div className="h-72 w-[34rem] relative">
-          <Image
-            className="object-cover"
-            src={"/404.gif"}
-            alt="404: Page not found"
-            fill
-          />
-        </div> */}
       <p className="text-center">{`This page doesn't exist`}</p>
       <div className="flex gap-2">
         <LinkButton href="/">Main site</LinkButton>

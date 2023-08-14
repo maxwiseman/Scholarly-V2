@@ -25,7 +25,6 @@ import { usePathname } from "next/navigation";
 import { ReactElement, cloneElement, useState } from "react";
 import { CourseSettings } from "./courses/courseSettingsDialog";
 import { Course } from "@/src/lib/types";
-import { useUser } from "@clerk/nextjs";
 import { useCourses } from "@/src/lib/hooks";
 import { useColors } from "@/src/lib/hooks/useColors";
 
@@ -62,7 +61,6 @@ export function NavCollapsibleButton(props: {
 }) {
   const [opened, setOpened] = useState(true);
   const pathname = usePathname();
-  const user = useUser();
 
   if (pathname == null) {
     return <></>;
