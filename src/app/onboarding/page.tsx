@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Step0 from "./0";
 import Step1 from "./1";
-import { useUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Step2 from "./2";
 import { AnimatePresence } from "framer-motion";
@@ -12,9 +11,8 @@ import { Button } from "@/src/components/ui";
 
 export default function Page() {
   const [step, setStep] = useState(0);
-  const user = useUser();
 
-  if (!user) redirect("/sign-in");
+  // if (!user) redirect("/sign-in");
 
   const [[page, direction], setPage] = useState([0, 0]);
   const paginate = (newDirection: number) => {

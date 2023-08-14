@@ -1,5 +1,4 @@
 import { fontSans } from "@/src/lib/font";
-import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "../components/themeProvider";
 import { Toaster } from "../components/ui/toaster";
 import { cn } from "../lib/utils";
@@ -13,23 +12,23 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  session,
 }: {
   children: React.ReactNode;
+  session: any;
 }) {
   return (
-    <ClerkProvider>
-      <Providers>
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            process.env.NEXT_PUBLIC_FONT == "Inter" && fontSans.className
-          )}
-        >
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children} <Toaster />
-          </ThemeProvider>
-        </body>
-      </Providers>
-    </ClerkProvider>
+    <Providers session={session}>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          process.env.NEXT_PUBLIC_FONT == "Inter" && fontSans.className
+        )}
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children} <Toaster />
+        </ThemeProvider>
+      </body>
+    </Providers>
   );
 }

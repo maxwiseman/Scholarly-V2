@@ -3,7 +3,6 @@
 import { Button, useToast } from "@/src/components/ui";
 import { Form } from "@/src/components/ui/form";
 import { Separator } from "@/src/components/ui/separator";
-import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -12,7 +11,6 @@ import * as z from "zod";
 import { Setting } from "../setting";
 
 export default function AccountSettings() {
-  const { user, isLoaded } = useUser();
   const { toast } = useToast();
   const formSchema = z.object({
     username: z.optional(z.string()),
@@ -22,9 +20,9 @@ export default function AccountSettings() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: user?.username?.toString(),
-      email: user?.emailAddresses[0]?.toString(),
-      bio: user?.unsafeMetadata?.bio as string,
+      username: "",
+      email: "",
+      bio: "",
     },
     resetOptions: {
       // keepDirtyValues: true,
@@ -33,24 +31,24 @@ export default function AccountSettings() {
 
   useEffect(() => {
     form.reset({
-      username: user?.username?.toString(),
-      email: user?.emailAddresses[0]?.toString(),
-      bio: user?.unsafeMetadata?.bio as string,
+      username: "",
+      email: "",
+      bio: "",
     });
-  }, [isLoaded]);
+  }, []);
 
   useEffect(() => {
     form.reset(
       {
-        username: user?.username?.toString(),
-        email: user?.emailAddresses[0]?.toString(),
-        bio: user?.unsafeMetadata?.bio as string,
+        username: "",
+        email: "",
+        bio: "",
       },
       {
         keepDirtyValues: true,
       }
     );
-  }, [isLoaded]);
+  }, []);
 
   return (
     <div className="max-w-2xl w-full">
@@ -104,9 +102,9 @@ export default function AccountSettings() {
               onClick={() => {
                 form.reset(
                   {
-                    username: user?.username?.toString(),
-                    email: user?.emailAddresses[0]?.toString(),
-                    bio: user?.unsafeMetadata?.bio as string,
+                    username: "",
+                    email: "",
+                    bio: "",
                   },
                   {
                     keepDirtyValues: false,

@@ -20,7 +20,6 @@ import {
 import { InputMask } from "@/src/components/ui/input-mask";
 import { useCourses } from "@/src/lib/hooks";
 import { useColors } from "@/src/lib/hooks/useColors";
-import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -49,7 +48,6 @@ export function CourseSettings({ id }: { id: string }) {
       keepDirtyValues: true,
     },
   });
-  const { user } = useUser();
   const router = useRouter();
 
   useEffect(() => {
@@ -72,7 +70,9 @@ export function CourseSettings({ id }: { id: string }) {
           <form
             onSubmit={form.handleSubmit(async (data) => {
               const res = await fetch(
-                `/api/canvas/${user?.unsafeMetadata.district}/api/v1/users/self/colors/course_${course.id}?access_token=${user?.unsafeMetadata.canvasToken}`,
+                `/api/canvas/${""}/api/v1/users/self/colors/course_${
+                  course.id
+                }?access_token=${""}`,
                 {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },
@@ -80,7 +80,9 @@ export function CourseSettings({ id }: { id: string }) {
                 }
               );
               const res2 = await fetch(
-                `/api/canvas/${user?.unsafeMetadata.district}/api/v1/users/self/course_nicknames/${course.id}?access_token=${user?.unsafeMetadata.canvasToken}`,
+                `/api/canvas/${""}/api/v1/users/self/course_nicknames/${
+                  course.id
+                }?access_token=${""}`,
                 {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },

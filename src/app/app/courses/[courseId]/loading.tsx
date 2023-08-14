@@ -9,7 +9,6 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import PageWrapper from "../../pagewrapper";
-import { currentUser } from "@clerk/nextjs";
 import { Skeleton } from "@/src/components/ui/skeleton";
 
 export default async function Class({ params }: { params: { id: string } }) {

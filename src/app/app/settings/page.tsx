@@ -3,7 +3,6 @@
 import { Button, useToast } from "@/src/components/ui";
 import { Form } from "@/src/components/ui/form";
 import { Separator } from "@/src/components/ui/separator";
-import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -12,7 +11,6 @@ import * as z from "zod";
 import { Setting } from "./setting";
 
 export default function AccountSettings() {
-  const { user, isLoaded } = useUser();
   const { toast } = useToast();
   const formSchema = z.object({
     firstName: z.string(),
@@ -23,10 +21,10 @@ export default function AccountSettings() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: user?.firstName?.toString(),
-      lastName: user?.lastName?.toString(),
-      birthDate: user?.unsafeMetadata?.birthDate as string,
-      language: user?.unsafeMetadata?.language as string,
+      firstName: "",
+      lastName: "",
+      birthDate: "",
+      language: "",
     },
     resetOptions: {
       keepDirtyValues: true,
@@ -36,24 +34,24 @@ export default function AccountSettings() {
 
   useEffect(() => {
     form.reset({
-      firstName: user?.firstName?.toString(),
-      lastName: user?.lastName?.toString(),
+      firstName: "",
+      lastName: "",
     });
-  }, [isLoaded]);
+  }, []);
 
   useEffect(() => {
     form.reset(
       {
-        firstName: user?.firstName?.toString(),
-        lastName: user?.lastName?.toString(),
-        birthDate: user?.unsafeMetadata?.birthDate as string,
-        language: user?.unsafeMetadata?.language as string,
+        firstName: "",
+        lastName: "",
+        birthDate: "",
+        language: "",
       },
       {
         keepDirtyValues: true,
       }
     );
-  }, [isLoaded]);
+  }, []);
 
   return (
     <div className="max-w-2xl w-full">
@@ -118,10 +116,10 @@ export default function AccountSettings() {
               onClick={() => {
                 form.reset(
                   {
-                    firstName: user?.firstName?.toString(),
-                    lastName: user?.lastName?.toString(),
-                    birthDate: user?.unsafeMetadata?.birthDate as string,
-                    language: user?.unsafeMetadata?.language as string,
+                    firstName: "",
+                    lastName: "",
+                    birthDate: "",
+                    language: "",
                   },
                   {
                     keepDirtyValues: false,
