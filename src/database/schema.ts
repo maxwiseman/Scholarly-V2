@@ -28,7 +28,7 @@ export const usersRelations = relations(users, ({ many }) => ({
 }));
 
 export const reads = pgTable("reads", {
-  id: text("id").primaryKey(),
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
   userId: uuid("user_id"),
   courseId: text("course_id"),
   createdAt: date("created_at"),
@@ -38,7 +38,7 @@ export const reads = pgTable("reads", {
 });
 
 export const courses = pgTable("courses", {
-  id: text("id").primaryKey(),
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
   userId: uuid("user_id"),
   name: text("name"),
 });
