@@ -10,7 +10,7 @@
     "generate": "drizzle-kit generate:pg"
   },
   "dependencies": {
-    "@auth/drizzle-adapter": "^0.3.1",
+    "@auth/drizzle-adapter": "^0.3.2",
     "@emotion/react": "^11.11.1",
     "@hookform/resolvers": "^3.2.0",
     "@mantine/carousel": "^6.0.15",
