@@ -2,7 +2,7 @@
 
 import { db } from "@/src/database/db";
 import { reads, users } from "@/src/database/schema";
-import { eq } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 
 export default async function getReads() {
@@ -12,7 +12,7 @@ export default async function getReads() {
   if (!session?.user?.email) return;
 
   const data = await db.query.reads.findMany({
-    where: eq(reads.userId, "5fb341d4-2e7e-4adc-93bf-c756c00ea700"),
+    where: sql`${reads.userId}::text = '5fb341d4-2e7e-4adc-93bf-c756c00ea700'`,
     with: {
       course: true,
     },

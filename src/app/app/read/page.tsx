@@ -6,7 +6,7 @@ import { IconPlus } from "@tabler/icons-react";
 import PageWrapper from "../pagewrapper";
 import MenuCard from "./menuCard";
 import NewModal from "./newModal";
-import getReads from "./getReads()";
+import getReads from "./getReads";
 import { useEffect, useState } from "react";
 
 export default function Page() {
