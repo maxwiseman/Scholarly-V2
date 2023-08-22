@@ -3,15 +3,21 @@ import styles from "./page.module.css";
 import PageWrapper from "../../pagewrapper";
 import { cn } from "@/src/lib/utils";
 import { db } from "@/src/database/db";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { reads } from "@/src/database/schema";
 
 export default async function Page(props: { params: { id: string } }) {
+  // const data = await db.query.reads.findFirst({
+  //   where: eq(reads.id, props.params.id),
+  //   with: {
+  //     course: true,
+  //   },
+  // });
   const data = await db.query.reads.findFirst({
-    where: eq(reads.id, props.params.id),
-    with: {
-      course: true,
-    },
+    where: sql`${reads.id}::text = ${props.params.id}`,
+    // with: {
+    //   course: true,
+    // },
   });
 
   return (

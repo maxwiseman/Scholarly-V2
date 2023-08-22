@@ -12,10 +12,14 @@ export default async function getReads() {
   if (!session?.user?.email) return;
 
   const data = await db.query.reads.findMany({
-    where: sql`${reads.userId} = '5fb341d4-2e7e-4adc-93bf-c756c00ea700'::uuid`,
-    with: {
-      course: true,
-    },
+    where: sql`${reads.userId}::text = '5fb341d4-2e7e-4adc-93bf-c756c00ea700'`,
+    // with: {
+    //   course: true,
+    // },
   });
+  // const data = await db.execute(
+  //   sql`select * from ${reads} where ${reads.userId}::text = '5fb341d4-2e7e-4adc-93bf-c756c00ea700'`
+  // );
+  // console.log(JSON.stringify(data));
   return data;
 }
