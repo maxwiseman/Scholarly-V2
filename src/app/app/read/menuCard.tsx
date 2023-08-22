@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardDescription, CardTitle } from "@/src/components/ui";
 import Link from "next/link";
 

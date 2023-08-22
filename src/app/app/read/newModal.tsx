@@ -17,7 +17,7 @@ import * as z from "zod";
 import { Button } from "@/src/components/ui/button";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
-export default function NewModal({ children }: { children: React.ReactNode }) {
+export default function NewModal() {
   const formSchema = z.object({
     title: z.string(),
     class: z.string(),
@@ -84,7 +84,9 @@ export default function NewModal({ children }: { children: React.ReactNode }) {
           </DialogFooter>
         </Form>
       </DialogContent>
-      <DialogTrigger>{children}</DialogTrigger>
+      <DialogTrigger>
+        <p>New</p>
+      </DialogTrigger>
     </Dialog>
   );
 }
