@@ -47,7 +47,7 @@
 }
 
 .reading li li {
-  margin-left: 25px;
+  margin-left: 15px;
 }
 
 .reading blockquote {
@@ -64,6 +64,7 @@
 
 .reading img {
   border-radius: 5px;
+  max-height: 500px;
 }
 
 .reading caption,
