@@ -14,8 +14,15 @@ import { Setting } from "../settings/setting";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Button } from "@/src/components/ui/button";
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+// import { Button } from "@/src/components/ui/button";
+import { IconArrowLeft, IconArrowRight, IconPlus } from "@tabler/icons-react";
+import dynamic from "next/dynamic";
+
+const Button = dynamic(() =>
+  import("@/src/components/ui/button").then((Button) => {
+    return Button.Button;
+  })
+);
 
 export default function NewModal() {
   const formSchema = z.object({
@@ -85,7 +92,10 @@ export default function NewModal() {
         </Form>
       </DialogContent>
       <DialogTrigger>
-        <p>New</p>
+        <Button>
+          <IconPlus className="w-4 h-4" />
+          New
+        </Button>
       </DialogTrigger>
     </Dialog>
   );

@@ -1,11 +1,21 @@
 "use client";
 
-import { Input } from "@/src/components/ui";
+import { Button, Input } from "@/src/components/ui";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/src/components/ui/avatar";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/src/components/ui/command";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -20,6 +30,14 @@ import {
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import {
+  CalendarIcon,
+  EnvelopeClosedIcon,
+  FaceIcon,
+  GearIcon,
+  PersonIcon,
+  RocketIcon,
+} from "@radix-ui/react-icons";
+import {
   IconLogout,
   IconMoonStars,
   IconSearch,
@@ -30,11 +48,13 @@ import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export function Header() {
   // const user = useUser()
   const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
@@ -53,12 +73,18 @@ export function Header() {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <Input
-            className="rouded-xl h-9"
+          {/* <Input placeholder="Search" icon={<IconSearch />} /> */}
+          <Button
+            className="flex min-w-[200px] gap-1 h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-secondary-foreground disabled:cursor-not-allowed disabled:opacity-50 text-muted-foreground justify-start"
+            variant={"outline"}
             style={{ borderRadius: "var(--radius)" }}
-            icon={<IconSearch />}
-            placeholder="Search"
-          />
+            onClick={() => {
+              setSearchOpen(true);
+            }}
+          >
+            <IconSearch className="q-4 h-4" />
+            Search
+          </Button>
           <DropdownMenu>
             <DropdownMenuTrigger className="focus-visible:outline-none">
               <Avatar className="h-8 w-8 aspect-square flex justify-center items-center">
@@ -131,6 +157,45 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+
+        <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
+          <CommandInput placeholder="Type a command or search..." />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading="Suggestions">
+              <CommandItem>
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                <span>Calendar</span>
+              </CommandItem>
+              <CommandItem>
+                <FaceIcon className="mr-2 h-4 w-4" />
+                <span>Search Emoji</span>
+              </CommandItem>
+              <CommandItem>
+                <RocketIcon className="mr-2 h-4 w-4" />
+                <span>Launch</span>
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Settings">
+              <CommandItem>
+                <PersonIcon className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+                <CommandShortcut>⌘P</CommandShortcut>
+              </CommandItem>
+              <CommandItem>
+                <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
+                <span>Mail</span>
+                <CommandShortcut>⌘B</CommandShortcut>
+              </CommandItem>
+              <CommandItem>
+                <GearIcon className="mr-2 h-4 w-4" />
+                <span>Settings</span>
+                <CommandShortcut>⌘S</CommandShortcut>
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </CommandDialog>
       </header>
     </>
   );
