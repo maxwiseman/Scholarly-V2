@@ -19,6 +19,21 @@ const handler = NextAuth({
     // verifyRequest: "/auth/verify-request", // (used for check email message)
     // newUser: "/onboarding", // New users will be directed here on first sign in (leave the property out if not of interest)
   },
+  callbacks: {
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        // @ts-ignore
+        session.user.id = token.uid;
+      }
+      return session;
+    },
+    jwt: async ({ user, token }) => {
+      if (user) {
+        token.uid = user.id;
+      }
+      return token;
+    },
+  },
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,

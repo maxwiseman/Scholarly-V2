@@ -11,7 +11,7 @@ import {
 import { AdapterAccount } from "next-auth/adapters";
 
 export const users = pgTable("user", {
-  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
   name: text("name"),
   email: text("email").notNull().unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
@@ -28,7 +28,7 @@ export const usersRelations = relations(users, ({ many }) => ({
 }));
 
 export const reads = pgTable("reads", {
-  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
   userId: uuid("user_id"),
   courseId: uuid("course_id"),
   createdAt: date("created_at"),
@@ -38,7 +38,7 @@ export const reads = pgTable("reads", {
 });
 
 export const courses = pgTable("courses", {
-  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
   userId: uuid("user_id"),
   name: text("name"),
 });

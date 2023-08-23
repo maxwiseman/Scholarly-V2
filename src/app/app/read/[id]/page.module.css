@@ -1,20 +1,77 @@
 .reading {
-  max-width: 580px;
-  width: 580px;
+  max-width: 840px;
+  width: 840px;
   overflow-wrap: break-word;
 }
 
-.reading > p {
+.reading p {
   font-size: 1.125em;
   line-height: 1.7419354839;
 }
 
-.reading > h2 {
+.reading h1,
+.reading h2 {
   display: block;
-  font-size: 1.5em;
+  font-size: 1.75em;
   margin-block-start: 0.83em;
   margin-block-end: 0.83em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   font-weight: bold;
+}
+
+.reading h2 {
+  font-size: 1.5em;
+}
+
+.reading code {
+  background-color: hsl(var(--muted));
+  padding: 5px;
+  border-radius: 5px;
+  font-size: medium;
+}
+
+.reading pre code {
+  display: block;
+  padding: 20px;
+}
+
+.reading ul li {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.reading ol li {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+
+.reading li li {
+  margin-left: 25px;
+}
+
+.reading blockquote {
+  background-color: hsl(var(--muted));
+  padding: 20px;
+  border-radius: 5px;
+  border-left: 3px hsl(var(--muted-foreground)) solid;
+}
+
+.reading a {
+  text-decoration: underline;
+  color: hsl(var(--muted-foreground));
+}
+
+.reading img {
+  border-radius: 5px;
+}
+
+.reading caption,
+.reading figcaption,
+.reading label {
+  color: hsl(var(--muted-foreground));
+  font-size: smaller;
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
