@@ -10,12 +10,7 @@ import Image from "next/image";
 import PageWrapper from "../../pagewrapper";
 import dynamic from "next/dynamic";
 import { Separator } from "@/src/components/ui/separator";
-// import { SettingsButton } from "./settingsButton";
-
-const SettingsButton = dynamic(
-  () => import("@/src/app/app/courses/[courseId]/settingsButton"),
-  { ssr: false }
-);
+import SettingsButton from "./settingsButton";
 
 export async function generateMetadata({
   params,

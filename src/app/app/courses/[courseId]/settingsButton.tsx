@@ -13,7 +13,7 @@ export default function SettingsButton({
 }) {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant={"ghost"} size={"icon"}>
           <IconDotsVertical className="h-4 w-4" />
         </Button>
