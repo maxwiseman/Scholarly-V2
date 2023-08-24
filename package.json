@@ -43,7 +43,7 @@
     "@sentry/nextjs": "^7.64.0",
     "@tabler/icons-react": "^2.32.0",
     "@tiptap/extension-link": "^2.1.6",
-    "@tiptap/react": "^2.1.6",
+    "@tiptap/react": "^2.1.7",
     "@tiptap/starter-kit": "^2.1.7",
     "@types/bcrypt": "^5.0.0",
     "@types/node": "20.5.4",
