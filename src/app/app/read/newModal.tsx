@@ -73,7 +73,7 @@ export default function NewModal() {
               { value: "assignment", label: "Assignment" },
             ]}
           />
-          <DialogFooter className={"flex justify-between"}>
+          <DialogFooter className={"flex justify-between w-full"}>
             <Button
               type="reset"
               variant={"outline"}
