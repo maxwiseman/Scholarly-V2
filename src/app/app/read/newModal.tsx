@@ -73,13 +73,19 @@ export default function NewModal() {
               { value: "assignment", label: "Assignment" },
             ]}
           />
-          <DialogFooter>
+          <DialogFooter className={"flex justify-between"}>
+            <Button
+              type="reset"
+              variant={"outline"}
+            >
+              Cancel
+            </Button>
             <Button
               type="submit"
               variant={!form.formState.isValid ? "disabled" : "default"}
               disabled={!form.formState.isValid}
             >
-              Next
+              Create
             </Button>
           </DialogFooter>
         </Form>
