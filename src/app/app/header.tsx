@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input } from "@/src/components/ui";
+import { Button } from "@/src/components/ui";
 import {
   Avatar,
   AvatarFallback,
@@ -30,16 +30,18 @@ import {
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import {
-  CalendarIcon,
-  EnvelopeClosedIcon,
-  FaceIcon,
-  GearIcon,
-  PersonIcon,
-  RocketIcon,
-} from "@radix-ui/react-icons";
-import {
+  IconAlertOctagon,
+  IconAt,
+  IconBook,
+  IconCalendar,
+  IconDeviceDesktop,
+  IconFaceId,
+  IconHome,
   IconLogout,
+  IconMail,
+  IconMoon,
   IconMoonStars,
+  IconRocket,
   IconSearch,
   IconSettings,
   IconUser,
@@ -48,13 +50,31 @@ import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { redirect, useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 export function Header() {
   // const user = useUser()
   const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
   const [searchOpen, setSearchOpen] = useState(false);
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setSearchOpen((searchOpen) => !searchOpen);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
+
+  const runCommand = useCallback((command: () => unknown) => {
+    setSearchOpen(false);
+    command();
+  }, []);
+  const router = useRouter();
 
   return (
     <>
@@ -75,15 +95,20 @@ export function Header() {
         <div className="flex items-center gap-4">
           {/* <Input placeholder="Search" icon={<IconSearch />} /> */}
           <Button
-            className="flex min-w-[200px] gap-1 h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-secondary-foreground disabled:cursor-not-allowed disabled:opacity-50 text-muted-foreground justify-start"
+            className="flex justify-between min-w-[200px] gap-1 h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-secondary-foreground disabled:cursor-not-allowed disabled:opacity-50 text-muted-foreground"
             variant={"outline"}
             style={{ borderRadius: "var(--radius)" }}
             onClick={() => {
               setSearchOpen(true);
             }}
           >
-            <IconSearch className="q-4 h-4" />
-            Search
+            <div className="flex gap-1 flex-nowrap items-center">
+              <IconSearch className="q-4 h-4" />
+              Search
+            </div>
+            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+              <span className="text-xs">⌘</span>K
+            </kbd>
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger className="focus-visible:outline-none">
@@ -107,7 +132,11 @@ export function Header() {
                 {session?.user?.email}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  redirect("/app/settings");
+                }}
+              >
                 <IconSettings className="mr-2 h-4 w-4" />
                 Settings
               </DropdownMenuItem>
@@ -163,35 +192,100 @@ export function Header() {
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Suggestions">
-              <CommandItem>
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                <span>Calendar</span>
+              <CommandItem
+                onSelect={() => {
+                  runCommand(() => {
+                    router.push("/app/home");
+                  });
+                }}
+              >
+                <IconHome className="mr-2 h-4 w-4" />
+                <span>Home</span>
               </CommandItem>
-              <CommandItem>
-                <FaceIcon className="mr-2 h-4 w-4" />
-                <span>Search Emoji</span>
+              <CommandItem
+                onSelect={() => {
+                  runCommand(() => {
+                    router.push("/app/missing");
+                  });
+                }}
+              >
+                <IconAlertOctagon className="mr-2 h-4 w-4" />
+                <span>Missing Assignments</span>
               </CommandItem>
-              <CommandItem>
-                <RocketIcon className="mr-2 h-4 w-4" />
-                <span>Launch</span>
+              <CommandItem
+                onSelect={() => {
+                  runCommand(() => {
+                    router.push("/app/read");
+                  });
+                }}
+              >
+                <IconBook className="mr-2 h-4 w-4" />
+                <span>Read</span>
               </CommandItem>
             </CommandGroup>
             <CommandSeparator />
             <CommandGroup heading="Settings">
-              <CommandItem>
-                <PersonIcon className="mr-2 h-4 w-4" />
+              <CommandItem
+                onSelect={() => {
+                  runCommand(() => {
+                    router.push("/app/settings");
+                  });
+                }}
+              >
+                <IconAt className="mr-2 h-4 w-4" />
+                <span>Account</span>
+              </CommandItem>
+              <CommandItem
+                onSelect={() => {
+                  runCommand(() => {
+                    router.push("/app/settings/profile");
+                  });
+                }}
+              >
+                <IconUser className="mr-2 h-4 w-4" />
                 <span>Profile</span>
-                <CommandShortcut>⌘P</CommandShortcut>
               </CommandItem>
-              <CommandItem>
-                <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
-                <span>Mail</span>
-                <CommandShortcut>⌘B</CommandShortcut>
+              <CommandItem
+                onSelect={() => {
+                  runCommand(() => {
+                    router.push("/app/settings/appearance");
+                  });
+                }}
+              >
+                <IconMoonStars className="mr-2 h-4 w-4" />
+                <span>Appearance</span>
               </CommandItem>
-              <CommandItem>
-                <GearIcon className="mr-2 h-4 w-4" />
+              <CommandItem
+                onSelect={() => {
+                  runCommand(() => {
+                    router.push("/app/settings/display");
+                  });
+                }}
+              >
+                <IconDeviceDesktop className="mr-2 h-4 w-4" />
+                <span>Display</span>
+              </CommandItem>
+              <CommandItem
+                onSelect={() => {
+                  runCommand(() => {
+                    router.push("/app/settings");
+                  });
+                }}
+              >
+                <IconSettings className="mr-2 h-4 w-4" />
                 <span>Settings</span>
-                <CommandShortcut>⌘S</CommandShortcut>
+              </CommandItem>
+            </CommandGroup>
+            <CommandGroup heading="Misc.">
+              <CommandItem
+                onSelect={() => {
+                  runCommand(() => {
+                    signOut({ redirect: true, callbackUrl: "/" });
+                  });
+                }}
+              >
+                <IconLogout className="mr-2 h-4 w-4" />
+                <span>Sign Out</span>
               </CommandItem>
             </CommandGroup>
           </CommandList>

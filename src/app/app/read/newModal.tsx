@@ -10,12 +10,12 @@ import {
   DialogTrigger,
 } from "@/src/components/ui/dialog";
 import { Form } from "@/src/components/ui/form";
-import { Setting } from "../settings/setting";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { Setting } from "../settings/setting";
 // import { Button } from "@/src/components/ui/button";
-import { IconArrowLeft, IconArrowRight, IconPlus } from "@tabler/icons-react";
+import { IconPlus } from "@tabler/icons-react";
 import dynamic from "next/dynamic";
 
 const Button = dynamic(() =>
@@ -91,7 +91,7 @@ export default function NewModal() {
           </DialogFooter>
         </Form>
       </DialogContent>
-      <DialogTrigger>
+      <DialogTrigger suppressHydrationWarning>
         <Button>
           <IconPlus className="w-4 h-4" />
           New
