@@ -14,15 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Setting } from "../settings/setting";
-// import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
-import dynamic from "next/dynamic";
-
-const Button = dynamic(() =>
-  import("@/src/components/ui/button").then((Button) => {
-    return Button.Button;
-  })
-);
 
 export default function NewModal() {
   const formSchema = z.object({
@@ -91,7 +84,7 @@ export default function NewModal() {
           </DialogFooter>
         </Form>
       </DialogContent>
-      <DialogTrigger suppressHydrationWarning>
+      <DialogTrigger asChild>
         <Button>
           <IconPlus className="w-4 h-4" />
           New
