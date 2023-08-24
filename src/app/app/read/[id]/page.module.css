@@ -5,7 +5,8 @@
 
 .reading * {
   max-width: 840px;
-  display: block;
+  width: 840px;
+  overflow-wrap: break-word;
 }
 
 .reading p {
