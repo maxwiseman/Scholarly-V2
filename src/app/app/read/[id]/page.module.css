@@ -1,7 +1,11 @@
 .reading {
-  max-width: 840px;
   width: 840px;
   overflow-wrap: break-word;
+}
+
+.reading * {
+  max-width: 840px;
+  display: block;
 }
 
 .reading p {
