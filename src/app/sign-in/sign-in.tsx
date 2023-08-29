@@ -35,7 +35,7 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
   const callbackURL = searchParams.get("callbackUrl");
 
   return (
-    <div className="overflow-scroll">
+    <div>
       <div className="flex gap-5 items-center justify-between">
         <Button
           onClick={() => {

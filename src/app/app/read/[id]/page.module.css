@@ -1,11 +1,16 @@
 .reading {
-  width: 840px;
+  width: 100%;
+  max-width: 840px;
+  min-width: 0px;
   overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .reading * {
   max-width: 840px;
-  width: 840px;
+  width: 100%;
   overflow-wrap: break-word;
 }
 
@@ -52,7 +57,7 @@
 }
 
 .reading li li {
-  margin-left: 15px;
+  margin-left: 22px;
 }
 
 .reading blockquote {
@@ -70,6 +75,17 @@
 .reading img {
   border-radius: 5px;
   max-height: 500px;
+  object-fit: contain;
+  width: auto;
+}
+
+.reading *:has(img) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.reading *:has(img) *:not(img) {
+  width: 100%;
 }
 
 .reading caption,
