@@ -20,16 +20,13 @@ import { DialogClose } from "@radix-ui/react-dialog";
 
 export default function NewModal() {
   const formSchema = z.object({
-    title: z.string(),
-    class: z.string(),
+    title: z.string().nonempty(),
+    class: z.string().nonempty(),
     // source: z.enum(["paste", "upload", "web", "assignment"]),
-    source: z.string(),
+    source: z.string().nonempty(),
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    resetOptions: {
-      keepDirtyValues: true,
-    },
   });
 
   return (
@@ -76,7 +73,13 @@ export default function NewModal() {
           />
           <DialogFooter className={"sm:justify-between"}>
             <DialogClose>
-              <Button type="reset" variant={"outline"}>
+              <Button
+                type="reset"
+                variant={"outline"}
+                onClick={() => {
+                  form.reset();
+                }}
+              >
                 Cancel
               </Button>
             </DialogClose>
