@@ -43,7 +43,7 @@ export function Header() {
   return (
     <>
       <div className="h-16 w-full" />
-      <header className="supports-backdrop-blur:bg-background/60 fixed top-0 z-40 w-full h-16 border-b bg-background/95 backdrop-blur flex items-center px-5 py-2 justify-between">
+      <header className="supports-backdrop-blur:bg-background/60 fixed top-0 z-40 w-full h-16 border-b bg-background/90 backdrop-blur flex items-center px-5 py-2 justify-between">
         <div>
           <div className="relative h-10 w-[15.25rem]">
             <Link href="/app">

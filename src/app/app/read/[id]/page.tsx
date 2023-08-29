@@ -10,8 +10,6 @@ import { getServerSession } from "next-auth";
 export default async function Page(props: { params: { id: string } }) {
   const session = await getServerSession();
 
-  // TODO This currently queries the entire database
-  // Fix this so that it only queries the current users' reads instead of every single entry
   const data = await db.query.reads.findFirst({
     where: eq(reads.id, props.params.id),
     with: {

@@ -10,10 +10,10 @@ import NewModal from "./newModal";
 export default async function Page() {
   const session = await getServerSession();
 
-  // TODO This currently queries the entire database
-  // Fix this so that it only queries the current users' reads instead of every single entry
+  // ! This currently queries the entire database
+  // ! Fix this so that it only queries the current users' reads instead of every single entry
   const data = await db.query.reads.findMany({
-    // where: eq(users.email, session?.user?.email || ""),
+    // TODO where: eq(users.email, session?.user?.email || ""),
     with: {
       course: true,
       user: true,
