@@ -16,6 +16,7 @@ import * as z from "zod";
 import { Setting } from "../settings/setting";
 import { Button } from "@/src/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 export default function NewModal() {
   const formSchema = z.object({
@@ -73,13 +74,12 @@ export default function NewModal() {
               { value: "assignment", label: "Assignment" },
             ]}
           />
-          <DialogFooter className={"flex justify-between w-full"}>
-            <Button
-              type="reset"
-              variant={"outline"}
-            >
-              Cancel
-            </Button>
+          <DialogFooter className={"sm:justify-between"}>
+            <DialogClose>
+              <Button type="reset" variant={"outline"}>
+                Cancel
+              </Button>
+            </DialogClose>
             <Button
               type="submit"
               variant={!form.formState.isValid ? "disabled" : "default"}
