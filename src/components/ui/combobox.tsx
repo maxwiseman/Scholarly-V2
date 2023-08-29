@@ -62,7 +62,7 @@ export function Combobox({
           <Command>
             <CommandInput placeholder="Search items..." />
             <CommandEmpty>Nothing found.</CommandEmpty>
-            <CommandGroup className="max-h-96 overflow-y-scroll no-scrollbar overscroll-contain">
+            <CommandGroup className="max-h-96 overflow-y-scroll overscroll-contain">
               {data.map((item) => (
                 <CommandItem
                   key={item.value}
