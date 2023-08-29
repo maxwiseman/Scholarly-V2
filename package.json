@@ -12,7 +12,7 @@
   "dependencies": {
     "@auth/drizzle-adapter": "^0.3.2",
     "@emotion/react": "^11.11.1",
-    "@hookform/resolvers": "^3.3.0",
+    "@hookform/resolvers": "^3.3.1",
     "@mantine/carousel": "^6.0.15",
     "@mantine/dates": "^6.0.15",
     "@mantine/dropzone": "^6.0.15",
