@@ -61,7 +61,7 @@
     "dayjs": "^1.11.9",
     "drizzle-orm": "^0.28.5",
     "embla-carousel-react": "^7.1.0",
-    "eslint": "8.47.0",
+    "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.1",
     "lucide-react": "^0.270.0",
