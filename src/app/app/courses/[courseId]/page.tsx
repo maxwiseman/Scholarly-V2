@@ -1,5 +1,6 @@
 import { AvatarStack } from "@/src/components/avatarStack";
 import { LinkButton } from "@/src/components/ui/button";
+import { Separator } from "@/src/components/ui/separator";
 import { Course } from "@/src/lib/types";
 import {
   IconChevronRight,
@@ -7,9 +8,6 @@ import {
   IconNotebook,
 } from "@tabler/icons-react";
 import Image from "next/image";
-import PageWrapper from "../../pagewrapper";
-import dynamic from "next/dynamic";
-import { Separator } from "@/src/components/ui/separator";
 import SettingsButton from "./settingsButton";
 
 export async function generateMetadata({
@@ -57,7 +55,7 @@ export default async function Class({
   ).then((res) => res.json() as Promise<{ hexcode: string }>);
 
   return (
-    <PageWrapper>
+    <>
       <div
         className="h-80 relative w-full"
         style={{ backgroundColor: userdata.hexcode }}
@@ -114,6 +112,6 @@ export default async function Class({
           </LinkButton>
         </div>
       </div>
-    </PageWrapper>
+    </>
   );
 }

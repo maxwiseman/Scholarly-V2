@@ -1,11 +1,10 @@
 import { Separator } from "@/src/components/ui/separator";
 import { db } from "@/src/database/db";
-import { reads, users } from "@/src/database/schema";
+import { reads } from "@/src/database/schema";
 import { cn } from "@/src/lib/utils";
 import { eq } from "drizzle-orm";
-import PageWrapper from "../../pagewrapper";
-import styles from "./page.module.css";
 import { getServerSession } from "next-auth";
+import styles from "./page.module.css";
 
 export default async function Page(props: { params: { id: string } }) {
   const session = await getServerSession();
@@ -27,7 +26,7 @@ export default async function Page(props: { params: { id: string } }) {
 
   if (data?.user?.email == session?.user?.email)
     return (
-      <PageWrapper>
+      <>
         <div className="m-8 max-w-full flex flex-row justify-center items-center">
           <div className="max-w-[840px] w-full">
             <span className="mb-4 text-muted-foreground tracking-wide font-semibold text-sm">
@@ -50,6 +49,6 @@ export default async function Page(props: { params: { id: string } }) {
             ></div>
           </div>
         </div>
-      </PageWrapper>
+      </>
     );
 }

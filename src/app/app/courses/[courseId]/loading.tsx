@@ -1,19 +1,8 @@
-import { AvatarStack } from "@/src/components/avatarStack";
-import { Button, LinkButton } from "@/src/components/ui/button";
-import { Course } from "@/src/lib/types";
-import {
-  IconChevronRight,
-  IconComponents,
-  IconDotsVertical,
-  IconNotebook,
-} from "@tabler/icons-react";
-import Image from "next/image";
-import PageWrapper from "../../pagewrapper";
 import { Skeleton } from "@/src/components/ui/skeleton";
 
 export default async function Class({ params }: { params: { id: string } }) {
   return (
-    <PageWrapper>
+    <>
       <Skeleton className="h-80 relative w-full"></Skeleton>
       <div className="m-8">
         <div className="flex items-center justify-between w-full">
@@ -27,6 +16,6 @@ export default async function Class({ params }: { params: { id: string } }) {
           <Skeleton className="h-9 w-full" />
         </div>
       </div>
-    </PageWrapper>
+    </>
   );
 }

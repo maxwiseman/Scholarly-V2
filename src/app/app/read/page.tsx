@@ -1,9 +1,6 @@
 import { Separator } from "@/src/components/ui/separator";
 import { db } from "@/src/database/db";
-import { reads, users } from "@/src/database/schema";
-import { eq } from "drizzle-orm";
 import { getServerSession } from "next-auth";
-import PageWrapper from "../pagewrapper";
 import MenuCard from "./menuCard";
 import NewModal from "./newModal";
 
@@ -21,7 +18,7 @@ export default async function Page() {
   });
 
   return (
-    <PageWrapper>
+    <>
       <div className="m-8">
         <div className="flex justify-between items-center mx-2">
           <h1 className="mt-0 text-4xl font-bold">Read</h1>
@@ -49,6 +46,6 @@ export default async function Page() {
           )}
         </div>
       </div>
-    </PageWrapper>
+    </>
   );
 }

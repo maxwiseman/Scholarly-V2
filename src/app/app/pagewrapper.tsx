@@ -16,7 +16,10 @@ export default function PageWrapper({
       transition={{ duration: 0.75, type: "spring" }}
       className="w-full max-h-full"
     >
-      <ScrollArea className="max-h-[calc(100vh-4rem)]">{children}</ScrollArea>
+      <ScrollArea className="mt-16 max-h-screen">
+        {/* <div className="h-16 w-full" /> */}
+        {children}
+      </ScrollArea>
     </motion.div>
   );
 }

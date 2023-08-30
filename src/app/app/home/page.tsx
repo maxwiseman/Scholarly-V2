@@ -1,10 +1,7 @@
 "use client";
 
-import { Card, CardDescription, CardTitle } from "@/src/components/ui/card";
-import PageWrapper from "../pagewrapper";
+import { Card } from "@/src/components/ui/card";
 import { Separator } from "@/src/components/ui/separator";
-import { IconClipboardText } from "@tabler/icons-react";
-import { Percent } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Area } from "recharts";
 
@@ -19,7 +16,7 @@ const AreaChart = dynamic(
 
 export default function Page() {
   return (
-    <PageWrapper>
+    <>
       <div className="m-8">
         <h1 className="mt-0 text-4xl font-bold">Home</h1>
         <Separator className="my-4" />
@@ -70,7 +67,7 @@ export default function Page() {
           </Card>
         </div>
       </div>
-    </PageWrapper>
+    </>
   );
 }
 

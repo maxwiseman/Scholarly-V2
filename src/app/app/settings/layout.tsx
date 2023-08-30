@@ -1,16 +1,15 @@
 "use client";
 
-import { Button, LinkButton } from "@/src/components/ui/button";
+import { LinkButton } from "@/src/components/ui/button";
 import { Separator } from "@/src/components/ui/separator";
-import { ReactNode } from "react";
-import PageWrapper from "../pagewrapper";
 import { usePathname } from "next/navigation";
+import { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <PageWrapper>
+    <>
       <div className="m-8 mb-8">
         <div className="flex gap-3 mb-3 flex-col">
           <h1 className="mt-0 text-2xl font-bold">Settings</h1>
@@ -68,6 +67,6 @@ export default function Layout({ children }: { children: ReactNode }) {
           <div className="grow w-full max-w-2xl">{children}</div>
         </div>
       </div>
-    </PageWrapper>
+    </>
   );
 }
