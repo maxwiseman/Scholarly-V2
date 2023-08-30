@@ -11,6 +11,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/src/components/ui/command";
 import {
   Popover,
@@ -61,28 +62,30 @@ export function Combobox({
         <PopoverContent className="w-[200px] p-0 transition-[height]">
           <Command>
             <CommandInput placeholder="Search items..." />
-            <CommandEmpty>Nothing found.</CommandEmpty>
-            <CommandGroup className="max-h-96 overflow-y-scroll overscroll-contain">
-              {data.map((item) => (
-                <CommandItem
-                  key={item.value}
-                  onSelect={(currentValue: any) => {
-                    setValue(value == item.value ? "" : item.value);
-                    setOpen(false);
-                    if (onChange && value == item.value) onChange("");
-                    else if (onChange) onChange(item.value);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value == item.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {item.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            <CommandList className="h-96">
+              <CommandEmpty>Nothing found.</CommandEmpty>
+              <CommandGroup>
+                {data.map((item) => (
+                  <CommandItem
+                    key={item.value}
+                    onSelect={(currentValue: any) => {
+                      setValue(value == item.value ? "" : item.value);
+                      setOpen(false);
+                      if (onChange && value == item.value) onChange("");
+                      else if (onChange) onChange(item.value);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value == item.value ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {item.label}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
           </Command>
         </PopoverContent>
       </Popover>

@@ -8,6 +8,7 @@ import {
 import { UnsplashImage } from "./image";
 import { SignIn } from "./sign-in";
 import { Metadata } from "next";
+import { ScrollArea } from "@/src/components/ui/scroll-area";
 
 export const metadata: Metadata = {
   title: "Sign In - " + process.env.NEXT_PUBLIC_APP_NAME,
@@ -26,8 +27,8 @@ export default async function LoginPage({
     <>
       <div className="flex flex-row max-w-[100vw] max-h-screen h-screen">
         <div className="h-full flex items-center">
-          <div className="flex items-start max-h-screen min-w-max overflow-y-scroll no-scrollbar">
-            <div className="flex-col p-8 rounded-lg lg:min-w-[500px] max-w-[100vw] flex justify-center items-center">
+          <ScrollArea className="h-screen max-h-screen">
+            <div className="flex-col min-h-screen h-max p-8 rounded-lg lg:min-w-[500px] max-w-[100vw] flex justify-center items-center">
               <div className="flex flex-col gap-0 max-w-[400px] h-max">
                 <h1 className="mt-0 mb-5 font-bold leading-tight text-4xl">
                   Welcome back to {process.env.NEXT_PUBLIC_APP_NAME}
@@ -58,7 +59,7 @@ export default async function LoginPage({
                 </TabsContent>
               </Tabs>
             </div>
-          </div>
+          </ScrollArea>
         </div>
         <UnsplashImage className="w-0 hidden lg:block lg:w-[75vw] max-h-[100%] relative" />
       </div>

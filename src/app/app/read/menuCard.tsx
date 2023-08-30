@@ -21,7 +21,7 @@ export default function MenuCard(props: {
               </span>
             </div>
             <CardDescription className="line-clamp-3">
-              {props.description}
+              {props.description.replace(/(<([^>]+)>)/gi, " ")}
             </CardDescription>
           </div>
         </Card>
