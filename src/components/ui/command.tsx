@@ -8,6 +8,7 @@ import { Command as CommandPrimitive } from "cmdk";
 import { cn } from "@/src/lib/utils";
 import { Dialog, DialogContent } from "@/src/components/ui/dialog";
 import { ScrollArea } from "./scroll-area";
+import { AnimateChangeInHeight } from "@/src/components/autoHeight";
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -61,9 +62,11 @@ const CommandList = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
 >(({ className, ...props }, ref) => (
-  <ScrollArea className={className}>
-    <CommandPrimitive.List ref={ref} {...props} />
-  </ScrollArea>
+  <AnimateChangeInHeight className={className}>
+    <ScrollArea className={className}>
+      <CommandPrimitive.List className="pb-1 min-h-max" ref={ref} {...props} />
+    </ScrollArea>
+  </AnimateChangeInHeight>
 ));
 
 CommandList.displayName = CommandPrimitive.List.displayName;

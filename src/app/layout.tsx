@@ -4,6 +4,7 @@ import { Toaster } from "../components/ui/toaster";
 import { cn } from "../lib/utils";
 import "./globals.css";
 import { Providers } from "./providers";
+import { ScrollArea } from "../components/ui/scroll-area";
 
 export const metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME,
@@ -26,7 +27,9 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children} <Toaster />
+          <ScrollArea className="max-h-screen">
+            {children} <Toaster />
+          </ScrollArea>
         </ThemeProvider>
       </body>
     </Providers>

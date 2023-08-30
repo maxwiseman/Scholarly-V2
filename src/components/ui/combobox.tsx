@@ -62,7 +62,7 @@ export function Combobox({
         <PopoverContent className="w-[200px] p-0 transition-[height]">
           <Command>
             <CommandInput placeholder="Search items..." />
-            <CommandList className="h-96">
+            <CommandList className="max-h-96">
               <CommandEmpty>Nothing found.</CommandEmpty>
               <CommandGroup>
                 {data.map((item) => (

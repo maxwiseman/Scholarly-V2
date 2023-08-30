@@ -1,21 +1,22 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
+import { ScrollArea } from "@/src/components/ui/scroll-area";
+import { motion } from "framer-motion";
 
 export default function PageWrapper({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: -20, opacity: 0 }}
-      transition={{ duration: 0.75, type: 'spring' }}
-      className='w-full h-full'
+      transition={{ duration: 0.75, type: "spring" }}
+      className="w-full max-h-full"
     >
-      {children}
+      <ScrollArea className="max-h-[calc(100vh-4rem)]">{children}</ScrollArea>
     </motion.div>
-  )
+  );
 }

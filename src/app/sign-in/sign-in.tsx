@@ -149,7 +149,7 @@ export function SignIn({ redirectURL }: { redirectURL?: string }) {
               />
               <p className="text-xs text-muted-foreground">
                 Forgot your password?{" "}
-                <Link target="blank" href={"./forgot"}>
+                <Link target="blank" className="underline" href={"./forgot"}>
                   Click here
                 </Link>
               </p>

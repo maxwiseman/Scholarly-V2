@@ -20,6 +20,8 @@ import { IconAlertOctagon, IconHome } from "@tabler/icons-react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { AnimateChangeInHeight } from "../../components/autoHeight";
 
 export function SearchCommand({
   open,
@@ -51,7 +53,7 @@ export function SearchCommand({
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <CommandInput placeholder="Type a command or search..." />
-      <CommandList className="max-h-96">
+      <CommandList className="max-h-[calc(100vh-200px)]">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Suggestions">
           <CommandItem
@@ -83,6 +85,16 @@ export function SearchCommand({
           >
             <IconBook className="mr-2 h-4 w-4" />
             <span>Read</span>
+          </CommandItem>
+          <CommandItem
+            onSelect={() => {
+              runCommand(() => {
+                router.push("/app/settings");
+              });
+            }}
+          >
+            <IconSettings className="mr-2 h-4 w-4" />
+            <span>Settings</span>
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
@@ -126,16 +138,6 @@ export function SearchCommand({
           >
             <IconDeviceDesktop className="mr-2 h-4 w-4" />
             <span>Display</span>
-          </CommandItem>
-          <CommandItem
-            onSelect={() => {
-              runCommand(() => {
-                router.push("/app/settings");
-              });
-            }}
-          >
-            <IconSettings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
