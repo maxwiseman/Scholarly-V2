@@ -64,7 +64,7 @@
   background-color: hsl(var(--muted));
   padding: 20px;
   border-radius: 5px;
-  border-left: 3px hsl(var(--muted-foreground)) solid;
+  border-left: 3px hsl(var(--primary)) solid;
 }
 
 .reading a {
