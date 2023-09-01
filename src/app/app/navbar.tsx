@@ -1,18 +1,23 @@
 "use client";
 
+import { Button } from "@/src/components/ui";
+import { useCourses } from "@/src/lib/hooks";
+import { Course } from "@/src/lib/types";
 import {
   IconAlertOctagon,
   IconBook,
-  IconError404,
+  IconChevronLeftPipe,
   IconHome,
   IconNotebook,
   IconSettings,
 } from "@tabler/icons-react";
 import { NavButton, NavCollapsibleButton } from "./navButton";
-import { useCourses } from "@/src/lib/hooks";
-import { Course } from "@/src/lib/types";
 
-export default function Navbar() {
+export default function Navbar({
+  collapse,
+}: {
+  collapse: (arg0: boolean) => void;
+}) {
   const { data, isLoading } = useCourses() as {
     data: Course[];
     isLoading: boolean;
@@ -45,6 +50,18 @@ export default function Navbar() {
       <NavButton href="/app/settings" icon={<IconSettings />}>
         Settings
       </NavButton>
+      <Button
+        variant={"ghost"}
+        onClick={() => {
+          collapse(true);
+        }}
+        className="w-full justify-between"
+      >
+        <div className="flex flex-row gap-2 items-center">
+          <IconChevronLeftPipe className="w-4 h-4" />
+          Collapse
+        </div>
+      </Button>
     </nav>
   );
 }

@@ -35,7 +35,7 @@ export default function NewModal() {
         <DialogHeader>
           <DialogTitle>New read</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when youre done.
+            {"First, we need some information about what you're reading."}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -50,7 +50,7 @@ export default function NewModal() {
             form={form}
             name="class"
             label="Class"
-            placeholder="Pick something..."
+            placeholder="Pick a class..."
             type="select"
             data={[
               { value: "english", label: "English" },
@@ -62,7 +62,7 @@ export default function NewModal() {
             form={form}
             name="source"
             label="Source"
-            placeholder="Pick something..."
+            placeholder="Pick a source..."
             type="select"
             data={[
               { value: "paste", label: "Text" },
