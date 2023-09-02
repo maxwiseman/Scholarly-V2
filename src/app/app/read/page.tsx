@@ -30,19 +30,18 @@ export default function Page() {
         </div>
         <Separator className="my-4" />
         <div className="flex flex-col gap-2">
-          {reads.data &&
-            reads.data?.map((item: any, index: number) => {
-              if (item.user.email == session?.data?.user?.email)
-                return (
-                  <MenuCard
-                    key={index}
-                    title={item.title || ""}
-                    description={item.body || ""}
-                    class={item.course?.name || ""}
-                    href={item.id}
-                  />
-                );
-            })}
+          {reads.data?.map((item: any, index: number) => {
+            if (item?.user?.email == session?.data?.user?.email)
+              return (
+                <MenuCard
+                  key={index}
+                  title={item.title || ""}
+                  description={item.body || ""}
+                  class={item.course?.name || ""}
+                  href={item.id}
+                />
+              );
+          })}
           {reads.data?.length == 0 && (
             <div className="w-full h-full flex justify-center items-center">
               <span className="text-muted-foreground">Nothing here yet!</span>

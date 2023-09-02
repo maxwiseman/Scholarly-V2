@@ -1,5 +1,3 @@
-"use server";
-
 import { db } from "@/src/database/db";
 import { reads, users } from "@/src/database/schema";
 import { useQuery } from "@tanstack/react-query";
@@ -8,7 +6,6 @@ import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 
 export default async function getReads() {
-  "use server";
   const session = await getServerSession();
 
   if (!session?.user?.email) return;
@@ -28,18 +25,22 @@ export default async function getReads() {
 
 export function useReads(id?: string) {
   async function fetchReads(id?: string) {
-    console.log("Fetching");
+    console.log("Fetching reads");
     const data = await db.query.reads.findMany({
       where: id ? eq(reads.id, id) : undefined,
+      with: {
+        user: true,
+        course: true,
+      },
     });
     return data;
   }
-  console.log("Querying");
+  console.log("Querying reads");
   const query = useQuery({
     queryKey: ["reads", id],
     queryFn: async () => await fetchReads(id),
     staleTime: 1000 * 60 * 60 * 24,
   });
-  console.log("Queried", query.data);
+  console.log("Queried reads", query.data);
   return query;
 }
