@@ -31,7 +31,8 @@ import * as z from "zod";
 export function CourseSettings({ course }: { course: Course }) {
   const { toast } = useToast();
   // const { data: course, isLoading: courseLoading } = useCourses(id);
-  const { data: color, isLoading: colorLoading } = useColors(course.id);
+  // const { data: color, isLoading: colorLoading } = useColors(course.id);
+  const color = { hexcode: "#FFFFFF" };
   const formSchema = z.object({
     nickname: z.string().min(2, {
       message: "Nickname must be at least 2 characters",
