@@ -118,7 +118,7 @@ export function NavCollapsibleButton(props: {
                       <DialogTrigger>
                         <ContextMenuItem>Course settings</ContextMenuItem>
                       </DialogTrigger>
-                      <CourseSettings id={link.id} />
+                      {/* <CourseSettings id={link.id} /> */}
                     </ContextMenuContent>
                   </ContextMenu>
                 </Dialog>

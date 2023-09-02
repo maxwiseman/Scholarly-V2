@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 
 export async function getUser() {
   const session = await getServerSession();
-  console.log(session?.user?.email);
 
   const user = await db.query.users.findFirst({
     where: eq(users.email, session?.user?.email || ""),
