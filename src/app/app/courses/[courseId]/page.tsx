@@ -9,53 +9,42 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import SettingsButton from "./settingsButton";
+import { getUser } from "@/src/database/getUser";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { courseId: string };
-}) {
-  const token = "user?.unsafeMetadata?.canvasToken";
-  const data = await fetch(
-    `${
-      process.env.URL
-    }/api/canvas/${"user?.unsafeMetadata?.district"}/api/v1/courses/${
-      params.courseId
-    }?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
-  ).then((res) => res.json() as Promise<Course>);
-  return {
-    title: data?.name + " - " + process.env.NEXT_PUBLIC_APP_NAME,
-  };
-}
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { courseId: string };
+// }) {
+//   const token = "user?.unsafeMetadata?.canvasToken";
+//   const data = await fetch(
+//     `${
+//       process.env.URL
+//     }/api/canvas/${"user?.unsafeMetadata?.district"}/api/v1/courses/${
+//       params.courseId
+//     }?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
+//   ).then((res) => res.json() as Promise<Course>);
+//   return {
+//     title: data?.name + " - " + process.env.NEXT_PUBLIC_APP_NAME,
+//   };
+// }
 
 export default async function Class({
   params,
 }: {
   params: { courseId: string };
 }) {
-  const token = "user?.unsafeMetadata?.canvasToken";
-
-  if ("user" == null) {
-    return;
-  }
+  const user = await getUser();
 
   const data = await fetch(
-    `${
-      process.env.URL
-    }/api/canvas/${"user?.unsafeMetadata?.district"}/api/v1/courses/${
-      params.courseId
-    }?access_token=${token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
+    `${process.env.URL}/api/canvas/${user?.canvas_base_url}/api/v1/courses/${params.courseId}?access_token=${user?.canvas_api_token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`
   ).then((res) => res.json() as Promise<Course>);
   const userdata = await fetch(
-    `${
-      process.env.URL
-    }/api/canvas/${"user?.unsafeMetadata?.district"}/api/v1/users/self/colors/course_${
-      params.courseId
-    }?access_token=${token}`
+    `${process.env.URL}/api/canvas/${user?.canvas_base_url}/api/v1/users/self/colors/course_${params.courseId}?access_token=${user?.canvas_api_token}`
   ).then((res) => res.json() as Promise<{ hexcode: string }>);
 
   return (
-    <>
+    <div>
       <div
         className="h-80 relative w-full"
         style={{ backgroundColor: userdata.hexcode }}
@@ -76,7 +65,7 @@ export default async function Class({
           <h1 className="mt-0 text-4xl font-extrabold leading-tight tracking-tight">
             {data?.name}
           </h1>
-          <SettingsButton params={params} />
+          <SettingsButton course={data} />
         </div>
         <div className="mt-2 flex gap-1 flex-col">
           <div className="flex w-full items-center gap-2">
@@ -112,6 +101,6 @@ export default async function Class({
           </LinkButton>
         </div>
       </div>
-    </>
+    </div>
   );
 }

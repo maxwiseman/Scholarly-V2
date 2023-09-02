@@ -18,18 +18,20 @@ import {
   FormMessage,
 } from "@/src/components/ui/form";
 import { InputMask } from "@/src/components/ui/input-mask";
+import { useUser } from "@/src/database/getUser";
 import { useCourses } from "@/src/lib/hooks";
 import { useColors } from "@/src/lib/hooks/useColors";
+import { Course } from "@/src/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-export function CourseSettings({ id }: { id: string }) {
+export function CourseSettings({ course }: { course: Course }) {
   const { toast } = useToast();
-  const { data: course, isLoading: courseLoading } = useCourses(id);
-  const { data: color, isLoading: colorLoading } = useColors(id);
+  // const { data: course, isLoading: courseLoading } = useCourses(id);
+  const { data: color, isLoading: colorLoading } = useColors(course.id);
   const formSchema = z.object({
     nickname: z.string().min(2, {
       message: "Nickname must be at least 2 characters",
@@ -49,13 +51,7 @@ export function CourseSettings({ id }: { id: string }) {
     },
   });
   const router = useRouter();
-
-  useEffect(() => {
-    form.reset({
-      nickname: course?.name,
-      color: color?.hexcode,
-    });
-  }, [courseLoading, colorLoading]);
+  const user = useUser();
 
   return (
     <>
@@ -70,9 +66,7 @@ export function CourseSettings({ id }: { id: string }) {
           <form
             onSubmit={form.handleSubmit(async (data) => {
               const res = await fetch(
-                `/api/canvas/${""}/api/v1/users/self/colors/course_${
-                  course.id
-                }?access_token=${""}`,
+                `/api/canvas/${user.data?.canvas_base_url}/api/v1/users/self/colors/course_${course.id}?access_token=${user.data?.canvas_api_token}`,
                 {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },
@@ -80,9 +74,7 @@ export function CourseSettings({ id }: { id: string }) {
                 }
               );
               const res2 = await fetch(
-                `/api/canvas/${""}/api/v1/users/self/course_nicknames/${
-                  course.id
-                }?access_token=${""}`,
+                `/api/canvas/${user.data?.canvas_base_url}/api/v1/users/self/course_nicknames/${course.id}?access_token=${user.data?.canvas_api_token}`,
                 {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },

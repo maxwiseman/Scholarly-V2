@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 animate={{ width: "370px" }}
                 initial={{ width: 0 }}
                 key={"navbar"}
-                className="overflow-hidden"
+                className="overflow-hidden border-r"
               >
                 <Navbar collapse={setNavbarCollapsed} />
               </motion.div>

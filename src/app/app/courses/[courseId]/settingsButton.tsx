@@ -5,12 +5,9 @@ import { Dialog, DialogTrigger } from "@/src/components/ui/dialog";
 import { IconDotsVertical } from "@tabler/icons-react";
 import { CourseSettings } from "../courseSettingsDialog";
 import dynamic from "next/dynamic";
+import { Course } from "@/src/lib/types";
 
-export default function SettingsButton({
-  params,
-}: {
-  params: { courseId: string };
-}) {
+export default function SettingsButton({ course }: { course: Course }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -18,7 +15,7 @@ export default function SettingsButton({
           <IconDotsVertical className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <CourseSettings id={params.courseId} />
+      <CourseSettings course={course} />
     </Dialog>
   );
 }
