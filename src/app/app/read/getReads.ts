@@ -2,8 +2,10 @@
 
 import { db } from "@/src/database/db";
 import { reads, users } from "@/src/database/schema";
-import { sql } from "drizzle-orm";
+import { useQuery } from "@tanstack/react-query";
+import { eq, sql } from "drizzle-orm";
 import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 
 export default async function getReads() {
   "use server";
@@ -22,4 +24,22 @@ export default async function getReads() {
   // );
   // console.log(JSON.stringify(data));
   return data;
+}
+
+export function useReads(id?: string) {
+  async function fetchReads(id?: string) {
+    console.log("Fetching");
+    const data = await db.query.reads.findMany({
+      where: id ? eq(reads.id, id) : undefined,
+    });
+    return data;
+  }
+  console.log("Querying");
+  const query = useQuery({
+    queryKey: ["reads", id],
+    queryFn: async () => await fetchReads(id),
+    staleTime: 1000 * 60 * 60 * 24,
+  });
+  console.log("Queried", query.data);
+  return query;
 }

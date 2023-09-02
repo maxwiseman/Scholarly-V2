@@ -1,21 +1,25 @@
+"use client";
+
 import { Separator } from "@/src/components/ui/separator";
-import { db } from "@/src/database/db";
-import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
+import { useReads } from "./getReads";
 import MenuCard from "./menuCard";
 import NewModal from "./newModal";
 
-export default async function Page() {
-  const session = await getServerSession();
+export default function Page() {
+  const session = useSession();
 
   // ! This currently queries the entire database
   // ! Fix this so that it only queries the current users' reads instead of every single entry
-  const data = await db.query.reads.findMany({
-    // TODO where: eq(users.email, session?.user?.email || ""),
-    with: {
-      course: true,
-      user: true,
-    },
-  });
+  // const data = await db.query.reads.findMany({
+  //   // TODO where: eq(users.email, session?.user?.email || ""),
+  //   with: {
+  //     course: true,
+  //     user: true,
+  //   },
+  // });
+
+  const reads = useReads();
 
   return (
     <>
@@ -26,9 +30,9 @@ export default async function Page() {
         </div>
         <Separator className="my-4" />
         <div className="flex flex-col gap-2">
-          {data &&
-            data?.map((item: any, index: number) => {
-              if (item.user.email == session?.user?.email)
+          {reads.data &&
+            reads.data?.map((item: any, index: number) => {
+              if (item.user.email == session?.data?.user?.email)
                 return (
                   <MenuCard
                     key={index}
@@ -39,7 +43,7 @@ export default async function Page() {
                   />
                 );
             })}
-          {data?.length == 0 && (
+          {reads.data?.length == 0 && (
             <div className="w-full h-full flex justify-center items-center">
               <span className="text-muted-foreground">Nothing here yet!</span>
             </div>
