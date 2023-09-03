@@ -14,6 +14,7 @@ import SettingsButton from "./settingsButton";
 import { getUser, useUser } from "@/src/database/getUser";
 import { useState } from "react";
 import { useCourses } from "@/src/lib/hooks";
+import { Skeleton } from "@/src/components/ui/skeleton";
 
 // export async function generateMetadata({
 //   params,
@@ -73,9 +74,13 @@ export default function Class({ params }: { params: { courseId: string } }) {
       </div>
       <div className="m-8">
         <div className="flex items-center justify-between w-full">
-          <h1 className="mt-0 text-4xl font-extrabold leading-tight tracking-tight">
-            {course?.data?.name}
-          </h1>
+          {course?.data?.name != undefined ? (
+            <h1 className="mt-0 text-4xl font-extrabold leading-tight tracking-tight">
+              {course?.data?.name}
+            </h1>
+          ) : (
+            <Skeleton className="h-[45px] w-[25%] mt-0" />
+          )}
           <SettingsButton course={course?.data} />
         </div>
         <div className="mt-2 flex gap-1 flex-col">
