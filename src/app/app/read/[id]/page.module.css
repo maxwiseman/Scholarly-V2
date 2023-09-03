@@ -1,6 +1,6 @@
 .reading {
   width: 100%;
-  max-width: 840px;
+  max-width: min(100%, 840px);
   min-width: 0px;
   overflow-wrap: break-word;
   display: flex;

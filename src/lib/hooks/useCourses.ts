@@ -4,9 +4,9 @@ import { useUser } from "@/src/database/getUser";
 import useSWR from "swr";
 
 export function useCourses(id?: number | string) {
-  const url = `/api/canvas/${"knox"}/api/v1/courses`;
-
   const user = useUser();
+
+  const url = `/api/canvas/${user.data?.canvas_base_url}/api/v1/courses`;
 
   const fetcher = ([url, ...args]: any[]) =>
     fetch(url, ...args).then((res) => res.json());
@@ -14,7 +14,7 @@ export function useCourses(id?: number | string) {
     [
       url +
         (id ? "/" + id : "") +
-        `?access_token=${user.data?.canvas_api_token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description`,
+        `?access_token=${user.data?.canvas_api_token}&include[]=teachers&include[]=course_image&include[]=banner_image&include[]=public_description&enrollment_state=active`,
     ],
     fetcher,
     { refreshInterval: 5000 }

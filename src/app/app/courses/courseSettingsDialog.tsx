@@ -23,6 +23,7 @@ import { useCourses } from "@/src/lib/hooks";
 import { useColors } from "@/src/lib/hooks/useColors";
 import { Course } from "@/src/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DialogClose } from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -46,9 +47,6 @@ export function CourseSettings({ course }: { course: Course }) {
     defaultValues: {
       nickname: course?.name,
       color: color?.hexcode,
-    },
-    resetOptions: {
-      keepDirtyValues: true,
     },
   });
   const router = useRouter();
@@ -135,21 +133,24 @@ export function CourseSettings({ course }: { course: Course }) {
                 </FormItem>
               )}
             />
-            <DialogFooter className="flex sm:justify-start">
-              <Button type="submit" className="mr-2">
-                Submit
-              </Button>
+            <DialogFooter className={"sm:justify-between"}>
+              <DialogClose>
+                <Button
+                  type="reset"
+                  variant={"outline"}
+                  onClick={() => {
+                    form.reset();
+                  }}
+                >
+                  Cancel
+                </Button>
+              </DialogClose>
               <Button
-                type="reset"
-                variant={"outline"}
-                onClick={() => {
-                  form.reset({
-                    nickname: course?.name,
-                    color: color?.hexcode,
-                  });
-                }}
+                type="submit"
+                variant={!form.formState.isValid ? "disabled" : "default"}
+                disabled={!form.formState.isValid}
               >
-                Reset
+                Create
               </Button>
             </DialogFooter>
           </form>

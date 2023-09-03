@@ -27,7 +27,7 @@ export default async function Page(props: { params: { id: string } }) {
   if (data?.user?.email == session?.user?.email)
     return (
       <>
-        <div className="m-8 max-w-full flex flex-row justify-center items-center">
+        <div className="p-8 max-w-full flex flex-row justify-center items-center">
           <div className="max-w-[840px] w-full">
             <span className="mb-4 text-muted-foreground tracking-wide font-semibold text-sm">
               {data?.course?.name}
