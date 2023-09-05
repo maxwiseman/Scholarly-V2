@@ -45,7 +45,7 @@
     "@tabler/icons-react": "^2.32.0",
     "@tanstack/react-query": "^4.33.0",
     "@tiptap/extension-link": "^2.1.7",
-    "@tiptap/react": "^2.1.7",
+    "@tiptap/react": "^2.1.8",
     "@tiptap/starter-kit": "^2.1.8",
     "@types/bcrypt": "^5.0.0",
     "@types/node": "20.5.9",
