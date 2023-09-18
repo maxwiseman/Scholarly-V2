@@ -46,7 +46,7 @@
     "@tanstack/react-query": "^4.35.3",
     "@tiptap/extension-link": "^2.1.8",
     "@tiptap/react": "^2.1.8",
-    "@tiptap/starter-kit": "^2.1.8",
+    "@tiptap/starter-kit": "^2.1.10",
     "@types/bcrypt": "^5.0.0",
     "@types/node": "20.6.0",
     "@types/react": "18.2.21",
