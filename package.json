@@ -48,7 +48,7 @@
     "@tiptap/react": "^2.1.8",
     "@tiptap/starter-kit": "^2.1.8",
     "@types/bcrypt": "^5.0.0",
-    "@types/node": "20.6.0",
+    "@types/node": "20.6.5",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@types/react-input-mask": "^3.0.2",
