@@ -3,23 +3,23 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
-version: 2
-updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "daily"
-    target-branch: "beta"
-    open-pull-requests-limit: 20
-    ignore:
-      - dependency-name: "@mantine/carousel"
-      - dependency-name: "@mantine/dates"
-      - dependency-name: "@mantine/dropzone"
-      - dependency-name: "@mantine/form"
-      - dependency-name: "@mantine/hooks"
-      - dependency-name: "@mantine/modals"
-      - dependency-name: "@mantine/notifications"
-      - dependency-name: "@mantine/nprogress"
-      - dependency-name: "@mantine/prism"
-      - dependency-name: "@mantine/spotlight"
-      - dependency-name: "@mantine/tiptap"
+# version: 2
+# updates:
+#   - package-ecosystem: "npm" # See documentation for possible values
+#     directory: "/" # Location of package manifests
+#     schedule:
+#       interval: "daily"
+#     target-branch: "beta"
+#     open-pull-requests-limit: 20
+#     ignore:
+#       - dependency-name: "@mantine/carousel"
+#       - dependency-name: "@mantine/dates"
+#       - dependency-name: "@mantine/dropzone"
+#       - dependency-name: "@mantine/form"
+#       - dependency-name: "@mantine/hooks"
+#       - dependency-name: "@mantine/modals"
+#       - dependency-name: "@mantine/notifications"
+#       - dependency-name: "@mantine/nprogress"
+#       - dependency-name: "@mantine/prism"
+#       - dependency-name: "@mantine/spotlight"
+#       - dependency-name: "@mantine/tiptap"
